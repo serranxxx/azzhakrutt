@@ -64,18 +64,14 @@ export const LoginPage = () => {
                     alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: 'auto',
                     paddingTop:'5%'
                 }}>
-                <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', 
-                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'80%',
-                    height:'5vh'
-                }}>
-                    <p
-                        // className='Taskify'
+                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', height: 'auto', }}>
+                    <h1
+                        className='Taskify'
                         style={{
-                            fontSize: '350%', fontWeight: 'normal', lineHeight: '0em',
-                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
-                            color: '#f6f6f6', fontSize: '1.3em'
-                        }}>Zona Azzhakrutt</p>
+                            fontFamily: 'Berlin Sans FB', fontWeight: 'normal', lineHeight: '0em',
+                            fontWeight: 500,
+                            color: '#222', fontSize: '8vw'
+                        }}>¡Bienvenido de nuevo!</h1>
                 </div>
 
                 <div style={{

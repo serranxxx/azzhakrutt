@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import { Button, Drawer, Input, Row, Form, Select, DatePicker, InputNumber, Checkbox, Col, message, Switch, Space } from 'antd'
 
 import { Link } from 'react-router-dom'
@@ -6,11 +6,12 @@ import useAxios from '../hooks/UseAxios'
 import { appContext } from '../context/appContext'
 import { CiLogout } from "react-icons/ci";
 import { MdDoneOutline, MdRemove } from "react-icons/md";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiFillEdit } from "react-icons/ai";
 import { editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
 import { TeamsTable } from '../components/TeamsTable'
 import { Stadistics } from '../components/Stadistics'
 import { BiRefresh } from "react-icons/bi";
+import { IoIosRefresh } from "react-icons/io";
 import { teams } from '../helpers/teams'
 
 
@@ -27,8 +28,11 @@ export const LayoutApp = () => {
   const [user] = Form.useForm();
   const [edit] = Form.useForm();
   const [shortName, setShortName] = useState('')
+
   const [data, setData] = useState(data_users)
   const [smallData, setSmallData] = useState(data_users)
+
+
   const [name, setName] = useState('')
   const [img, setImg] = useState('')
   const [color, setColor] = useState('')
@@ -42,7 +46,9 @@ export const LayoutApp = () => {
   const [filterCel, setFilterCel] = useState([])
   const [state, setState] = useState('table')
   const [open, setOpen] = useState(false)
+  const [openSmall, setOpenSmall] = useState(false)
   const [formFinish, setFormFinish] = useState(false)
+  const [selected, setSelected] = useState(false)
 
   const [currentName, setCurrentName] = useState('')
   const [currentCel, setCurrentCel] = useState('')
@@ -81,8 +87,8 @@ export const LayoutApp = () => {
       filterSearch: true,
       onFilter: (value, record) => record.celula.includes(value),
       onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
+      sorter: (a, b) => a.celula.localeCompare(b.celula),
+      sortDirections: ['ascend'],
       render: (text) =>
         <p
           style={{
@@ -533,8 +539,8 @@ export const LayoutApp = () => {
       filterSearch: true,
       onFilter: (value, record) => record.celula.includes(value),
       onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
+      sorter: (a, b) => a.celula.localeCompare(b.celula),
+      sortDirections: ['ascend'],
       render: (text) =>
         <p
           style={{
@@ -951,8 +957,8 @@ export const LayoutApp = () => {
       filterSearch: true,
       onFilter: (value, record) => record.celula.includes(value),
       onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
+      sorter: (a, b) => a.celula.localeCompare(b.celula),
+      sortDirections: ['ascend'],
       render: (text) =>
         <p
           style={{
@@ -2904,15 +2910,15 @@ export const LayoutApp = () => {
 
   const handleNewUser = (e) => {
 
-    let cursoArray, sacramentoArray
+    let cursoArray, sacramentoArray = []
 
-    if (e.curso) {
+    if (e.cursos) {
       cursoArray = curso.map(item => e.cursos.includes(item))
     } else {
       cursoArray = Array(curso.length).fill(false)
     }
 
-    if (e.sacramento) {
+    if (e.sacramentos) {
       sacramentoArray = sacramento.map(item => e.sacramentos.includes(item))
     } else {
       sacramentoArray = Array(sacramento.length).fill(false)
@@ -2938,11 +2944,6 @@ export const LayoutApp = () => {
       default:
         break;
     }
-
-    console.log(e)
-
-
-
   }
 
   const getInitialData = async () => {
@@ -3147,8 +3148,52 @@ export const LayoutApp = () => {
   }
 
   const handleSmallData = (e) => {
+    setSelected(true)
     const filter = data.filter((item) => item.name === e);
     setSmallData(filter)
+  }
+
+  const resetSearch = () => {
+    setSelected(false)
+    setSmallData(data)
+  }
+
+  const smallEdit = () => {
+    if (selected) {
+      setOpenSmall(true)
+      switch (team) {
+        case 'sheratan':
+          smallData.map((data) => (
+            editSheratans(data.name, data.celula, data.dob, data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'nasseri':
+          smallData.map((data) => (
+            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'yahoska':
+          smallData.map((data) => (
+            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'bite':
+          smallData.map((data) => (
+            editNasseris(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        default:
+          break;
+      }
+    }
+
+    else message.error("Necesitas seleccionar a alguien antes de editar")
+
+  }
+
+  const onClose = () => {
+    setOpen(false)
+    setOpenSmall(false)
   }
 
   useEffect(() => {
@@ -3237,8 +3282,6 @@ export const LayoutApp = () => {
           edit.resetFields()
           break;
 
-
-
         default:
           break;
       }
@@ -3306,10 +3349,12 @@ export const LayoutApp = () => {
     }
     setFilterCel([])
     setData([])
+    setSmallData([])
   }, [])
 
   useEffect(() => {
     setData_users(data)
+    setSmallData(data)
     console.log('data', data)
   }, [data])
 
@@ -3335,8 +3380,6 @@ export const LayoutApp = () => {
       }
     }
   }, [formFinish])
-
-
 
 
   return (
@@ -3870,7 +3913,7 @@ export const LayoutApp = () => {
                     }} />
                   <Button
                     onClick={() => setNewUserSmall(true)}
-                    icon={<AiOutlinePlus size={20}/>}
+                    icon={<AiOutlinePlus size={20} />}
                     style={{
                       backgroundColor: color,
                       color: '#f6f6f6', fontWeight: '500',
@@ -3914,10 +3957,11 @@ export const LayoutApp = () => {
                   marginTop: '0vh', display: state !== 'table' ? 'none' : ''
                 }} />
 
-                <Col style={{ width: '70%', marginTop: '1vh', display: state !== 'table' ? 'none' : ''}}>
-                  <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p>
-                  <Row style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between', flexDirection:'row'}}>
-                    <Select style={{ width: '75%' }} onChange={handleSmallData}>
+                <Col style={{ width: '70%', marginTop: '1vh', display: state !== 'table' ? 'none' : '' }}>
+                  {/* <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p> */}
+                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                    <Button onClick={resetSearch} icon={<IoIosRefresh size={20} />} style={{ borderRadius: '1vh 0 0 1vh' }} />
+                    <Select style={{ width: '75%', margin: '0 0.5vh 0 0.5vh' }} onChange={handleSmallData}>
                       {
                         data.map((celula) => (
                           <Option key={celula._id} value={celula.name}
@@ -3927,7 +3971,8 @@ export const LayoutApp = () => {
                         ))
                       }
                     </Select>
-                    <Button onClick={() => setSmallData(data)} icon={<BiRefresh size={20} />} style={{}} />
+                    <Button onClick={smallEdit} icon={<AiFillEdit size={20} />} style={{ borderRadius: '0 1vh 1vh 0' }} />
+
                   </Row>
 
                 </Col>
@@ -4190,6 +4235,137 @@ export const LayoutApp = () => {
                 </Row> */}
 
 
+                </Form>
+              </Drawer>
+
+              <Drawer
+                title={currentName}
+                placement={'left'}
+                // closable={false}
+                width={'100%'}
+                onClose={onClose}
+                open={openSmall}
+                extra={
+                  <Space>
+                    <Switch
+                      // heckedChildren="Activo" unCheckedChildren="Inactivo"
+                      checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
+                  </Space>
+                }
+              >
+                <Form
+                  name='my_edit'
+                  form={edit}
+                  onFinish={handleEdit}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
+                  <div style={{
+                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+                  }}>
+                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
+                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+
+
+                    <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+
+                      <Col>
+                        <p>Nombre: </p>
+                        <Form.Item
+                          name='new_name'
+                          style={{ margin: 0 }}>
+                          <Input placeholder={currentName} />
+                        </Form.Item>
+                      </Col>
+
+                      <Col>
+                        <p>DoB: </p>
+                        <Form.Item
+                          name='new_dob'
+                          style={{ margin: 0 }}>
+                          <DatePicker placeholder={currentDoB} />
+                        </Form.Item>
+
+                      </Col>
+
+                      <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
+                        <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
+                        <Form.Item
+                          name='new_cel'
+                          style={{ margin: 0 }}>
+                          <Select style={{ width: '100%' }} placeholder={currentCel}>
+                            {
+
+                              celula_.map((celula) => (
+                                <Option key={celula} value={celula}>
+                                  {celula}
+                                </Option>
+                              ))
+                            }
+                          </Select>
+                        </Form.Item>
+
+                      </Col>
+
+
+                    </Row>
+
+                  </div>
+
+                  <div style={{
+                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
+                    margin: '1vh 0 1vh 0'
+                  }}>
+                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
+                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+                      <Form.Item
+                        name='new_cursos'
+                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                        <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
+                          {
+
+                            curso.map((cursos) => (
+                              <Option key={cursos} value={cursos}>
+                                {cursos}
+                              </Option>
+                            ))
+                          }
+                        </Select>
+                      </Form.Item>
+                    </Row>
+
+                  </div>
+
+                  <div style={{
+                    width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+                  }}>
+                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
+                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+                      <Form.Item
+                        name='new_sacramento'
+                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                        <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
+                          {
+
+                            sacramento.map((sacramentos) => (
+                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
+                                {sacramentos}
+                              </Option>
+                            ))
+                          }
+                        </Select>
+                      </Form.Item>
+                    </Row>
+
+
+                  </div>
+
+                  <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
+                    <Button htmlType='submit' style={{
+                      marginTop: '8vh', width: '80%', backgroundColor: bg,
+                      border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
+                    }}>Guardar cambios</Button>
+                  </Form.Item>
                 </Form>
               </Drawer>
 
