@@ -61,12 +61,12 @@ export const LoginPage = () => {
 
             <div className='layout-small'
                 style={{
-                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '70vh',
+                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: 'auto',
                     paddingTop:'5%'
                 }}>
                 <div style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', 
-                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'65%',
+                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'80%',
                     height:'5vh'
                 }}>
                     <p
@@ -92,7 +92,7 @@ export const LoginPage = () => {
 
                 <div style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', 
-                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'65%',
+                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'80%',
                     height:'5vh'
                 }}>
                     <p

@@ -14,15 +14,16 @@ export const TeamsTable = (props) => {
                 columns={props.handleColumns(props.team)}
                 dataSource={props.data}
                 bordered
+                size='middle'
                 scroll={{
-                    y: '45vh',
-                    x: '150vw',
+                    y: '50vh',
+                    x: '400%',
                 }}
                 pagination={false}
             />
 
             <Table className='small' style={{
-                width: '75%',
+                width: '80%',
                 marginTop: '2vh',
             }}
                 columns={props.handleColumns(props.team)}
@@ -32,7 +33,7 @@ export const TeamsTable = (props) => {
                 size='small'
                 scroll={{
                     y: '50vh',
-                    x: '350vw',
+                    x: '800%',
                 }}
                 pagination={false}
             />

@@ -254,7 +254,7 @@ export const Stadistics = (props) => {
 
             <div className='layout-small' style={{
                 alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-                flexWrap: 'wrap', width: '80%', marginTop: '1vh',
+                flexWrap: 'wrap', width: '90%', marginTop: '1vh',
             }}>
                 <hr style={{ width: '90%', border: `2px solid ${props.color}` }} />
                 <div style={{
@@ -270,7 +270,7 @@ export const Stadistics = (props) => {
                         buttonStyle="dashed"
                         style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                         <Radio.Button value={'todos'} style={{
-                            width: '10vw', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
+                            width: 'auto', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
                             backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
                         }}>
                             < AiFillCaretUp />
@@ -279,7 +279,7 @@ export const Stadistics = (props) => {
 
                             props.celula.map((celula) => (
                                 <Radio.Button value={celula} style={{
-                                    width: '10vw', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
+                                    width: 'auto', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
                                     backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
                                 }}>
                                     {celula.substring(0, 2).toUpperCase()}
@@ -290,7 +290,7 @@ export const Stadistics = (props) => {
                     </Radio.Group>
                 </div>
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                    <Col style={{ width: '85%', }}>
+                    <Col style={{ width: '90%', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
                         <div style={{
                             width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                             flexDirection: 'row', flexWrap: 'wrap'
@@ -367,7 +367,7 @@ export const Stadistics = (props) => {
                     </Col>
 
 
-                    <hr style={{ width: '80%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
+                    <hr style={{ width: '90%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
                     <Row style={{ width: '100%', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'row' }}>
                         {
                             props.sacramentos.map((sacramento) => (

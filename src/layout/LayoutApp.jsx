@@ -23,6 +23,7 @@ export const LayoutApp = () => {
   const team = JSON.parse(localStorage.getItem('team'))
 
   const [newUser, setNewUser] = useState(false);
+  const [newUserSmall, setNewUserSmall] = useState(false)
   const [user] = Form.useForm();
   const [edit] = Form.useForm();
   const [shortName, setShortName] = useState('')
@@ -2020,11 +2021,6 @@ export const LayoutApp = () => {
       width: '7%',
       dataIndex: 'Active',
       key: 'Active',
-      filters: [
-        { text: 'Activos', value: true },
-        { text: 'Inactivos', value: false },
-      ],
-      onFilter: (text, record) => record.Active === text,
       render: (text) => (
         <>
           {
@@ -3843,7 +3839,7 @@ export const LayoutApp = () => {
                 padding: '4% 0 4% 0'
               }}>
                 <Row style={{
-                  width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexDirection: 'row', margin: '0 0 2vh 0'
                 }}>
                   <img src={img} style={{ height: '10vh' }} />
@@ -3856,7 +3852,7 @@ export const LayoutApp = () => {
                 </Row>
 
                 <hr style={{
-                  width: '70%', border: `2px solid ${color}`,
+                  width: '80%', border: `2px solid ${color}`,
                   marginTop: '0vh'
                 }} />
 
@@ -3873,7 +3869,7 @@ export const LayoutApp = () => {
                       border: `1.5px solid ${color}`, borderRadius: '1vh 0 0 1vh'
                     }} />
                   <Button
-                    onClick={showDrawer}
+                    onClick={() => setNewUserSmall(true)}
                     icon={<AiOutlinePlus size={20}/>}
                     style={{
                       backgroundColor: color,
@@ -3914,7 +3910,7 @@ export const LayoutApp = () => {
                 </Row>
 
                 <hr style={{
-                  width: '70%', border: `2px solid ${color}`,
+                  width: '80%', border: `2px solid ${color}`,
                   marginTop: '0vh', display: state !== 'table' ? 'none' : ''
                 }} />
 
@@ -3944,9 +3940,10 @@ export const LayoutApp = () => {
               <Drawer
                 title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
                 placement="right"
-                onClose={() => setNewUser(false)}
+                onClose={() => setNewUserSmall(false)}
                 width='100%'
-                open={newUser}
+                open={newUserSmall}
+                // className='small'
                 extra={
                   <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
                     <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
