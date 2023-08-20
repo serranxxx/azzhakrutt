@@ -22,7 +22,7 @@ export const TeamsTable = (props) => {
             />
 
             <Table className='small' style={{
-                width: '70%',
+                width: '75%',
                 marginTop: '2vh',
             }}
                 columns={props.handleColumns(props.team)}
@@ -32,7 +32,7 @@ export const TeamsTable = (props) => {
                 size='small'
                 scroll={{
                     y: '50vh',
-                    x: '300vw',
+                    x: '350vw',
                 }}
                 pagination={false}
             />

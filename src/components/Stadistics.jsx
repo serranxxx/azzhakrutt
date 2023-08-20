@@ -282,7 +282,7 @@ export const Stadistics = (props) => {
                                     width: '10vw', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
                                     backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
                                 }}>
-                                    {celula.substring(0, 3).toUpperCase()}
+                                    {celula.substring(0, 2).toUpperCase()}
                                 </Radio.Button>
 
                             ))
@@ -290,9 +290,9 @@ export const Stadistics = (props) => {
                     </Radio.Group>
                 </div>
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                    <Col style={{ width: '75%', }}>
+                    <Col style={{ width: '85%', }}>
                         <div style={{
-                            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+                            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                             flexDirection: 'row', flexWrap: 'wrap'
                         }}>
 

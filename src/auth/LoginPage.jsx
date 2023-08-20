@@ -61,7 +61,7 @@ export const LoginPage = () => {
 
             <div className='layout-small'
                 style={{
-                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '90vh',
+                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '70vh',
                     paddingTop:'5%'
                 }}>
                 <div style={{

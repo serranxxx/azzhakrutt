@@ -6,6 +6,7 @@ import useAxios from '../hooks/UseAxios'
 import { appContext } from '../context/appContext'
 import { CiLogout } from "react-icons/ci";
 import { MdDoneOutline, MdRemove } from "react-icons/md";
+import { AiOutlinePlus } from "react-icons/ai";
 import { editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
 import { TeamsTable } from '../components/TeamsTable'
 import { Stadistics } from '../components/Stadistics'
@@ -3873,14 +3874,13 @@ export const LayoutApp = () => {
                     }} />
                   <Button
                     onClick={showDrawer}
+                    icon={<AiOutlinePlus size={20}/>}
                     style={{
                       backgroundColor: color,
                       color: '#f6f6f6', fontWeight: '500',
                       border: `1.5px solid ${color}`, borderRadius: 0,
                       margin: '0 0.1vh 0 0.1vh', display: `${state !== 'table' ? 'none' : ''}`
-                    }}>
-                    {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
-                  </Button>
+                    }} />
                   <Button
                     onClick={() => setState('table')}
                     style={{
@@ -3920,8 +3920,8 @@ export const LayoutApp = () => {
 
                 <Col style={{ width: '70%', marginTop: '1vh', display: state !== 'table' ? 'none' : ''}}>
                   <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p>
-                  <Row>
-                    <Select style={{ width: '90%' }} onChange={handleSmallData}>
+                  <Row style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between', flexDirection:'row'}}>
+                    <Select style={{ width: '75%' }} onChange={handleSmallData}>
                       {
                         data.map((celula) => (
                           <Option key={celula._id} value={celula.name}
@@ -3931,7 +3931,7 @@ export const LayoutApp = () => {
                         ))
                       }
                     </Select>
-                    <Button onClick={() => setSmallData(data)} icon={<BiRefresh size={20} />} />
+                    <Button onClick={() => setSmallData(data)} icon={<BiRefresh size={20} />} style={{}} />
                   </Row>
 
                 </Col>
