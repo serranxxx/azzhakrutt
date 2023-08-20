@@ -29,7 +29,7 @@ export const LoginPage = () => {
                     <h1
                         className='Taskify'
                         style={{
-                            fontFamily: 'Berlin Sans FB', fontWeight: 'normal', lineHeight: '0em',
+                            fontFamily: 'Berlin Sans FB', lineHeight: '0em',
                             fontWeight: 500,
                             color: '#222', fontSize: '8vw'
                         }}>¡Bienvenido de nuevo!</h1>
@@ -51,7 +51,7 @@ export const LoginPage = () => {
                     <h1
                         className='Taskify'
                         style={{
-                            fontSize: '350%', fontFamily: 'Berlin Sans FB', fontWeight: 'normal', lineHeight: '0em',
+                            fontSize: '350%', fontFamily: 'Berlin Sans FB', lineHeight: '0em',
                             fontWeight: 400, transition: 'all 0.45s ease-in-out',
                             color: color, fontSize: '1.3em'
                         }}>Zona Azzhakrutt  2023 <b>¡Fusión con lo mejor!</b></h1>
@@ -61,17 +61,23 @@ export const LoginPage = () => {
 
             <div className='layout-small'
                 style={{
-                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: 'auto',
-                    paddingTop:'5%'
+                    alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column', height: '100vh',
+                    paddingTop: '5%'
                 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', height: 'auto', }}>
+                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', height: 'auto', flexDirection: 'column' }}>
                     <h1
                         className='Taskify'
                         style={{
-                            fontFamily: 'Berlin Sans FB', fontWeight: 'normal', lineHeight: '0em',
+                            fontFamily: 'Berlin Sans FB', lineHeight: '0em',
                             fontWeight: 500,
                             color: '#222', fontSize: '8vw'
-                        }}>¡Bienvenido de nuevo!</h1>
+                        }}>Zona Azzhakrutt</h1>
+                    <p
+                        style={{
+                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
+                            color: '#222', fontSize: '1.3em', textAlign:'center', width:'100%',
+                            fontStyle:'italic', margin:'-1vh 0 0 0'
+                        }}>¡Fusión con lo mejor!</p>
                 </div>
 
                 <div style={{
@@ -86,21 +92,6 @@ export const LoginPage = () => {
 
                 </div>
 
-                <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', 
-                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'80%',
-                    height:'5vh'
-                }}>
-                    <p
-                        // className='Taskify'
-                        style={{
-                            fontSize: '350%', fontWeight: 'normal', lineHeight: '0em',
-                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
-                            color: '#f6f6f6', fontSize: '1.3em'
-                        }}>¡Fusión con lo mejor!</p>
-                </div>
-
-                
 
             </div>
         </>

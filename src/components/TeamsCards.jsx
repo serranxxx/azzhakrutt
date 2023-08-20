@@ -48,7 +48,7 @@ export const TeamsCards = (props) => {
                             className='layout-small'
                             style={{
                                 height: '17vh', aspectRatio: '1/1', borderRadius: '3vh',
-                                margin: '0.5vh', transition: 'all 0.45s ease-in-out',
+                                margin: '4vh 2vh 4vh 2vh', transition: 'all 0.45s ease-in-out',
                                 cursor: 'pointer', boxShadow: `0px 0px 10px #00000030`,
                                 backgroundColor: team.color3, alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
                                 

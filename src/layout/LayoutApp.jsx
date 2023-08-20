@@ -3961,7 +3961,7 @@ export const LayoutApp = () => {
                   {/* <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p> */}
                   <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                     <Button onClick={resetSearch} icon={<IoIosRefresh size={20} />} style={{ borderRadius: '1vh 0 0 1vh' }} />
-                    <Select style={{ width: '75%', margin: '0 0.5vh 0 0.5vh' }} onChange={handleSmallData}>
+                    <Select style={{ width: '65%', margin: '0 0.5vh 0 0.5vh' }} onChange={handleSmallData}>
                       {
                         data.map((celula) => (
                           <Option key={celula._id} value={celula.name}
