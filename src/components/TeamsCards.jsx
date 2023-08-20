@@ -47,9 +47,9 @@ export const TeamsCards = (props) => {
                             onMouseLeave={() => switchBG('#777')}
                             className='layout-small'
                             style={{
-                                height: '22vh', aspectRatio: '1/1', borderRadius: '2vh',
+                                height: '22vh', aspectRatio: '1/1', borderRadius: '3vh',
                                 margin: '0.5vh', transition: 'all 0.45s ease-in-out',
-                                cursor: 'pointer', boxShadow: `0px 0px 08px #00000030`,
+                                cursor: 'pointer', boxShadow: `0px 0px 10px #00000030`,
                                 backgroundColor: team.color3, alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
                                 
                             }}>

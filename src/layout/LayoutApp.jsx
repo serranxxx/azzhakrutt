@@ -26,6 +26,7 @@ export const LayoutApp = () => {
   const [edit] = Form.useForm();
   const [shortName, setShortName] = useState('')
   const [data, setData] = useState(data_users)
+  const [smallData, setSmallData] = useState(data_users)
   const [name, setName] = useState('')
   const [img, setImg] = useState('')
   const [color, setColor] = useState('')
@@ -1708,40 +1709,20 @@ export const LayoutApp = () => {
     },
   ];
   const nasseriColumnsSmall = [
-
     {
       title: `Nombre`,
-      width: '8%',
+      width: '7%',
       dataIndex: 'name',
       key: 'name',
-      fixed: 'left',
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400,
-            // fontStyle:'italic'
-          }}
-        >{text}</p>
+      // fixed: 'left',
+
     },
     {
       title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
       width: '8%',
       dataIndex: 'celula',
       key: 'celula',
-      filters: filterCel,
-      filterSearch: true,
-      onFilter: (value, record) => record.celula.includes(value),
-      onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400
-          }}
-        >{text}</p>
+
     },
     {
       title: `DoB`,
@@ -1749,359 +1730,288 @@ export const LayoutApp = () => {
       dataIndex: 'DoB',
       key: 'DoB',
 
-      // sorter: (a, b) => a.dob.length - b.dob.length,
-      // sortDirections: ['descend'],
+    },
+    {
+      title: `Iniciadas`,
+      width: '7%',
+      dataIndex: ['cursos', 'iniciadas'],
+      key: 'iniciadas',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Adiestradas`,
+      width: '8%',
+      dataIndex: ['cursos', 'adiestradas'],
+      key: 'adiestradas',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Religiosas`,
+      width: '8%',
+      dataIndex: ['cursos', 'religiosas'],
+      key: 'religiosas',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `CDJ`,
+      width: '8%',
+      dataIndex: ['cursos', 'cdj'],
+      key: 'cdj',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Líder en mi`,
+      width: '8%',
+      dataIndex: ['cursos', 'lider_en'],
+      key: 'lider_en',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+        </>
+      )
+
+    },
+    {
+      title: `VEC`,
+      width: '7%',
+      dataIndex: ['cursos', 'v_cristo'],
+      key: 'v_cristo',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Bautizo`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'bautizo'],
+      key: 'bautizo',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Comunión`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'comunion'],
+      key: 'comunion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Confirmación`,
+      width: '9%',
+      dataIndex: ['Sacramentos', 'confirmacion'],
+      key: 'confirmacion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Célular`,
+      width: '8%',
+      dataIndex: ['Contacto', 'numero'],
+      key: 'numero',
       render: (value) =>
-        <p style={{ fontWeight: 400, textAlign: 'center' }}>{value}</p>
+        <p style={{ fontWeight: 400, }}>{value}</p>
 
     },
     {
-      title: 'Cursos',
-      dataIndex: 'cursos',
-      key: 'cursos',
-      children: [
-        {
-          title: `Iniciadas`,
-          width: '7%',
-          dataIndex: ['cursos', 'iniciadas'],
-          key: 'iniciadas',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.iniciadas === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
+      title: `Contacto`,
+      width: '8%',
+      dataIndex: ['Contacto', 'emergencia'],
+      key: 'emergencia',
+      render: (value) =>
+        <p style={{ fontWeight: 400, }}>{value}</p>
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-
-        {
-          title: `Adiestradas`,
-          width: '8%',
-          dataIndex: ['cursos', 'adiestradas'],
-          key: 'adiestradas',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.adiestradas === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Religiosas`,
-          width: '8%',
-          dataIndex: ['cursos', 'religiosas'],
-          key: 'religiosas',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.religiosas === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `CDJ`,
-          width: '8%',
-          dataIndex: ['cursos', 'cdj'],
-          key: 'cdj',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.cdj === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Líder en mi`,
-          width: '8%',
-          dataIndex: ['cursos', 'lider_en'],
-          key: 'lider_en',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.lider_en === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-            </>
-          )
-
-        },
-        {
-          title: `VEC`,
-          width: '7%',
-          dataIndex: ['cursos', 'v_cristo'],
-          key: 'v_cristo',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.v_cristo === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-      ]
     },
-
     {
-      title: 'Sacramentos',
-      dataIndex: 'Sacramentos',
-      key: 'Sacramentos',
-      children: [
-        {
-          title: `Bautizo`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'bautizo'],
-          key: 'bautizo',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.bautizo === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+      title: `Número`,
+      width: '8%',
+      dataIndex: ['Contacto', 'num_emergencia'],
+      key: 'num_emergencia',
+      render: (value) =>
+        <p style={{ fontWeight: 400, }}>{value}</p>
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-
-        {
-          title: `Comunión`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'comunion'],
-          key: 'comunion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.comunion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Confirmación`,
-          width: '9%',
-          dataIndex: ['Sacramentos', 'confirmacion'],
-          key: 'confirmacion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.confirmacion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-      ]
-    },
-
-    {
-      title: 'Contacto',
-      dataIndex: 'Contacto',
-      key: 'Contacto',
-      children: [
-        {
-          title: `Célular`,
-          width: '8%',
-          dataIndex: ['Contacto', 'numero'],
-          key: 'numero',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
-
-        },
-        {
-          title: `Contacto`,
-          width: '8%',
-          dataIndex: ['Contacto', 'emergencia'],
-          key: 'emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
-
-        },
-        {
-          title: `Número`,
-          width: '8%',
-          dataIndex: ['Contacto', 'num_emergencia'],
-          key: 'num_emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
-
-        },
-      ]
     },
 
     {
@@ -2127,37 +2037,6 @@ export const LayoutApp = () => {
 
     },
 
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
-
-    },
-
-    {
-      title: `Detalles`,
-      key: 'operation',
-      // fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editNasseris(record.name, record.celula, record.dob, record.cursos.iniciadas, record.cursos.adiestradas, record.cursos.religiosas, record.cursos.cdj, record.cursos.lider_en, record.cursos.v_cristo, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
   ];
   const sheratanColumnsSmall = [
 
@@ -2166,34 +2045,14 @@ export const LayoutApp = () => {
       width: '8%',
       dataIndex: 'name',
       key: 'name',
-      fixed: 'left',
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400,
-            // fontStyle:'italic'
-          }}
-        >{text}</p>
+
     },
     {
       title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
       width: '8%',
       dataIndex: 'celula',
       key: 'celula',
-      filters: filterCel,
-      filterSearch: true,
-      onFilter: (value, record) => record.celula.includes(value),
-      onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400
-          }}
-        >{text}</p>
+
     },
     {
       title: `DoB`,
@@ -2201,326 +2060,254 @@ export const LayoutApp = () => {
       dataIndex: 'DoB',
       key: 'DoB',
 
-      // sorter: (a, b) => a.dob.length - b.dob.length,
-      // sortDirections: ['descend'],
-      render: (value) =>
-        <p style={{ fontWeight: 400, textAlign: 'center' }}>{value}</p>
-
     },
     {
-      title: 'Cursos',
-      dataIndex: 'cursos',
-      key: 'cursos',
-      children: [
-        {
-          title: `Precurso`,
-          width: '7%',
-          dataIndex: ['cursos', 'precurso'],
-          key: 'precurso',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.precurso === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
+      title: `Precurso`,
+      width: '7%',
+      dataIndex: ['cursos', 'precurso'],
+      key: 'precurso',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-            </>
-          )
+        </>
+      )
 
-        },
-
-        {
-          title: `Iniciados`,
-          width: '8%',
-          dataIndex: ['cursos', 'iniciados'],
-          key: 'iniciados',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.iniciados === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Avanzados`,
-          width: '8%',
-          dataIndex: ['cursos', 'avanzados'],
-          key: 'avanzados',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.avanzados === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Capitanes`,
-          width: '8%',
-          dataIndex: ['cursos', 'capitanes'],
-          key: 'capitanes',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.capitanes === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `CCC`,
-          width: '8%',
-          dataIndex: ['cursos', 'ccc'],
-          key: 'ccc',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.ccc === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-            </>
-          )
-
-        },
-      ]
     },
 
     {
-      title: 'Sacramentos',
-      dataIndex: 'Sacramentos',
-      key: 'Sacramentos',
-      children: [
-        {
-          title: `Bautizo`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'bautizo'],
-          key: 'bautizo',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.bautizo === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+      title: `Iniciados`,
+      width: '8%',
+      dataIndex: ['cursos', 'iniciados'],
+      key: 'iniciados',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-            </>
-          )
+        </>
+      )
 
-        },
+    },
+    {
+      title: `Avanzados`,
+      width: '8%',
+      dataIndex: ['cursos', 'avanzados'],
+      key: 'avanzados',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-        {
-          title: `Comunión`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'comunion'],
-          key: 'comunion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.comunion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+        </>
+      )
 
-            </>
-          )
+    },
+    {
+      title: `Capitanes`,
+      width: '8%',
+      dataIndex: ['cursos', 'capitanes'],
+      key: 'capitanes',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-        },
-        {
-          title: `Confirmación`,
-          width: '9%',
-          dataIndex: ['Sacramentos', 'confirmacion'],
-          key: 'confirmacion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.confirmacion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+        </>
+      )
 
-            </>
-          )
+    },
+    {
+      title: `CCC`,
+      width: '8%',
+      dataIndex: ['cursos', 'ccc'],
+      key: 'ccc',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-        },
-      ]
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+        </>
+      )
+
     },
 
     {
-      title: 'Contacto',
-      dataIndex: 'Contacto',
-      key: 'Contacto',
-      children: [
-        {
-          title: `Célular`,
-          width: '8%',
-          dataIndex: ['Contacto', 'numero'],
-          key: 'numero',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+      title: `Bautizo`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'bautizo'],
+      key: 'bautizo',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
 
-        },
-        {
-          title: `Contacto`,
-          width: '8%',
-          dataIndex: ['Contacto', 'emergencia'],
-          key: 'emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
 
-        },
-        {
-          title: `Número`,
-          width: '8%',
-          dataIndex: ['Contacto', 'num_emergencia'],
-          key: 'num_emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+        </>
+      )
 
-        },
-      ]
+    },
+
+    {
+      title: `Comunión`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'comunion'],
+      key: 'comunion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Confirmación`,
+      width: '9%',
+      dataIndex: ['Sacramentos', 'confirmacion'],
+      key: 'confirmacion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Célular`,
+      width: '8%',
+      dataIndex: ['Contacto', 'numero'],
+      key: 'numero',
+
+    },
+    {
+      title: `Contacto`,
+      width: '8%',
+      dataIndex: ['Contacto', 'emergencia'],
+      key: 'emergencia',
+
+    },
+    {
+      title: `Número`,
+      width: '8%',
+      dataIndex: ['Contacto', 'num_emergencia'],
+      key: 'num_emergencia',
+
     },
 
     {
@@ -2528,11 +2315,6 @@ export const LayoutApp = () => {
       width: '7%',
       dataIndex: 'Active',
       key: 'Active',
-      filters: [
-        { text: 'Activos', value: true },
-        { text: 'Inactivos', value: false },
-      ],
-      onFilter: (text, record) => record.Active === text,
       render: (text) => (
         <>
           {
@@ -2545,37 +2327,9 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
 
-    },
 
-    {
-      title: `Detalles`,
-      key: 'operation',
-      // fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editSheratans(record.name, record.celula, record.dob, record.cursos.precurso, record.cursos.iniciados, record.cursos.avanzados, record.cursos.capitanes, record.cursos.ccc, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
+
   ];
   const yahoskaColumnsSmall = [
 
@@ -2584,34 +2338,14 @@ export const LayoutApp = () => {
       width: '8%',
       dataIndex: 'name',
       key: 'name',
-      fixed: 'left',
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400,
-            // fontStyle:'italic'
-          }}
-        >{text}</p>
+
     },
     {
       title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
       width: '8%',
       dataIndex: 'celula',
       key: 'celula',
-      filters: filterCel,
-      filterSearch: true,
-      onFilter: (value, record) => record.celula.includes(value),
-      onFilter: (text, record) => record.celula === text,
-      // sorter: (a, b) => a.celula.localeCompare(b.celula),
-      // sortDirections: ['ascend'],
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400
-          }}
-        >{text}</p>
+
     },
     {
       title: `DoB`,
@@ -2619,326 +2353,265 @@ export const LayoutApp = () => {
       dataIndex: 'DoB',
       key: 'DoB',
 
-      // sorter: (a, b) => a.dob.length - b.dob.length,
-      // sortDirections: ['descend'],
-      render: (value) =>
-        <p style={{ fontWeight: 400, textAlign: 'center' }}>{value}</p>
 
     },
     {
-      title: 'Cursos',
-      dataIndex: 'cursos',
-      key: 'cursos',
-      children: [
-        {
-          title: `Iniciados`,
-          width: '7%',
-          dataIndex: ['cursos', 'iniciados'],
-          key: 'iniciados',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.iniciados === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
+      title: `Iniciados`,
+      width: '7%',
+      dataIndex: ['cursos', 'iniciados'],
+      key: 'iniciados',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
+        </>
+      )
 
-        {
-          title: `Soldados`,
-          width: '8%',
-          dataIndex: ['cursos', 'soldados'],
-          key: 'soldados',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.soldados === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Caballeros`,
-          width: '8%',
-          dataIndex: ['cursos', 'caballeros'],
-          key: 'caballeros',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.caballeros === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Llamados`,
-          width: '8%',
-          dataIndex: ['cursos', 'llamados'],
-          key: 'llamados',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.llamados === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `CDJ`,
-          width: '8%',
-          dataIndex: ['cursos', 'cdj'],
-          key: 'cdj',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.cdj === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-            </>
-          )
-
-        },
-      ]
     },
 
     {
-      title: 'Sacramentos',
-      dataIndex: 'Sacramentos',
-      key: 'Sacramentos',
-      children: [
-        {
-          title: `Bautizo`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'bautizo'],
-          key: 'bautizo',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.bautizo === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+      title: `Soldados`,
+      width: '8%',
+      dataIndex: ['cursos', 'soldados'],
+      key: 'soldados',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
+        </>
+      )
 
-        {
-          title: `Comunión`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'comunion'],
-          key: 'comunion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.comunion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+    },
+    {
+      title: `Caballeros`,
+      width: '8%',
+      dataIndex: ['cursos', 'caballeros'],
+      key: 'caballeros',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
-        {
-          title: `Confirmación`,
-          width: '9%',
-          dataIndex: ['Sacramentos', 'confirmacion'],
-          key: 'confirmacion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.confirmacion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+        </>
+      )
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+    },
+    {
+      title: `Llamados`,
+      width: '8%',
+      dataIndex: ['cursos', 'llamados'],
+      key: 'llamados',
 
-            </>
-          )
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-        },
-      ]
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `CDJ`,
+      width: '8%',
+      dataIndex: ['cursos', 'cdj'],
+      key: 'cdj',
+
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+        </>
+      )
+
     },
 
     {
-      title: 'Contacto',
-      dataIndex: 'Contacto',
-      key: 'Contacto',
-      children: [
-        {
-          title: `Célular`,
-          width: '8%',
-          dataIndex: ['Contacto', 'numero'],
-          key: 'numero',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+      title: `Bautizo`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'bautizo'],
+      key: 'bautizo',
 
-        },
-        {
-          title: `Contacto`,
-          width: '8%',
-          dataIndex: ['Contacto', 'emergencia'],
-          key: 'emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
 
-        },
-        {
-          title: `Número`,
-          width: '8%',
-          dataIndex: ['Contacto', 'num_emergencia'],
-          key: 'num_emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
 
-        },
-      ]
+        </>
+      )
+
+    },
+
+    {
+      title: `Comunión`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'comunion'],
+      key: 'comunion',
+
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Confirmación`,
+      width: '9%',
+      dataIndex: ['Sacramentos', 'confirmacion'],
+      key: 'confirmacion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Célular`,
+      width: '8%',
+      dataIndex: ['Contacto', 'numero'],
+      key: 'numero',
+
+
+    },
+    {
+      title: `Contacto`,
+      width: '8%',
+      dataIndex: ['Contacto', 'emergencia'],
+      key: 'emergencia',
+
+
+    },
+    {
+      title: `Número`,
+      width: '8%',
+      dataIndex: ['Contacto', 'num_emergencia'],
+      key: 'num_emergencia',
+
+
     },
 
     {
@@ -2946,11 +2619,6 @@ export const LayoutApp = () => {
       width: '7%',
       dataIndex: 'Active',
       key: 'Active',
-      filters: [
-        { text: 'Activos', value: true },
-        { text: 'Inactivos', value: false },
-      ],
-      onFilter: (text, record) => record.Active === text,
       render: (text) => (
         <>
           {
@@ -2963,37 +2631,7 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
 
-    },
-
-    {
-      title: `Detalles`,
-      key: 'operation',
-      // fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editYahoskas(record.name, record.celula, record.dob, record.cursos.iniciados, record.cursos.soldados, record.cursos.caballeros, record.cursos.llamados, record.cursos.cdj, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
   ];
   const biteColumnsSmall = [
 
@@ -3002,15 +2640,7 @@ export const LayoutApp = () => {
       width: '8%',
       dataIndex: 'name',
       key: 'name',
-      fixed: 'left',
-      render: (text) =>
-        <p
-          style={{
-            textAlign: 'left', wordWrap: 'break-word',
-            fontSize: '1em', fontWeight: 400,
-            // fontStyle:'italic'
-          }}
-        >{text}</p>
+
     },
     {
       title: `DoB`,
@@ -3018,294 +2648,237 @@ export const LayoutApp = () => {
       dataIndex: 'DoB',
       key: 'DoB',
 
-      // sorter: (a, b) => a.dob.length - b.dob.length,
-      // sortDirections: ['descend'],
-      render: (value) =>
-        <p style={{ fontWeight: 400, textAlign: 'center' }}>{value}</p>
 
     },
     {
-      title: 'Cursos',
-      dataIndex: 'cursos',
-      key: 'cursos',
-      children: [
-        {
-          title: `Discípulos`,
-          width: '7%',
-          dataIndex: ['cursos', 'discipulos'],
-          key: 'discipulos',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.discipulos === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
+      title: `Discípulos`,
+      width: '7%',
+      dataIndex: ['cursos', 'discipulos'],
+      key: 'discipulos',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
+        </>
+      )
 
-        {
-          title: `Apostoles`,
-          width: '8%',
-          dataIndex: ['cursos', 'apostoles'],
-          key: 'apostoles',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.apostoles === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Profetas`,
-          width: '8%',
-          dataIndex: ['cursos', 'profetas'],
-          key: 'profetas',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.profetas === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-        {
-          title: `Cristeros`,
-          width: '8%',
-          dataIndex: ['cursos', 'cristeros'],
-          key: 'cristeros',
-          filters: [
-            { text: 'Curso', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.cursos.cristeros === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: bg }} />
-                  </div>
-
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: bg }} />
-                  </div>
-              }
-
-            </>
-          )
-
-        },
-      ]
     },
 
     {
-      title: 'Sacramentos',
-      dataIndex: 'Sacramentos',
-      key: 'Sacramentos',
-      children: [
-        {
-          title: `Bautizo`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'bautizo'],
-          key: 'bautizo',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.bautizo === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+      title: `Apostoles`,
+      width: '8%',
+      dataIndex: ['cursos', 'apostoles'],
+      key: 'apostoles',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
+        </>
+      )
 
-        {
-          title: `Comunión`,
-          width: '8%',
-          dataIndex: ['Sacramentos', 'comunion'],
-          key: 'comunion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.comunion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+    },
+    {
+      title: `Profetas`,
+      width: '8%',
+      dataIndex: ['cursos', 'profetas'],
+      key: 'profetas',
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-            </>
-          )
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
 
-        },
-        {
-          title: `Confirmación`,
-          width: '9%',
-          dataIndex: ['Sacramentos', 'confirmacion'],
-          key: 'confirmacion',
-          filters: [
-            { text: 'Sí', value: true },
-            { text: 'No', value: false },
-          ],
-          onFilter: (text, record) => record.Sacramentos.confirmacion === text,
-          render: (text) => (
-            <>
-              {
-                text
-                  ? <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdDoneOutline size={30} style={{ color: color }} />
-                  </div>
+        </>
+      )
 
-                  : <div style={{
-                    height: '100%', width: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <MdRemove size={30} style={{ color: color }} />
-                  </div>
-              }
+    },
+    {
+      title: `Cristeros`,
+      width: '8%',
+      dataIndex: ['cursos', 'cristeros'],
+      key: 'cristeros',
 
-            </>
-          )
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: bg }} />
+              </div>
 
-        },
-      ]
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: bg }} />
+              </div>
+          }
+
+        </>
+      )
+
     },
 
     {
-      title: 'Contacto',
-      dataIndex: 'Contacto',
-      key: 'Contacto',
-      children: [
-        {
-          title: `Célular`,
-          width: '8%',
-          dataIndex: ['Contacto', 'numero'],
-          key: 'numero',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+      title: `Bautizo`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'bautizo'],
+      key: 'bautizo',
 
-        },
-        {
-          title: `Contacto`,
-          width: '8%',
-          dataIndex: ['Contacto', 'emergencia'],
-          key: 'emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
 
-        },
-        {
-          title: `Número`,
-          width: '8%',
-          dataIndex: ['Contacto', 'num_emergencia'],
-          key: 'num_emergencia',
-          render: (value) =>
-            <p style={{ fontWeight: 400, }}>{value}</p>
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
 
-        },
-      ]
+        </>
+      )
+
+    },
+
+    {
+      title: `Comunión`,
+      width: '8%',
+      dataIndex: ['Sacramentos', 'comunion'],
+      key: 'comunion',
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+    {
+      title: `Confirmación`,
+      width: '9%',
+      dataIndex: ['Sacramentos', 'confirmacion'],
+      key: 'confirmacion',
+
+      render: (text) => (
+        <>
+          {
+            text
+              ? <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdDoneOutline size={30} style={{ color: color }} />
+              </div>
+
+              : <div style={{
+                height: '100%', width: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <MdRemove size={30} style={{ color: color }} />
+              </div>
+          }
+
+        </>
+      )
+
+    },
+
+    {
+      title: `Célular`,
+      width: '8%',
+      dataIndex: ['Contacto', 'numero'],
+      key: 'numero',
+
+
+    },
+    {
+      title: `Contacto`,
+      width: '8%',
+      dataIndex: ['Contacto', 'emergencia'],
+      key: 'emergencia',
+
+
+    },
+    {
+      title: `Número`,
+      width: '8%',
+      dataIndex: ['Contacto', 'num_emergencia'],
+      key: 'num_emergencia',
+
+
     },
 
     {
@@ -3313,11 +2886,6 @@ export const LayoutApp = () => {
       width: '7%',
       dataIndex: 'Active',
       key: 'Active',
-      filters: [
-        { text: 'Activos', value: true },
-        { text: 'Inactivos', value: false },
-      ],
-      onFilter: (text, record) => record.Active === text,
       render: (text) => (
         <>
           {
@@ -3330,37 +2898,7 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
 
-    },
-
-    {
-      title: `Detalles`,
-      key: 'operation',
-      // fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editBites(record.name, record.dob, record.cursos.discipulos, record.cursos.apostoles, record.cursos.profetas, record.cursos.cristeros, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
   ];
 
   const showDrawer = () => {
@@ -3609,6 +3147,11 @@ export const LayoutApp = () => {
     setCurrentEmergencia(emergencia)
     setCurrentC_emergencia(n_emergencia)
     console.log(cursos)
+  }
+
+  const handleSmallData = (e) => {
+    const filter = data.filter((item) => item.name === e);
+    setSmallData(filter)
   }
 
   useEffect(() => {
@@ -4319,58 +3862,81 @@ export const LayoutApp = () => {
 
                 <Row style={{
                   width: '70%',
-                  marginTop: '2vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                  margin: '2vh 0 2vh 0', display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>
-                  <Row>
-                    <Button
-                      onClick={refresh}
-                      icon={<BiRefresh size={20} style={{ color: '#f6f6f6' }} />} style={{
-                        margin: '0 0.5vh 0 0', backgroundColor: color,
-                        border: `1.5px solid ${color}`
-                      }} />
-                    <Button
-                      onClick={showDrawer}
-                      style={{
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                        margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? 'none' : ''}`
-                      }}>
-                      {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
-                    </Button>
-                    <Button
-                      onClick={() => setState('table')}
-                      style={{
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                        margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? '' : 'none'}`
-                      }}>
-                      {`Mi campo`}
-                    </Button>
-                    <Button
-                      onClick={() => setState('metrics')}
-                      style={{
-                        margin: '0 0.5vh 0 0.5vh',
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                      }}>
-                      Métricos
-                    </Button>
-                  </Row>
+
+                  <Button
+                    onClick={refresh}
+                    icon={<BiRefresh size={20} style={{ color: '#f6f6f6' }} />} style={{
+                      margin: '0 0.1vh 0 0', backgroundColor: color,
+                      border: `1.5px solid ${color}`, borderRadius: '1vh 0 0 1vh'
+                    }} />
+                  <Button
+                    onClick={showDrawer}
+                    style={{
+                      backgroundColor: color,
+                      color: '#f6f6f6', fontWeight: '500',
+                      border: `1.5px solid ${color}`, borderRadius: 0,
+                      margin: '0 0.1vh 0 0.1vh', display: `${state !== 'table' ? 'none' : ''}`
+                    }}>
+                    {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
+                  </Button>
+                  <Button
+                    onClick={() => setState('table')}
+                    style={{
+                      backgroundColor: color,
+                      color: '#f6f6f6', fontWeight: '500',
+                      border: `1.5px solid ${color}`, borderRadius: 0,
+                      margin: '0 0.1vh 0 0.1vh', display: `${state !== 'table' ? '' : 'none'}`
+                    }}>
+                    {`Mi campo`}
+                  </Button>
+                  <Button
+                    onClick={() => setState('metrics')}
+                    style={{
+                      margin: '0 0.1vh 0 0.1vh',
+                      backgroundColor: color, borderRadius: 0,
+                      color: '#f6f6f6', fontWeight: '500',
+                      border: `1.5px solid ${color}`,
+                    }}>
+                    Métricos
+                  </Button>
+
 
                   <Link to="/azzhakrutt/login" style={{
                     // position: 'absolute', top: '70px', right: '150px'
                   }}>
                     <Button icon={<CiLogout size={20} style={{ color: '#f6f6f6' }} />} style={{
-                      margin: '0 0.5vh 0 0', backgroundColor: color,
-                      border: `1.5px solid ${color}`
+                      margin: '0 0 0 0.1vh', backgroundColor: color,
+                      border: `1.5px solid ${color}`, borderRadius: '0 1vh 1vh 0'
                     }} />
                   </Link>
                 </Row>
+
+                <hr style={{
+                  width: '70%', border: `2px solid ${color}`,
+                  marginTop: '0vh', display: state !== 'table' ? 'none' : ''
+                }} />
+
+                <Col style={{ width: '70%', marginTop: '1vh', display: state !== 'table' ? 'none' : ''}}>
+                  <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p>
+                  <Row>
+                    <Select style={{ width: '90%' }} onChange={handleSmallData}>
+                      {
+                        data.map((celula) => (
+                          <Option key={celula._id} value={celula.name}
+                            placeholder={people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}>
+                            {celula.name}
+                          </Option>
+                        ))
+                      }
+                    </Select>
+                    <Button onClick={() => setSmallData(data)} icon={<BiRefresh size={20} />} />
+                  </Row>
+
+                </Col>
                 {
-                  state === 'table' ? <TeamsTable team={team} data={data} handleColumns={handleColumnsSmall} />
+                  state === 'table' ? <TeamsTable team={team} data={smallData} handleColumns={handleColumnsSmall} />
                     : <Stadistics team={team} data={data} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
                 }
               </div>
@@ -4379,7 +3945,7 @@ export const LayoutApp = () => {
                 title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
                 placement="right"
                 onClose={() => setNewUser(false)}
-                width='35%'
+                width='100%'
                 open={newUser}
                 extra={
                   <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -4630,136 +4196,6 @@ export const LayoutApp = () => {
                 </Form>
               </Drawer>
 
-              <Drawer
-                title={currentName}
-                placement={'left'}
-                closable={false}
-                width={'30%'}
-                onClose={() => setOpen(false)}
-                open={open}
-                extra={
-                  <Space>
-                    <Switch
-                      // heckedChildren="Activo" unCheckedChildren="Inactivo"
-                      checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
-                  </Space>
-                }
-              >
-                <Form
-                  name='my_edit'
-                  form={edit}
-                  onFinish={handleEdit}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-
-
-                    <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
-
-                      <Col>
-                        <p>Nombre: </p>
-                        <Form.Item
-                          name='new_name'
-                          style={{ margin: 0 }}>
-                          <Input placeholder={currentName} />
-                        </Form.Item>
-                      </Col>
-
-                      <Col>
-                        <p>DoB: </p>
-                        <Form.Item
-                          name='new_dob'
-                          style={{ margin: 0 }}>
-                          <DatePicker placeholder={currentDoB} />
-                        </Form.Item>
-
-                      </Col>
-
-                      <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
-                        <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
-                        <Form.Item
-                          name='new_cel'
-                          style={{ margin: 0 }}>
-                          <Select style={{ width: '100%' }} placeholder={currentCel}>
-                            {
-
-                              celula_.map((celula) => (
-                                <Option key={celula} value={celula}>
-                                  {celula}
-                                </Option>
-                              ))
-                            }
-                          </Select>
-                        </Form.Item>
-
-                      </Col>
-
-
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
-                    margin: '1vh 0 1vh 0'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_cursos'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
-                          {
-
-                            curso.map((cursos) => (
-                              <Option key={cursos} value={cursos}>
-                                {cursos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_sacramento'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
-                          {
-
-                            sacramento.map((sacramentos) => (
-                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
-                                {sacramentos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-
-                  </div>
-
-                  <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
-                    <Button htmlType='submit' style={{
-                      marginTop: '8vh', width: '80%', backgroundColor: bg,
-                      border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
-                    }}>Guardar cambios</Button>
-                  </Form.Item>
-                </Form>
-              </Drawer>
             </>
             : <div style={{
               height: "90vh", width: '98vw', display: 'flex', alignItems: 'center', justifyContent: 'center'

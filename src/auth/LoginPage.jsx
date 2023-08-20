@@ -61,26 +61,26 @@ export const LoginPage = () => {
 
             <div className='layout-small'
                 style={{
-                    alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column', height: '90vh',
+                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '90vh',
                     paddingTop:'5%'
                 }}>
                 <div style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', 
-                    padding:'1%', borderRadius:'2vh', backgroundColor:'trasnparent', width:'70%',
-                    height:'15vh', flexWrap:'wrap'
+                    padding:'1%', borderRadius:'1vh', backgroundColor:'#222', width:'65%',
+                    height:'5vh'
                 }}>
                     <p
-                        className='Taskify'
+                        // className='Taskify'
                         style={{
-                             fontWeight: 'normal', lineHeight: '0.8em',
-                            fontWeight: 750, wordBreak:'break-word', textAlign:'center',
-                            color: '#222', fontSize: '8vh'
-                        }}>¡Bienvenido de nuevo!</p>
+                            fontSize: '350%', fontWeight: 'normal', lineHeight: '0em',
+                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
+                            color: '#f6f6f6', fontSize: '1.3em'
+                        }}>Zona Azzhakrutt</p>
                 </div>
 
                 <div style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexDirection: 'row', flexWrap: 'wrap', margin: '10vh 0 2vh 0',
+                    flexDirection: 'row', flexWrap: 'wrap', margin: '2vh 0 2vh 0',
                 }}>
                     {
                         teamsArray
