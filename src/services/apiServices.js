@@ -385,3 +385,19 @@ export async function editBite(operation, name, dob, cursos, sacramentos, cel, c
     // }
     // console.log(data)
 }
+
+export async function userLogin(operation, name, password) {
+    try {
+        await operation({
+            method: "POST",
+            url: "/auth/login",
+            data: {
+                Email: name,
+                Password: password,
+            },
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+}

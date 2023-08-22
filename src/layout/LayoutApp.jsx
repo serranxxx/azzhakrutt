@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import { Button, Drawer, Input, Row, Form, Select, DatePicker, InputNumber, Checkbox, Col, message, Switch, Space } from 'antd'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/UseAxios'
 import { appContext } from '../context/appContext'
 import { CiLogout } from "react-icons/ci";
@@ -20,8 +20,9 @@ export const LayoutApp = () => {
 
   const { Option } = Select
   const { response, loading, error, operation } = useAxios()
-  const { setData_users, data_users } = useContext(appContext)
+  const { setData_users, data_users, logout } = useContext(appContext)
   const team = JSON.parse(localStorage.getItem('team'))
+  const navigate = useNavigate()
 
   const [newUser, setNewUser] = useState(false);
   const [newUserSmall, setNewUserSmall] = useState(false)
@@ -3196,6 +3197,13 @@ export const LayoutApp = () => {
     setOpenSmall(false)
   }
 
+  const userLogout = () => {
+    logout()
+    navigate(`/azzhakrutt/login`, {
+      replace: true
+    })
+  }
+
   useEffect(() => {
     if (!loading) {
       switch (response.data.msg) {
@@ -3458,14 +3466,18 @@ export const LayoutApp = () => {
                     </Button>
                   </Row>
 
-                  <Link to="/azzhakrutt/login" style={{
-                    // position: 'absolute', top: '70px', right: '150px'
-                  }}>
-                    <Button icon={<CiLogout size={20} style={{ color: '#f6f6f6' }} />} style={{
+                  <Button
+                    onClick={userLogout}
+                    icon={<CiLogout size={20} style={{ color: '#f6f6f6' }} />} style={{
                       margin: '0 0.5vh 0 0', backgroundColor: color,
                       border: `1.5px solid ${color}`
                     }} />
-                  </Link>
+
+                  {/* <Link to="/azzhakrutt/login" style={{
+                    // position: 'absolute', top: '70px', right: '150px'
+                  }}>
+                    
+                  </Link> */}
                 </Row>
                 {
                   state === 'table' ? <TeamsTable team={team} data={data} handleColumns={handleColumns} />

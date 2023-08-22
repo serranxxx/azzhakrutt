@@ -16,6 +16,17 @@ export const AppReducer = (state = {}, action) => {
                 ...state,
                 data_users: action.payload
             }
+
+        case types.login:
+            return {
+                ...state,
+                logged: true,
+            }
+
+        case types.logut:
+            return {
+                logged: false
+            }
         default:
             break;
     }

@@ -33,14 +33,30 @@ export const AppProvider = ({ children }) => {
         localStorage.setItem('data_users', JSON.stringify(Data))
         dispatch(action)
     }
-    
+
+    const login = (user) => {
+        const action = {
+            type: types.login,
+        }
+        dispatch(action)
+    }
+
+    const logout = () => {
+        const action = {
+            type: types.logout
+        }
+        dispatch(action)
+    }
+
     return (
         <appContext.Provider value={{
             ...state,
             setTeam,
-            setData_users
+            setData_users, 
+            login,
+            logout
         }} >
-            { children }
+            {children}
         </appContext.Provider>
     )
 }

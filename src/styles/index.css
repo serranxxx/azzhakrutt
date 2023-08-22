@@ -10,3 +10,11 @@ code {
 .logo:hover {
   transform: translateY(-15px) !important;
 }
+
+.box:hover {
+  transform: translateY(-5px) !important;
+}
+
+.item {
+  transform: scale(2.8);
+}

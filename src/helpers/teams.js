@@ -54,7 +54,7 @@ export const teams = {
         value: 'bite',
         color: '#878799',
         color2: '#332e75',
-        color3: '#332e75',
+        color3: '#d1d1d1',
         gif: bite_gif
     }
 }
