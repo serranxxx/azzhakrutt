@@ -16,5 +16,6 @@ code {
 }
 
 .item {
-  transform: scale(2.8);
+  /* transform: scale(2.8); */
+  opacity: 0%;
 }

@@ -134,7 +134,7 @@ export const LoginPage = () => {
                             style={{
                                 display: `${!disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
                                 flexDirection: 'column', margin: '5vh 0 7vh 0', transition: 'all 0.65s ease-in-out',
-                                position: 'relative', height: `${administrador ? '60vh' : '45vh'}`, width: '60vh',
+                                position: 'relative', height: `${administrador ? '60vh' : guest ? '40vh' : '45vh'}`, width: '50vh',
                                 borderRadius: '6vh', backgroundColor: '#fff', boxShadow: '0px 0px 20px #00000030'
                             }}>
                             <Button
@@ -144,16 +144,25 @@ export const LoginPage = () => {
                                     borderRadius: '4vh'
                                 }} onClick={backTo} />
 
-                            <div style={{ height: '60%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh' }}>
+                            <div style={{ padding: '5%', height: `${administrador? '40%' : guest? '40%' : '60%'}`, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh', }}>
                                 <div style={{
-                                    height: '20vh', aspectRatio: '1/1', borderRadius: '50%'
+                                    height: '25vh', aspectRatio: '1/1', borderRadius: '50%', display: 'flex',
+                                    alignItems: 'center', justifyContent: 'center',
                                 }}>
-                                    <img src={teams[team].img} style={{ height: '100%', aspectRatio: '1/1' }} />
+                                    <img src={teams[team].img} style={{ width: '80%', aspectRatio: '1/1' }} />
                                 </div>
                             </div>
 
-                            <hr style={{ display: `${administrador ? '' : guest ? '' : 'none'}`, width: '60%', margin: '2vh 0 3vh 0', border: `1.6px solid ${teams[team].color}` }} />
-                            <div style={{ height: '50%', width: '60%', display: `${administrador ? '' : 'none'}` }}>
+                            <hr style={{
+                                display: `${administrador ? '' : guest ? '' : 'none'}`, width: '70%',
+                                margin: '1vh 0 2vh 0', border: `1.6px solid ${teams[team].color}`
+                            }} />
+
+                            {/* chech */}
+                            <div style={{
+                                height: '40%', width: '70%', display: `${administrador ? 'flex' : 'none'}`,
+                                alignItems: 'center', justifyContent: 'center', flexDirection: 'column'
+                            }}>
                                 <Form
                                     name="basic"
                                     style={{
@@ -219,12 +228,16 @@ export const LoginPage = () => {
                                 </Form>
 
                             </div>
-
-                            <div style={{ height: '50%', width: '60%', display: `${guest ? '' : 'none'}`, marginTop: '-2vh' }}>
+                            {/* chech */}
+                            <div style={{
+                                height: '20%', width: '80%', display: `${guest ? 'flex' : 'none'}`,
+                                alignItems: 'center', justifyContent: 'center',
+                            }}>
                                 <Form
                                     name="basic"
                                     style={{
-                                        maxWidth: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row'
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
+                                        margin: 0
                                     }}
                                     initialValues={{
                                         remember: true,
@@ -254,7 +267,7 @@ export const LoginPage = () => {
                                     <Form.Item
                                         style={{
                                             width: '30%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                            marginTop: '3vh'
+                                            margin: 0
                                         }}
                                     >
                                         <Button type="primary" htmlType="submit" style={{ backgroundColor: teams[team].color }}>
@@ -265,15 +278,18 @@ export const LoginPage = () => {
 
                             </div>
 
-                            <div style={{ height: '40%', width: '100%', display: `${!administrador ? !guest ? '' : 'none' : 'none'}`, marginTop: '1vh' }}>
+                            <div style={{
+                                height: '40%', width: '100%', display: `${!administrador ? !guest ? '' : 'none' : 'none'}`, marginTop: '1vh',
+                                
+                            }}>
                                 <Row style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     <Button onClick={() => setAdministrador(true)} style={{
-                                        height: '100%', width: '50%', borderRadius: '0 0 0 6vh', backgroundColor: teams[team].color2,
-                                        color: '#e6e6e6', fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
+                                        height: '100%', width: '50%', borderRadius: '0 0 0 6vh', backgroundColor: `${teams[team].color2}80`,
+                                        color: teams[team].color2, fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
                                     }}>Administrador</Button>
                                     <Button onClick={() => setGuest(true)} style={{
-                                        height: '100%', width: '50%', borderRadius: '0 0 6vh 0', backgroundColor: teams[team].color3,
-                                        color: '#e6e6e6', fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
+                                        height: '100%', width: '50%', borderRadius: '0 0 6vh 0', backgroundColor: `${teams[team].color3}80`,
+                                        color: teams[team].color3, fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
                                     }}>Invitado</Button>
                                 </Row>
 
