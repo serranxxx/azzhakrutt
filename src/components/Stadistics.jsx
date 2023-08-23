@@ -74,9 +74,10 @@ export const Stadistics = (props) => {
         <>
             <div className='layout-large' style={{
                 alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-                flexWrap: 'wrap', width: '80%', marginTop: '2vh',
+                flexWrap: 'wrap', width: '100%', 
+                // marginTop: '2vh',
             }}>
-                <hr style={{ width: '100%', border: `1.5px solid ${props.color}` }} />
+                {/* <hr style={{ width: '100%', border: `1.5px solid ${props.color}` }} /> */}
                 <div style={{
                     width: '100%', alignItems: 'center', justifyContent: 'center',
                     margin: '3vh 0 1.5vh 0', display: `${props.team === 'bite' ? 'none' : 'flex'}`,

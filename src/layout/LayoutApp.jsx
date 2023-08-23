@@ -10,10 +10,23 @@ import { AiOutlinePlus, AiFillEdit } from "react-icons/ai";
 import { editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
 import { TeamsTable } from '../components/TeamsTable'
 import { Stadistics } from '../components/Stadistics'
-import { BiRefresh } from "react-icons/bi";
+import { BiGift, BiRefresh } from "react-icons/bi";
 import { IoIosRefresh } from "react-icons/io";
 import { teams } from '../helpers/teams'
 
+import { BsFillPeopleFill } from "react-icons/bs";
+import { IoPieChart } from "react-icons/io5";
+import { BiSolidContact } from "react-icons/bi";
+import { AiOutlineFilter, AiFillFilter } from "react-icons/ai";
+
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+
+} from '@ant-design/icons';
+import { Layout, Menu, theme } from 'antd';
+
+const { Header, Sider, Content } = Layout;
 
 
 export const LayoutApp = () => {
@@ -24,6 +37,11 @@ export const LayoutApp = () => {
   const team = JSON.parse(localStorage.getItem('team'))
   const navigate = useNavigate()
 
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   const [newUser, setNewUser] = useState(false);
   const [newUserSmall, setNewUserSmall] = useState(false)
   const [user] = Form.useForm();
@@ -32,7 +50,6 @@ export const LayoutApp = () => {
 
   const [data, setData] = useState(data_users)
   const [smallData, setSmallData] = useState(data_users)
-
 
   const [name, setName] = useState('')
   const [img, setImg] = useState('')
@@ -50,6 +67,7 @@ export const LayoutApp = () => {
   const [openSmall, setOpenSmall] = useState(false)
   const [formFinish, setFormFinish] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [filtering, setFiltering] = useState(false)
 
   const [currentName, setCurrentName] = useState('')
   const [currentCel, setCurrentCel] = useState('')
@@ -493,26 +511,7 @@ export const LayoutApp = () => {
 
     },
 
-    {
-      title: `Detalles`,
-      key: 'operation',
-      fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editNasseris(record.name, record.celula, record.dob, record.cursos.iniciadas, record.cursos.adiestradas, record.cursos.religiosas, record.cursos.cdj, record.cursos.lider_en, record.cursos.v_cristo, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
+
   ];
   const sheratanColumns = [
 
@@ -911,26 +910,26 @@ export const LayoutApp = () => {
 
     },
 
-    {
-      title: `Detalles`,
-      key: 'operation',
-      fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editSheratans(record.name, record.celula, record.dob, record.cursos.precurso, record.cursos.iniciados, record.cursos.avanzados, record.cursos.capitanes, record.cursos.ccc, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
+    // {
+    //   title: `Detalles`,
+    //   key: 'operation',
+    //   fixed: 'right',
+    //   width: '7%',
+    //   render: (text, record) =>
+    //     <div style={{
+    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
+    //     }}>
+    //       <Button
+    //         onClick={() => editSheratans(record.name, record.celula, record.dob, record.cursos.precurso, record.cursos.iniciados, record.cursos.avanzados, record.cursos.capitanes, record.cursos.ccc, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
+    //         className='div-searcher'
+    //         // icon={<TbInfoTriangle size={30} />}
+    //         style={{
+    //           color: color, border: `1.5px solid ${bg}`,
+    //           fontWeight: 500,
+    //           backgroundColor: bg
+    //         }}>Editar</Button>
+    //     </div>,
+    // },
   ];
   const yahoskaColumns = [
 
@@ -1329,26 +1328,26 @@ export const LayoutApp = () => {
 
     },
 
-    {
-      title: `Detalles`,
-      key: 'operation',
-      fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editYahoskas(record.name, record.celula, record.dob, record.cursos.iniciados, record.cursos.soldados, record.cursos.caballeros, record.cursos.llamados, record.cursos.cdj, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
+    // {
+    //   title: `Detalles`,
+    //   key: 'operation',
+    //   fixed: 'right',
+    //   width: '7%',
+    //   render: (text, record) =>
+    //     <div style={{
+    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
+    //     }}>
+    //       <Button
+    //         onClick={() => editYahoskas(record.name, record.celula, record.dob, record.cursos.iniciados, record.cursos.soldados, record.cursos.caballeros, record.cursos.llamados, record.cursos.cdj, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
+    //         className='div-searcher'
+    //         // icon={<TbInfoTriangle size={30} />}
+    //         style={{
+    //           color: color, border: `1.5px solid ${bg}`,
+    //           fontWeight: 500,
+    //           backgroundColor: bg
+    //         }}>Editar</Button>
+    //     </div>,
+    // },
   ];
   const biteColumns = [
 
@@ -1696,26 +1695,26 @@ export const LayoutApp = () => {
 
     },
 
-    {
-      title: `Detalles`,
-      key: 'operation',
-      fixed: 'right',
-      width: '7%',
-      render: (text, record) =>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <Button
-            onClick={() => editBites(record.name, record.dob, record.cursos.discipulos, record.cursos.apostoles, record.cursos.profetas, record.cursos.cristeros, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-            className='div-searcher'
-            // icon={<TbInfoTriangle size={30} />}
-            style={{
-              color: color, border: `1.5px solid ${bg}`,
-              fontWeight: 500,
-              backgroundColor: bg
-            }}>Editar</Button>
-        </div>,
-    },
+    // {
+    //   title: `Detalles`,
+    //   key: 'operation',
+    //   fixed: 'right',
+    //   width: '7%',
+    //   render: (text, record) =>
+    //     <div style={{
+    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
+    //     }}>
+    //       <Button
+    //         onClick={() => editBites(record.name, record.dob, record.cursos.discipulos, record.cursos.apostoles, record.cursos.profetas, record.cursos.cristeros, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
+    //         className='div-searcher'
+    //         // icon={<TbInfoTriangle size={30} />}
+    //         style={{
+    //           color: color, border: `1.5px solid ${bg}`,
+    //           fontWeight: 500,
+    //           backgroundColor: bg
+    //         }}>Editar</Button>
+    //     </div>,
+    // },
   ];
   const nasseriColumnsSmall = [
     {
@@ -3150,12 +3149,14 @@ export const LayoutApp = () => {
 
   const handleSmallData = (e) => {
     setSelected(true)
+    setFiltering(true)
     const filter = data.filter((item) => item.name === e);
     setSmallData(filter)
   }
 
   const resetSearch = () => {
     setSelected(false)
+    setFiltering(false)
     setSmallData(data)
   }
 
@@ -3175,12 +3176,12 @@ export const LayoutApp = () => {
           break;
         case 'yahoska':
           smallData.map((data) => (
-            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editYahoskas(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'bite':
           smallData.map((data) => (
-            editNasseris(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editBites(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         default:
@@ -3190,6 +3191,38 @@ export const LayoutApp = () => {
 
     else message.error("Necesitas seleccionar a alguien antes de editar")
 
+  }
+
+  const onEdit = () => {
+    if (selected) {
+      setOpen(true)
+      switch (team) {
+        case 'sheratan':
+          smallData.map((data) => (
+            editSheratans(data.name, data.celula, data.dob, data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'nasseri':
+          smallData.map((data) => (
+            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'yahoska':
+          smallData.map((data) => (
+            editYahoskas(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        case 'bite':
+          smallData.map((data) => (
+            editBites(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+          ))
+          break;
+        default:
+          break;
+      }
+    }
+
+    else message.error("Necesitas seleccionar a alguien antes de editar")
   }
 
   const onClose = () => {
@@ -3316,7 +3349,7 @@ export const LayoutApp = () => {
           break;
 
         case 'nasseri':
-          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams.nasseri.color})`
+          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%),#f5f5f5)`
           setName('Cadena Nasseri')
           setImg(teams.nasseri.img)
           setColor(teams.nasseri.color2)
@@ -3396,97 +3429,195 @@ export const LayoutApp = () => {
         {
           render
             ? <>
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-                height: 'auto', width: 'auto', flexDirection: 'column', position: 'relative',
-                paddingBottom: '4%'
-              }}>
+              <Layout>
+                <Sider trigger={null} collapsible collapsed={collapsed}
+                  style={{
+                    height: '100vh', backgroundColor: `${bg}80`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'all 0.45s ease-in-out'
+                  }}
+                >
 
+                  <img src={img} style={{
+                    transition: 'all 0.45s ease-in-out',
+                    height: '18vh', marginTop: '4vh', display: `${collapsed ? 'none' : ''}`
+                  }} />
 
+                  <hr style={{
+                    width: '90%', border: `1.5px solid ${color}`, marginTop: '3vh',
+                    display: `${collapsed ? 'none' : ''}`
+                  }} />
 
-                <Row style={{
-                  width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-                  flexDirection: 'row', margin: '-2vh'
-                }}>
-                  <img src={img} style={{ height: '15vh' }} />
-                  <p style={{
-                    fontSize: '5em', fontWeight: 650, fontStyle: 'italic',
-                    wordBreak: 'break-word', width: '70%', lineHeight: '0.9em',
-                    marginLeft: '2vh', color: color
-                  }}>{name}</p>
+                  <Col style={{
+                    width: `${collapsed ? '60px' : '150px'}`, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+                    flexDirection: 'column', height: `${collapsed ? '100%' : '30%'}`
+                  }}>
+                    <Button
+                      className='box'
+                      onClick={() => setState('table')}
+                      icon={collapsed ? <BsFillPeopleFill size={20} style={{ color: state === 'table' ? bg : `${color}90` }}/> : <></> }
+                      style={{
+                        transition: 'all 0.35s ease-in-out',
+                        width: '100%', margin: '1.5vh 0 1vh 0',
+                        backgroundColor: state === 'table' ? `${color}90` : bg, border: `1px solid ${bg}`,
+                        color: state === 'table' ? bg : color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
+                      }}>
+                      {`${collapsed ? '' : 'Mi campo'}`}
+                    </Button>
 
-                </Row>
+                    <Button
+                      className='box'
+                      onClick={() => setState('metrics')}
+                      icon={collapsed ? <IoPieChart size={20} style={{ color: state === 'metrics' ? bg : `${color}90` }}/> : <></> }
+                      style={{
+                        transition: 'all 0.35s ease-in-out',
+                        width: '100%', margin: '1vh 0 1vh 0',
+                        backgroundColor: state === 'metrics' ? `${color}90` : bg, border: `1px solid ${bg}`,
+                        color: state === 'metrics' ? bg : color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
+                      }}>
+                      {`${collapsed ? '' : 'Métricos'}`}
+                    </Button>
 
-                <hr style={{
-                  width: '80%', border: `2px solid ${color}`,
-                  marginTop: '0vh'
-                }} />
+                    <Button
+                      className='box'
+                      icon={collapsed ? <BiSolidContact size={20} style={{ color: `${color}90` }}/> : <></> }
+                      style={{
+                        transition: 'all 0.35s ease-in-out',
+                        width: '100%', margin: '1vh 0 1vh 0',
+                        backgroundColor: bg, border: `1px solid ${bg}`,
+                        color: color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
+                      }}>
+                      {`${collapsed ? '' : 'Contacto'}`}
+                    </Button>
 
+                    <Button
+                      className='box'
+                      onClick={userLogout}
+                      icon={collapsed ? <CiLogout size={20} style={{ color: `${color}90` }}/> : <></> }
+                      style={{
+                        transition: 'all 0.35s ease-in-out',
+                        width: '100%', margin: '1vh 0 1vh 0',
+                        backgroundColor: bg, border: `1px solid ${bg}`,
+                        color: color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
 
-                <Row style={{
-                  width: '80%',
-                  marginTop: '2vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between'
-                }}>
-                  <Row>
+                      }}>
+                      {`${collapsed ? '' : 'Logout'}`}
+                    </Button>
+                  </Col>
+
+                </Sider>
+                <Layout>
+                  <Header
+                    style={{
+                      padding: 0, backgroundColor: `${bg}60`, position: 'relative',
+                      display: 'flex', alignItems: 'center', justifyContent: 'flex-start'
+                    }}
+                  >
+                    <Button
+                      type="text"
+                      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                      onClick={() => setCollapsed(!collapsed)}
+                      style={{
+                        fontSize: '16px',
+                        width: 64,
+                        height: 64,
+                      }}
+                    />
+
+                    <Row style={{
+                      width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+                      flexDirection: 'row', margin: '-2vh'
+                    }}>
+
+                      <p style={{
+                        fontSize: '2.5em', fontWeight: 650, fontStyle: 'italic',
+                        wordBreak: 'break-word', width: '70%', lineHeight: '0.9em',
+                        marginLeft: '2vh', color: color
+                      }}>{name}</p>
+
+                    </Row>
+
                     <Button
                       onClick={refresh}
-                      icon={<BiRefresh size={20} style={{ color: '#f6f6f6' }} />} style={{
-                        margin: '0 0.5vh 0 0', backgroundColor: color,
-                        border: `1.5px solid ${color}`
+                      icon={<BiRefresh size={20} style={{ color: color }} />} style={{
+                        margin: '0', backgroundColor: bg, position: 'absolute',
+                        right: '20px',
+                        border: `1.5px solid ${bg}`
                       }} />
-                    <Button
-                      onClick={showDrawer}
-                      style={{
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                        margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? 'none' : ''}`
+
+
+                  </Header>
+                  <Content
+                    style={{
+                      margin: '24px 16px',
+                      padding: 24,
+                      minHeight: 280,
+                      backgroundColor: `${bg}40`,
+                      background: colorBgContainer,
+                    }}
+                  >
+                    <div style={{
+                      display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start',
+                      height: 'auto', width: '100%', flexDirection: 'column', position: 'relative',
+                      paddingBottom: '4%'
+                    }}>
+
+
+                      <Row style={{
+                        width: '100%',
+                        display: `${state !== 'table' ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'space-between',
+                        flexDirection: 'row'
                       }}>
-                      {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
-                    </Button>
-                    <Button
-                      onClick={() => setState('table')}
-                      style={{
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                        margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? '' : 'none'}`
-                      }}>
-                      {`Mi campo`}
-                    </Button>
-                    <Button
-                      onClick={() => setState('metrics')}
-                      style={{
-                        margin: '0 0.5vh 0 0.5vh',
-                        backgroundColor: color,
-                        color: '#f6f6f6', fontWeight: '500',
-                        border: `1.5px solid ${color}`,
-                      }}>
-                      Métricos
-                    </Button>
-                  </Row>
+                        <Button
+                          onClick={showDrawer}
+                          style={{
+                            backgroundColor: bg,
+                            color: color, fontWeight: '500',
+                            border: `1.5px solid ${bg}`, borderRadius: '3vh',
+                            margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? 'none' : ''}`
+                          }}>
+                          {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
+                        </Button>
 
-                  <Button
-                    onClick={userLogout}
-                    icon={<CiLogout size={20} style={{ color: '#f6f6f6' }} />} style={{
-                      margin: '0 0.5vh 0 0', backgroundColor: color,
-                      border: `1.5px solid ${color}`
-                    }} />
+                        <Row>
+                          <Select style={{ width: '20vw' }} onChange={handleSmallData}>
+                            {
+                              data.map((celula) => (
+                                <Option key={celula._id} value={celula.name}
+                                  placeholder='Buscar por nombre'>
+                                  {celula.name}
+                                </Option>
+                              ))
+                            }
+                          </Select>
 
-                  {/* <Link to="/azzhakrutt/login" style={{
-                    // position: 'absolute', top: '70px', right: '150px'
-                  }}>
-                    
-                  </Link> */}
-                </Row>
-                {
-                  state === 'table' ? <TeamsTable team={team} data={data} handleColumns={handleColumns} />
-                    : <Stadistics team={team} data={data} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
-                }
+                          <Button onClick={resetSearch} icon={filtering ? <AiFillFilter size={15} /> : <AiOutlineFilter size={15} />} style={{
+                            marginLeft: '1vh', backgroundColor: bg,
+                            color: color, fontWeight: '500',
+                            border: `1.5px solid ${bg}`, borderRadius: '1vh',
+                          }} />
 
 
+                          <Button onClick={onEdit} icon={<AiFillEdit size={15} />} style={{
+                            marginLeft: '0.5vh', backgroundColor: bg,
+                            color: color, fontWeight: '500',
+                            border: `1.5px solid ${bg}`, borderRadius: '1vh',
+                          }} />
+                        </Row>
 
-              </div>
+
+                      </Row>
+                      {
+                        state === 'table' ? <TeamsTable team={team} data={smallData} handleColumns={handleColumns} />
+                          : <Stadistics team={team} data={data} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
+                      }
+
+
+
+                    </div>
+                  </Content>
+                </Layout>
+              </Layout>
 
               <Drawer
                 title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
@@ -3882,7 +4013,7 @@ export const LayoutApp = () => {
             </div>
         }
 
-      </div>
+      </div >
 
       <div className='small'>
         {

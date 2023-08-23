@@ -8,7 +8,7 @@ export const TeamsTable = (props) => {
 
         <>
             <Table className='large' style={{
-                width: '80%',
+                width: '100%',
                 marginTop: '2vh',
             }}
                 columns={props.handleColumns(props.team)}
@@ -16,8 +16,8 @@ export const TeamsTable = (props) => {
                 bordered
                 size='middle'
                 scroll={{
-                    y: '50vh',
-                    x: '400%',
+                    y: '55vh',
+                    x: '300%',
                 }}
                 pagination={false}
             />
