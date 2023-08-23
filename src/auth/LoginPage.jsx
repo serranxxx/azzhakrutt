@@ -55,7 +55,7 @@ export const LoginPage = () => {
     };
 
     const onLogin = (e) => {
-        userLogin(operation, e.username, e.password)
+        userLogin(operation, teams[team].username, e.password)
     }
 
     const backTo = () => {
@@ -72,9 +72,9 @@ export const LoginPage = () => {
         if (!loading) {
             switch (response.data.msg) {
                 case "Valid user":
-                    console.log(response)
+                    console.log(response.data.data.value)
                     login()
-                    setTeam(team)
+                    setTeam(response.data.data.value)
                     navigate(`/azzhakrutt/main`, {
                         replace: true
                     })
@@ -134,7 +134,7 @@ export const LoginPage = () => {
                             style={{
                                 display: `${!disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
                                 flexDirection: 'column', margin: '5vh 0 7vh 0', transition: 'all 0.65s ease-in-out',
-                                position: 'relative', height: `${administrador ? '60vh' : guest ? '40vh' : '45vh'}`, width: '50vh',
+                                position: 'relative', height: `${administrador ? '50vh' : guest ? '40vh' : '45vh'}`, width: '50vh',
                                 borderRadius: '6vh', backgroundColor: '#fff', boxShadow: '0px 0px 20px #00000030'
                             }}>
                             <Button
@@ -160,7 +160,7 @@ export const LoginPage = () => {
 
                             {/* chech */}
                             <div style={{
-                                height: '40%', width: '70%', display: `${administrador ? 'flex' : 'none'}`,
+                                height: '30%', width: '70%', display: `${administrador ? 'flex' : 'none'}`,
                                 alignItems: 'center', justifyContent: 'center', flexDirection: 'column'
                             }}>
                                 <Form
@@ -175,19 +175,7 @@ export const LoginPage = () => {
                                     onFinishFailed={onFinishFailed}
                                     autoComplete="off"
                                 >
-                                    <Form.Item
-                                        label="Username"
-                                        name="username"
-                                        style={{ margin: '1vh 0 1vh 0' }}
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Por favor ingresa un usuario',
-                                            },
-                                        ]}
-                                    >
-                                        <Input />
-                                    </Form.Item>
+                                    
 
                                     <Form.Item
                                         label="Password"
@@ -203,17 +191,7 @@ export const LoginPage = () => {
                                         <Input.Password />
                                     </Form.Item>
 
-                                    <Form.Item
-                                        name="remember"
-                                        valuePropName="checked"
-                                        style={{ margin: '1vh 0 1vh 0' }}
-                                        wrapperCol={{
-                                            offset: 8,
-                                            span: 16,
-                                        }}
-                                    >
-                                        <Checkbox>Recordarme</Checkbox>
-                                    </Form.Item>
+                             
 
                                     <Form.Item
                                         style={{

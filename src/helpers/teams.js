@@ -25,7 +25,8 @@ export const teams = {
         color: '#efcedf',
         color2: '#66360c',
         color3: '#e89ec0',
-        gif: nasseri_gif
+        gif: nasseri_gif,
+        username: 'nasseri@azzhakrutt.com'
     },
     yahoska: {
         name: 'Escuadrón Yahoska',
@@ -35,7 +36,8 @@ export const teams = {
         color: '#6d6760',
         color2: '#222',
         color3: '#302619',
-        gif: yahoska_gif
+        gif: yahoska_gif,
+        username: 'yahoska@azzhakrutt.com'
     },
     sheratan: {
         name: 'Conquista Sheratan',
@@ -45,7 +47,8 @@ export const teams = {
         color: '#95ad92',
         color2: '#110f4f',
         color3: '#367c2f',
-        gif: sheratan_gif
+        gif: sheratan_gif,
+        username: 'sheratan@azzhakrutt.com'
     },
     bite: {
         name: 'Juvenil Bité Nirata',
@@ -55,6 +58,7 @@ export const teams = {
         color: '#878799',
         color2: '#332e75',
         color3: '#d1d1d1',
-        gif: bite_gif
+        gif: bite_gif,
+        username: 'bite@azzhakrutt.com'
     }
 }
