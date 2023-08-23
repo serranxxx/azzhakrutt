@@ -6,20 +6,20 @@ import { teams } from '../helpers/teams'
 export const TeamsCards = (props) => {
 
 
-    const { setTeam } = useContext(appContext)
-    const navigate = useNavigate()
+    // const { setTeam } = useContext(appContext)
+    // const navigate = useNavigate()
 
     // const [selected, setSelected] = useState(false)
-    const switchBG = (color) => {
-        document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${color})`;;
-    }
+    // const switchBG = (color) => {
+    //     document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${color})`;;
+    // }
 
-    const handleTeam = (team) => {
-        setTeam(team)
-        // navigate(`/azzhakrutt/main`, {
-        //     replace: true
-        // })
-    }
+    // const handleTeam = (team) => {
+    //     setTeam(team)
+    //     // navigate(`/azzhakrutt/main`, {
+    //     //     replace: true
+    //     // })
+    // }
 
    
 
@@ -47,10 +47,8 @@ export const TeamsCards = (props) => {
                         </div>
 
                         <div
-                            onClick={() => handleTeam(team.value)}
-                            onMouseEnter={() => switchBG(team.color3)}
-                            onMouseLeave={() => switchBG('#777')}
-                            className='layout-small'
+                            onClick={() => props.action(team.value)}
+                            className={`${props.selected? 'item logo layout-small' :'logo layout-small'}`}
                             style={{
                                 height: '17vh', aspectRatio: '1/1', borderRadius: '3vh',
                                 margin: '4vh 2vh 4vh 2vh', transition: 'all 0.45s ease-in-out',

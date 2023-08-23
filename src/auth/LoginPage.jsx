@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { TeamsCards } from '../components/TeamsCards';
 import { teams } from '../helpers/teams';
 import { AiOutlineClose, AiOutlineRollback } from "react-icons/ai";
-import { Button, Checkbox, Form, Input, Row, message } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, message } from 'antd';
 import { userLogin } from '../services/apiServices';
 import useAxios from '../hooks/UseAxios';
 import { appContext } from '../context/appContext';
@@ -144,7 +144,7 @@ export const LoginPage = () => {
                                     borderRadius: '4vh'
                                 }} onClick={backTo} />
 
-                            <div style={{ padding: '5%', height: `${administrador? '40%' : guest? '40%' : '60%'}`, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh', }}>
+                            <div style={{ padding: '5%', height: `${administrador ? '40%' : guest ? '40%' : '60%'}`, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh', }}>
                                 <div style={{
                                     height: '25vh', aspectRatio: '1/1', borderRadius: '50%', display: 'flex',
                                     alignItems: 'center', justifyContent: 'center',
@@ -155,7 +155,7 @@ export const LoginPage = () => {
 
                             <hr style={{
                                 display: `${administrador ? '' : guest ? '' : 'none'}`, width: '70%',
-                                margin: '1vh 0 2vh 0', border: `1.6px solid ${teams[team].color}`
+                                margin: '2vh 0 2vh 0', border: `1.6px solid ${teams[team].color}`
                             }} />
 
                             {/* chech */}
@@ -175,7 +175,7 @@ export const LoginPage = () => {
                                     onFinishFailed={onFinishFailed}
                                     autoComplete="off"
                                 >
-                                    
+
 
                                     <Form.Item
                                         label="Password"
@@ -191,7 +191,7 @@ export const LoginPage = () => {
                                         <Input.Password />
                                     </Form.Item>
 
-                             
+
 
                                     <Form.Item
                                         style={{
@@ -258,7 +258,7 @@ export const LoginPage = () => {
 
                             <div style={{
                                 height: '40%', width: '100%', display: `${!administrador ? !guest ? '' : 'none' : 'none'}`, marginTop: '1vh',
-                                
+
                             }}>
                                 <Row style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     <Button onClick={() => setAdministrador(true)} style={{
@@ -289,9 +289,9 @@ export const LoginPage = () => {
                     alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column', height: '100vh',
                     paddingTop: '5%'
                 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', height: 'auto', flexDirection: 'column' }}>
+                <div style={{ display: `${disapear ? 'none' : 'flex'}`, alignItems: 'flex-end', justifyContent: 'center', height: 'auto', flexDirection: 'column' }}>
                     <h1
-                        className='Taskify'
+
                         style={{
                             lineHeight: '0em',
                             fontWeight: 600,
@@ -306,16 +306,184 @@ export const LoginPage = () => {
                 </div>
 
                 <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    display: `${disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
                     flexDirection: 'row', flexWrap: 'wrap', margin: '2vh 0 2vh 0',
                 }}>
                     {
                         teamsArray
-                            ? <TeamsCards data={teamsArray} action={handleColor} />
+                            ? <TeamsCards data={teamsArray} action={handleSelect} selected={selected} />
                             : <></>
                     }
 
                 </div>
+
+                <div style={{ display: `${disapear ? 'none' : 'flex'}`, alignItems: 'flex-end', justifyContent: 'center', height: 'auto', }}>
+                    <h1
+                        className='Taskify'
+                        style={{
+                            fontSize: '350%', fontFamily: 'Berlin Sans FB', lineHeight: '0em',
+                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
+                            color: '#222', fontSize: '1.3em'
+                        }}>Zona Azzhakrutt  2023 <b>¡Fusión con lo mejor!</b></h1>
+                </div>
+
+                {
+                    team ?
+                        <div
+                            className=''
+                            style={{
+                                display: `${!disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
+                                flexDirection: 'column', margin: '5vh 0 7vh 0', transition: 'all 0.65s ease-in-out',
+                                position: 'relative', height: '70vh', width: '80%',
+                                
+
+                            }}>
+                            <Button
+                                type='ghost'
+                                icon={administrador ? <AiOutlineRollback size={20} style={{ color: teams[team].color2 }} /> : guest ? <AiOutlineRollback size={20} style={{ color: teams[team].color2 }} /> : <AiOutlineClose size={20} style={{ color: teams[team].color2 }} />}
+                                style={{
+                                    position: 'absolute', top: '50px', right: '20px',
+                                    borderRadius: '1vh',
+                                    // backgroundColor:`${teams[team].color2}80`
+                                }} onClick={backTo} />
+
+                            <div style={{ padding: '5%', height: `${administrador ? '40%' : guest ? '40%' : '40%'}`, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh', }}>
+                                <div style={{
+                                    height: '28vh', aspectRatio: '1/1', borderRadius: '50%', display: 'flex',
+                                    alignItems: 'center', justifyContent: 'center', boxShadow:'0px 0px 10px #00000030',
+                                }}>
+                                    <img src={teams[team].img} style={{ width: '100%', aspectRatio: '1/1' }} />
+                                </div>
+                            </div>
+
+                            <hr style={{
+                                display: `${administrador ? '' : guest ? '' : 'none'}`, width: '70%',
+                                margin: '2vh 0 2vh 0', border: `1.6px solid ${teams[team].color}`
+                            }} />
+
+                            {/* chech */}
+                            <div style={{
+                                height: '30%', width: '70%', display: `${administrador ? 'flex' : 'none'}`,
+                                alignItems: 'center', justifyContent: 'center', flexDirection: 'column'
+                            }}>
+                                <Form
+                                    name="basic"
+                                    style={{
+                                        maxWidth: 600,
+                                    }}
+                                    initialValues={{
+                                        remember: true,
+                                    }}
+                                    onFinish={onLogin}
+                                    onFinishFailed={onFinishFailed}
+                                    autoComplete="off"
+                                >
+
+
+                                    <Form.Item
+                                        label="Password"
+                                        name="password"
+                                        style={{ margin: 0 }}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Por favor ingresa una constraseña',
+                                            },
+                                        ]}
+                                    >
+                                        <Input.Password />
+                                    </Form.Item>
+
+
+
+                                    <Form.Item
+                                        style={{
+                                            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            marginTop: '3vh'
+                                        }}
+                                    >
+                                        <Button type="primary" htmlType="submit" style={{ backgroundColor: teams[team].color }}>
+                                            Iniciar sesión
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+
+                            </div>
+                            {/* chech */}
+                            <div style={{
+                                height: '20%', width: '80%', display: `${guest ? 'flex' : 'none'}`,
+                                alignItems: 'center', justifyContent: 'center',
+                            }}>
+                                <Form
+                                    name="basic"
+                                    style={{
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
+                                        margin: 0
+                                    }}
+                                    initialValues={{
+                                        remember: true,
+                                    }}
+                                    onFinish={onFinish}
+                                    onFinishFailed={onFinishFailed}
+                                    autoComplete="off"
+                                >
+
+
+                                    <Form.Item
+                                        label="Código de invitado"
+                                        name="password"
+                                        style={{ margin: '3vh 0 0 0', width: '80%' }}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your password!',
+                                            },
+                                        ]}
+                                    >
+                                        <Input.Password />
+                                    </Form.Item>
+
+
+
+                                    <Form.Item
+                                        style={{
+                                            width: '60%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            margin: '3vh 0 0 0'
+                                        }}
+                                    >
+                                        <Button type="primary" htmlType="submit" style={{ backgroundColor: teams[team].color }}>
+                                            Entrar
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+
+                            </div>
+
+                            <div style={{
+                                height: '30%', width: '100%', display: `${!administrador ? !guest ? 'flex' : 'none' : 'none'}`, marginTop: '1vh',
+                                 alignItems: 'center', justifyContent: 'center'
+                            }}>
+                                <Col style={{ width: '70%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                                    <Button onClick={() => setAdministrador(true)} style={{
+                                        height: '45%', width: '100%', borderRadius: '3vh', backgroundColor: `${teams[team].color2}80`,
+                                        boxShadow:'0px 0px 10px #00000030', border:`1.5px solid ${teams[team].color2}80`,
+                                        color: teams[team].color2, fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
+                                    }}>Administrador</Button>
+                                    <Button onClick={() => setGuest(true)} style={{
+                                        height: '45%', width: '100%', borderRadius: '3vh', backgroundColor: `${teams[team].color3}70`,
+                                        marginTop: '5%', boxShadow:'0px 0px 10px #00000030', border:`1.5px solid ${teams[team].color3}70`,
+                                        color: teams[team].color3, fontWeight: 650, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`
+                                    }}>Invitado</Button>
+                                </Col>
+
+
+
+                            </div>
+
+                        </div>
+
+                        : <></>
+                }
 
 
             </div>
