@@ -317,15 +317,7 @@ export const LoginPage = () => {
 
                 </div>
 
-                <div style={{ display: `${disapear ? 'none' : 'flex'}`, alignItems: 'flex-end', justifyContent: 'center', height: 'auto', }}>
-                    <h1
-                        className='Taskify'
-                        style={{
-                            fontSize: '350%', fontFamily: 'Berlin Sans FB', lineHeight: '0em',
-                            fontWeight: 400, transition: 'all 0.45s ease-in-out',
-                            color: '#222', fontSize: '1.3em'
-                        }}>Zona Azzhakrutt  2023 <b>¡Fusión con lo mejor!</b></h1>
-                </div>
+                
 
                 {
                     team ?
