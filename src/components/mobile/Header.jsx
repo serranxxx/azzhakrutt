@@ -28,7 +28,7 @@ export const HeaderMobile = (props) => {
                     }
                 </Select>
 
-                <Row style={{ width: '30%' }}>
+                <Row style={{ width: '50%', display:'flex', alignItems:'center', justifyContent:'flex-end', flexDirection:'row' }}>
                     <Button onClick={resetSearch} icon={filtering ? <AiFillFilter size={25} style={{ color: color }} /> : <AiOutlineFilter size={25} style={{ color: color }} />}
                         type='ghost' style={{
                             color: color, marginRight: '1vh'
