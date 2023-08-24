@@ -33,7 +33,7 @@ export const PeopleCard = (props) => {
                                 }} >{data.Contacto.numero}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    color: 'red'
+                                    color: color, fontWeight:500
                                 }} >{data.Contacto.num_emergencia}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
