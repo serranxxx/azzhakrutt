@@ -10,7 +10,7 @@ export const HeaderMobile = (props) => {
     return (
         <Header style={{
             position: 'fixed', zIndex: 1, width: '100%',
-            backgroundColor: `${bg}`,
+            backgroundColor: `${bg}70`,
             display: 'flex', alignItems: 'center', justifyContent: 'center'
         }}>
             <Row style={{
@@ -26,7 +26,7 @@ export const HeaderMobile = (props) => {
                         color: color, fontWeight: '500', height:'4.5vh',
                         border: `1.5px solid ${bg}`, borderRadius: '1vh 0 0 1vh',
                     }} />
-                    <Select style={{ width: '80%', height:'4.5vh' }} onChange={handleFilterEslabon}>
+                    <Select style={{ width: '60%', height:'4.5vh' }} onChange={handleFilterEslabon}>
                         {
                             celula.map((celula) => (
                                 <Option key={celula} value={celula}

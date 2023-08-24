@@ -11,17 +11,18 @@ export const PeopleCard = (props) => {
                     <div
                         key={data._id}
                         style={{
-                            width: '85%', height: '15vh', borderRadius: '2vh',
+                            width: '85%', height: 'auto', borderRadius: '2vh',
                             margin: '0 0 2vh 0', backgroundColor: `${bg}60`,
                             display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
-                            padding: '0 2% 0 2%'
+                            padding: '2%'
                         }}>
-                        <div style={{ width: '33%', height: '70%' }}>
+                        <div style={{ width: '60%', height: 'auto' }}>
                             <Col style={{ width: '100%', }}>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    fontWeight: 500, color: color
+                                    fontWeight: 500, color: color, 
                                 }} >{data.name}</p>
+                                <hr style={{width:'100%', border:`1.5px solid ${color}`}}/>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
                                     color: color
@@ -32,12 +33,18 @@ export const PeopleCard = (props) => {
                                 }} >{data.Contacto.numero}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
+                                    color: 'red'
+                                }} >{data.Contacto.num_emergencia}</p>
+                                <p style={{
+                                    width: '100%', textAlign: 'left', margin: 0,
                                     color: color
                                 }} >{data.DoB}</p>
+                                
+                                
                             </Col>
                         </div>
-                        <div style={{ width: '0.5%', height: '50%', backgroundColor: color, borderRadius: '2vh' }} />
-                        <div style={{ width: '30%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+                        <div style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Col style={{
                                 width: '100%', flexDirection:'column',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', height: '70%'
@@ -62,22 +69,7 @@ export const PeopleCard = (props) => {
                                 </Col>
                             </Col>
                         </div>
-                        <div style={{ width: '0.5%', height: '50%', backgroundColor: color, borderRadius: '2vh' }} />
-                        <div style={{
-                            width: '33%', display: 'flex',
-                            alignItems: 'flex-start', justifyContent: 'center', height: '70%'
-                        }}>
-                            <Col style={{ width: '100%', marginLeft: '1vh', marginTop: '1vh' }}>
-                                <p style={{
-                                    width: '100%', textAlign: 'left', margin: 0,
-                                    lineHeight: '0.9em', color: color
-                                }} >{data.Contacto.emergencia}</p>
-                                <p style={{
-                                    width: '100%', textAlign: 'left', margin: 0,
-                                    marginTop: '1vh', color: color
-                                }} >{data.Contacto.num_emergencia}</p>
-                            </Col>
-                        </div>
+
 
 
                     </div>

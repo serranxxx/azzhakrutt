@@ -10,10 +10,11 @@ export const FooterMobile = (props) => {
         <Footer style={{
             position: 'fixed', zIndex: 1, width: '100%', bottom: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: `${bg}`
+            height:'10vh',
+            backgroundColor: `${bg}70`
         }}>
             <Row style={{
-                width: '60%',
+                width: '80%',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between'
             }}>
                 <Button
