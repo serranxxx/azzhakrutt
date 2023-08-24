@@ -8,7 +8,7 @@ export const AppReducer = (state = {}, action) => {
         case types.SET_TEAM:
             return {
                 ...state,
-                team: action.payload
+                user: action.payload
             }
 
         case types.USERS:

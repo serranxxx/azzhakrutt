@@ -6,7 +6,13 @@ import { appContext } from './appContext'
 const init = () => {
 
     return {
-        team: ''
+        USER: {
+            name: '',
+            full_name: '',
+            celula: '',
+            campo: '', 
+            value: ''
+        }
     }
 }
 
@@ -14,13 +20,13 @@ export const AppProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(AppReducer, {}, init)
 
-    const setTeam = (team = '') => {
-        const Team = team
+    const setUser = (name = '', full_name = '', celula = '', campo = '', value) => {
+        const USER = {name, full_name, celula, campo, value}
         const action = {
             type: types.SET_TEAM,
-            payload: Team
+            payload: USER
         }
-        localStorage.setItem('team', JSON.stringify(Team))
+        localStorage.setItem('USER', JSON.stringify(USER))
         dispatch(action)
     }
 
@@ -51,7 +57,7 @@ export const AppProvider = ({ children }) => {
     return (
         <appContext.Provider value={{
             ...state,
-            setTeam,
+            setUser,
             setData_users, 
             login,
             logout

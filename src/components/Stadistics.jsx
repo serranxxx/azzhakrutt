@@ -255,21 +255,20 @@ export const Stadistics = (props) => {
 
             <div className='layout-small' style={{
                 alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-                flexWrap: 'wrap', width: '90%', marginTop: '1vh',
+                flexWrap: 'wrap', width: '90%', marginTop: '0vh',
             }}>
-                <hr style={{ width: '90%', border: `2px solid ${props.color}` }} />
                 <div style={{
                     width: '100%', alignItems: 'center', justifyContent: 'center',
                     margin: '3vh 0 1.5vh 0', display: `${props.team === 'bite' ? 'none' : 'flex'}`,
                     flexWrap: 'wrap'
                 }}>
-                    <Radio.Group
+                    {/* <Radio.Group
                         onChange={handleCell}
                         // value={selectedRadiobutton}
                         border={true}
                         defaultValue='todos'
                         buttonStyle="dashed"
-                        style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                        style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
                         <Radio.Button value={'todos'} style={{
                             width: 'auto', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
                             backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
@@ -288,7 +287,7 @@ export const Stadistics = (props) => {
 
                             ))
                         }
-                    </Radio.Group>
+                    </Radio.Group> */}
                 </div>
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                     <Col style={{ width: '90%', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
@@ -299,7 +298,7 @@ export const Stadistics = (props) => {
 
                             <Card bordered={false} style={{ margin: '0.5vh', width: '30%', backgroundColor: `${props.bg}80` }}>
                                 <Statistic
-                                    title="Campo total"
+                                    title="Total"
                                     value={getTotalCampo()}
                                     precision={0}
                                     valueStyle={{
@@ -312,7 +311,7 @@ export const Stadistics = (props) => {
 
                             <Card bordered={false} style={{ margin: '.5vh', width: '30%', backgroundColor: `${props.bg}80` }}>
                                 <Statistic
-                                    title="Campo activo"
+                                    title="Activo"
                                     value={getActives()}
                                     precision={0}
                                     valueStyle={{
@@ -325,7 +324,7 @@ export const Stadistics = (props) => {
 
                             <Card bordered={false} style={{ margin: '.5vh', width: '30%', backgroundColor: `${props.bg}80` }}>
                                 <Statistic
-                                    title="Campo inactivo"
+                                    title="Inactivo"
                                     value={getInactives()}
                                     precision={0}
                                     valueStyle={{
@@ -337,7 +336,7 @@ export const Stadistics = (props) => {
                             </Card>
 
                         </div>
-                        <hr style={{ width: '100%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
+                        <hr style={{ width: '80%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
                         <div style={{
                             width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
                             flexDirection: 'row', flexWrap: 'wrap'
@@ -368,7 +367,7 @@ export const Stadistics = (props) => {
                     </Col>
 
 
-                    <hr style={{ width: '90%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
+                    <hr style={{ width: '80%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
                     <Row style={{ width: '100%', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'row' }}>
                         {
                             props.sacramentos.map((sacramento) => (

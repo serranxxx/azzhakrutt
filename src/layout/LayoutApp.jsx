@@ -1,40 +1,30 @@
-import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Drawer, Input, Row, Form, Select, DatePicker, InputNumber, Checkbox, Col, message, Switch, Space } from 'antd'
 
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/UseAxios'
 import { appContext } from '../context/appContext'
-import { CiLogout } from "react-icons/ci";
 import { MdDoneOutline, MdRemove } from "react-icons/md";
-import { AiOutlinePlus, AiFillEdit } from "react-icons/ai";
 import { editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
-import { TeamsTable } from '../components/TeamsTable'
-import { Stadistics } from '../components/Stadistics'
-import { BiGift, BiRefresh } from "react-icons/bi";
-import { IoIosRefresh } from "react-icons/io";
 import { teams } from '../helpers/teams'
+import { Layout, theme } from 'antd';
+import { SiderApp } from '../components/Sider'
+import { HeaderApp } from '../components/Header'
+import { ContentApp } from '../components/Content'
+import { HeaderMobile } from '../components/mobile/Header'
+import { ContentMobile } from '../components/mobile/Content'
+import { FooterMobile } from '../components/mobile/Footer'
+const { Option } = Select
 
-import { BsFillPeopleFill } from "react-icons/bs";
-import { IoPieChart } from "react-icons/io5";
-import { BiSolidContact } from "react-icons/bi";
-import { AiOutlineFilter, AiFillFilter } from "react-icons/ai";
-
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-
-} from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-
-const { Header, Sider, Content } = Layout;
-
+const { Header, Content, Footer } = Layout;
 
 export const LayoutApp = () => {
 
-  const { Option } = Select
+
+  const userData = JSON.parse(localStorage.getItem('USER'))
   const { response, loading, error, operation } = useAxios()
   const { setData_users, data_users, logout } = useContext(appContext)
-  const team = JSON.parse(localStorage.getItem('team'))
+
   const navigate = useNavigate()
 
   const [collapsed, setCollapsed] = useState(false);
@@ -42,14 +32,19 @@ export const LayoutApp = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [newUser, setNewUser] = useState(false);
-  const [newUserSmall, setNewUserSmall] = useState(false)
-  const [user] = Form.useForm();
-  const [edit] = Form.useForm();
-  const [shortName, setShortName] = useState('')
+  const [newUser, setNewUser] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  const [newUser_, setNewUser_] = useState(false)
+  const [open_, setOpen_] = useState(false)
+
+  const [user] = Form.useForm()
+  const [edit] = Form.useForm()
 
   const [data, setData] = useState(data_users)
   const [smallData, setSmallData] = useState(data_users)
+
+  const [team, setTeam] = useState('')
 
   const [name, setName] = useState('')
   const [img, setImg] = useState('')
@@ -57,14 +52,16 @@ export const LayoutApp = () => {
   const [celula, setCelula] = useState('')
   const [people, setPeople] = useState('')
   const [bg, setBg] = useState('')
+
   const [render, setRender] = useState(false)
+
   const [celula_, setCelula_] = useState([])
   const [curso, setCurso] = useState([])
   const [sacramento, setSacramento] = useState([])
   const [filterCel, setFilterCel] = useState([])
+
   const [state, setState] = useState('table')
-  const [open, setOpen] = useState(false)
-  const [openSmall, setOpenSmall] = useState(false)
+  
   const [formFinish, setFormFinish] = useState(false)
   const [selected, setSelected] = useState(false)
   const [filtering, setFiltering] = useState(false)
@@ -499,19 +496,6 @@ export const LayoutApp = () => {
       )
 
     },
-
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
-
-    },
-
-
   ];
   const sheratanColumns = [
 
@@ -899,37 +883,7 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
 
-    },
-
-    // {
-    //   title: `Detalles`,
-    //   key: 'operation',
-    //   fixed: 'right',
-    //   width: '7%',
-    //   render: (text, record) =>
-    //     <div style={{
-    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
-    //     }}>
-    //       <Button
-    //         onClick={() => editSheratans(record.name, record.celula, record.dob, record.cursos.precurso, record.cursos.iniciados, record.cursos.avanzados, record.cursos.capitanes, record.cursos.ccc, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-    //         className='div-searcher'
-    //         // icon={<TbInfoTriangle size={30} />}
-    //         style={{
-    //           color: color, border: `1.5px solid ${bg}`,
-    //           fontWeight: 500,
-    //           backgroundColor: bg
-    //         }}>Editar</Button>
-    //     </div>,
-    // },
   ];
   const yahoskaColumns = [
 
@@ -1317,37 +1271,7 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
 
-    },
-
-    // {
-    //   title: `Detalles`,
-    //   key: 'operation',
-    //   fixed: 'right',
-    //   width: '7%',
-    //   render: (text, record) =>
-    //     <div style={{
-    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
-    //     }}>
-    //       <Button
-    //         onClick={() => editYahoskas(record.name, record.celula, record.dob, record.cursos.iniciados, record.cursos.soldados, record.cursos.caballeros, record.cursos.llamados, record.cursos.cdj, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-    //         className='div-searcher'
-    //         // icon={<TbInfoTriangle size={30} />}
-    //         style={{
-    //           color: color, border: `1.5px solid ${bg}`,
-    //           fontWeight: 500,
-    //           backgroundColor: bg
-    //         }}>Editar</Button>
-    //     </div>,
-    // },
   ];
   const biteColumns = [
 
@@ -1684,1229 +1608,9 @@ export const LayoutApp = () => {
       )
 
     },
-    {
-      title: `id`,
-      width: '10%',
-      dataIndex: '_id',
-      key: '_id',
-      render: (text) => (
-        <p style={{ fontWeight: 400, textAlign: 'center', color: '#bbb' }}>{text}</p>
-      )
-
-    },
-
-    // {
-    //   title: `Detalles`,
-    //   key: 'operation',
-    //   fixed: 'right',
-    //   width: '7%',
-    //   render: (text, record) =>
-    //     <div style={{
-    //       display: 'flex', alignItems: 'center', justifyContent: 'center'
-    //     }}>
-    //       <Button
-    //         onClick={() => editBites(record.name, record.dob, record.cursos.discipulos, record.cursos.apostoles, record.cursos.profetas, record.cursos.cristeros, record.Sacramentos.bautizo, record.Sacramentos.comunion, record.Sacramentos.confirmacion, record.Active, record._id, record.Contacto.numero, record.Contacto.emergencia, record.Contacto.num_emergencia)}
-    //         className='div-searcher'
-    //         // icon={<TbInfoTriangle size={30} />}
-    //         style={{
-    //           color: color, border: `1.5px solid ${bg}`,
-    //           fontWeight: 500,
-    //           backgroundColor: bg
-    //         }}>Editar</Button>
-    //     </div>,
-    // },
-  ];
-  const nasseriColumnsSmall = [
-    {
-      title: `Nombre`,
-      width: '7%',
-      dataIndex: 'name',
-      key: 'name',
-      // fixed: 'left',
-
-    },
-    {
-      title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
-      width: '8%',
-      dataIndex: 'celula',
-      key: 'celula',
-
-    },
-    {
-      title: `DoB`,
-      width: '8%',
-      dataIndex: 'DoB',
-      key: 'DoB',
-
-    },
-    {
-      title: `Iniciadas`,
-      width: '7%',
-      dataIndex: ['cursos', 'iniciadas'],
-      key: 'iniciadas',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Adiestradas`,
-      width: '8%',
-      dataIndex: ['cursos', 'adiestradas'],
-      key: 'adiestradas',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Religiosas`,
-      width: '8%',
-      dataIndex: ['cursos', 'religiosas'],
-      key: 'religiosas',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `CDJ`,
-      width: '8%',
-      dataIndex: ['cursos', 'cdj'],
-      key: 'cdj',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Líder en mi`,
-      width: '8%',
-      dataIndex: ['cursos', 'lider_en'],
-      key: 'lider_en',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-        </>
-      )
-
-    },
-    {
-      title: `VEC`,
-      width: '7%',
-      dataIndex: ['cursos', 'v_cristo'],
-      key: 'v_cristo',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Bautizo`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'bautizo'],
-      key: 'bautizo',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Comunión`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'comunion'],
-      key: 'comunion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Confirmación`,
-      width: '9%',
-      dataIndex: ['Sacramentos', 'confirmacion'],
-      key: 'confirmacion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Célular`,
-      width: '8%',
-      dataIndex: ['Contacto', 'numero'],
-      key: 'numero',
-      render: (value) =>
-        <p style={{ fontWeight: 400, }}>{value}</p>
-
-    },
-    {
-      title: `Contacto`,
-      width: '8%',
-      dataIndex: ['Contacto', 'emergencia'],
-      key: 'emergencia',
-      render: (value) =>
-        <p style={{ fontWeight: 400, }}>{value}</p>
-
-    },
-    {
-      title: `Número`,
-      width: '8%',
-      dataIndex: ['Contacto', 'num_emergencia'],
-      key: 'num_emergencia',
-      render: (value) =>
-        <p style={{ fontWeight: 400, }}>{value}</p>
-
-    },
-
-    {
-      title: `Estatus`,
-      width: '7%',
-      dataIndex: 'Active',
-      key: 'Active',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <p style={{ fontWeight: 500, textAlign: 'center', color: '#CCC' }}>Activo</p>
-              : <p style={{ fontWeight: 400, textAlign: 'center', color: '#777' }}>Inactivo</p>
-          }
-
-        </>
-      )
-
-    },
 
   ];
-  const sheratanColumnsSmall = [
 
-    {
-      title: `Nombre`,
-      width: '8%',
-      dataIndex: 'name',
-      key: 'name',
-
-    },
-    {
-      title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
-      width: '8%',
-      dataIndex: 'celula',
-      key: 'celula',
-
-    },
-    {
-      title: `DoB`,
-      width: '8%',
-      dataIndex: 'DoB',
-      key: 'DoB',
-
-    },
-    {
-      title: `Precurso`,
-      width: '7%',
-      dataIndex: ['cursos', 'precurso'],
-      key: 'precurso',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Iniciados`,
-      width: '8%',
-      dataIndex: ['cursos', 'iniciados'],
-      key: 'iniciados',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Avanzados`,
-      width: '8%',
-      dataIndex: ['cursos', 'avanzados'],
-      key: 'avanzados',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Capitanes`,
-      width: '8%',
-      dataIndex: ['cursos', 'capitanes'],
-      key: 'capitanes',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `CCC`,
-      width: '8%',
-      dataIndex: ['cursos', 'ccc'],
-      key: 'ccc',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-        </>
-      )
-
-    },
-
-    {
-      title: `Bautizo`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'bautizo'],
-      key: 'bautizo',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Comunión`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'comunion'],
-      key: 'comunion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Confirmación`,
-      width: '9%',
-      dataIndex: ['Sacramentos', 'confirmacion'],
-      key: 'confirmacion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Célular`,
-      width: '8%',
-      dataIndex: ['Contacto', 'numero'],
-      key: 'numero',
-
-    },
-    {
-      title: `Contacto`,
-      width: '8%',
-      dataIndex: ['Contacto', 'emergencia'],
-      key: 'emergencia',
-
-    },
-    {
-      title: `Número`,
-      width: '8%',
-      dataIndex: ['Contacto', 'num_emergencia'],
-      key: 'num_emergencia',
-
-    },
-
-    {
-      title: `Estatus`,
-      width: '7%',
-      dataIndex: 'Active',
-      key: 'Active',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <p style={{ fontWeight: 500, textAlign: 'center', color: '#CCC' }}>Activo</p>
-              : <p style={{ fontWeight: 400, textAlign: 'center', color: '#777' }}>Inactivo</p>
-          }
-
-        </>
-      )
-
-    },
-
-
-
-  ];
-  const yahoskaColumnsSmall = [
-
-    {
-      title: `Nombre`,
-      width: '8%',
-      dataIndex: 'name',
-      key: 'name',
-
-    },
-    {
-      title: `${celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`,
-      width: '8%',
-      dataIndex: 'celula',
-      key: 'celula',
-
-    },
-    {
-      title: `DoB`,
-      width: '8%',
-      dataIndex: 'DoB',
-      key: 'DoB',
-
-
-    },
-    {
-      title: `Iniciados`,
-      width: '7%',
-      dataIndex: ['cursos', 'iniciados'],
-      key: 'iniciados',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Soldados`,
-      width: '8%',
-      dataIndex: ['cursos', 'soldados'],
-      key: 'soldados',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Caballeros`,
-      width: '8%',
-      dataIndex: ['cursos', 'caballeros'],
-      key: 'caballeros',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Llamados`,
-      width: '8%',
-      dataIndex: ['cursos', 'llamados'],
-      key: 'llamados',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `CDJ`,
-      width: '8%',
-      dataIndex: ['cursos', 'cdj'],
-      key: 'cdj',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-        </>
-      )
-
-    },
-
-    {
-      title: `Bautizo`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'bautizo'],
-      key: 'bautizo',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Comunión`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'comunion'],
-      key: 'comunion',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Confirmación`,
-      width: '9%',
-      dataIndex: ['Sacramentos', 'confirmacion'],
-      key: 'confirmacion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Célular`,
-      width: '8%',
-      dataIndex: ['Contacto', 'numero'],
-      key: 'numero',
-
-
-    },
-    {
-      title: `Contacto`,
-      width: '8%',
-      dataIndex: ['Contacto', 'emergencia'],
-      key: 'emergencia',
-
-
-    },
-    {
-      title: `Número`,
-      width: '8%',
-      dataIndex: ['Contacto', 'num_emergencia'],
-      key: 'num_emergencia',
-
-
-    },
-
-    {
-      title: `Estatus`,
-      width: '7%',
-      dataIndex: 'Active',
-      key: 'Active',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <p style={{ fontWeight: 500, textAlign: 'center', color: '#CCC' }}>Activo</p>
-              : <p style={{ fontWeight: 400, textAlign: 'center', color: '#777' }}>Inactivo</p>
-          }
-
-        </>
-      )
-
-    },
-
-  ];
-  const biteColumnsSmall = [
-
-    {
-      title: `Nombre`,
-      width: '8%',
-      dataIndex: 'name',
-      key: 'name',
-
-    },
-    {
-      title: `DoB`,
-      width: '8%',
-      dataIndex: 'DoB',
-      key: 'DoB',
-
-
-    },
-    {
-      title: `Discípulos`,
-      width: '7%',
-      dataIndex: ['cursos', 'discipulos'],
-      key: 'discipulos',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Apostoles`,
-      width: '8%',
-      dataIndex: ['cursos', 'apostoles'],
-      key: 'apostoles',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Profetas`,
-      width: '8%',
-      dataIndex: ['cursos', 'profetas'],
-      key: 'profetas',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Cristeros`,
-      width: '8%',
-      dataIndex: ['cursos', 'cristeros'],
-      key: 'cristeros',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: bg }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: bg }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Bautizo`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'bautizo'],
-      key: 'bautizo',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Comunión`,
-      width: '8%',
-      dataIndex: ['Sacramentos', 'comunion'],
-      key: 'comunion',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-    {
-      title: `Confirmación`,
-      width: '9%',
-      dataIndex: ['Sacramentos', 'confirmacion'],
-      key: 'confirmacion',
-
-      render: (text) => (
-        <>
-          {
-            text
-              ? <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdDoneOutline size={30} style={{ color: color }} />
-              </div>
-
-              : <div style={{
-                height: '100%', width: '100%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <MdRemove size={30} style={{ color: color }} />
-              </div>
-          }
-
-        </>
-      )
-
-    },
-
-    {
-      title: `Célular`,
-      width: '8%',
-      dataIndex: ['Contacto', 'numero'],
-      key: 'numero',
-
-
-    },
-    {
-      title: `Contacto`,
-      width: '8%',
-      dataIndex: ['Contacto', 'emergencia'],
-      key: 'emergencia',
-
-
-    },
-    {
-      title: `Número`,
-      width: '8%',
-      dataIndex: ['Contacto', 'num_emergencia'],
-      key: 'num_emergencia',
-
-
-    },
-
-    {
-      title: `Estatus`,
-      width: '7%',
-      dataIndex: 'Active',
-      key: 'Active',
-      render: (text) => (
-        <>
-          {
-            text
-              ? <p style={{ fontWeight: 500, textAlign: 'center', color: '#CCC' }}>Activo</p>
-              : <p style={{ fontWeight: 400, textAlign: 'center', color: '#777' }}>Inactivo</p>
-          }
-
-        </>
-      )
-
-    },
-
-  ];
-
-  const showDrawer = () => {
-    setNewUser(true);
-  };
 
   const handleNewUser = (e) => {
 
@@ -2971,25 +1675,6 @@ export const LayoutApp = () => {
     }
   }
 
-  const handleColumnsSmall = (team) => {
-    switch (team) {
-      case 'sheratan':
-        return sheratanColumnsSmall
-
-      case 'nasseri':
-        return nasseriColumnsSmall
-
-      case 'yahoska':
-        return yahoskaColumnsSmall
-
-      case 'bite':
-        return biteColumnsSmall
-
-      default:
-        break;
-    }
-  }
-
   const refresh = () => {
     getInitialData()
     switch (team) {
@@ -3034,123 +1719,19 @@ export const LayoutApp = () => {
     console.log(currentName)
     setFormFinish(true)
 
-    // switch (team) {
-    //   case 'sheratan':
-    //     editSheratan(operation, currentName, currentCel, currentDoB, currentCursos, currentSacramentos, currentContacto, currentEmergencia, currentC_emergencia, currentActive, current_id)
-    //     break
-    //   case 'nasseri':
-    //     editNasseri(operation, currentName, currentCel, currentDoB, currentCursos, currentSacramentos, currentContacto, currentEmergencia, currentC_emergencia, currentActive, current_id)
-    //     break
-    //   case 'yahoska':
-    //     editYahoska(operation, currentName, currentCel, currentDoB, currentCursos, currentSacramentos, currentContacto, currentEmergencia, currentC_emergencia, currentActive, current_id)
-    //     break
-    //   case 'bite':
-    //     editBite(operation, currentName, currentDoB, currentCursos, currentSacramentos, currentContacto, currentEmergencia, currentC_emergencia, currentActive, current_id)
-    //     break
-    //   default:
-    //     break;
-    // }
   }
 
-  const editNasseris = (name, celula, dob, iniciadas, adiestradas, religiosas, cdj, lider, vec, bautizo, comunion, confirmacion, active, _id, numero, emergencia, n_emergencia) => {
-
-    const cursos = [
-      iniciadas, adiestradas, religiosas, cdj, lider, vec
-    ]
-
-    const sacramentos = [
-      bautizo, comunion, confirmacion
-    ]
-
-    setOpen(true)
-    setCurrentName(name)
-    setCurrentCel(celula)
-    setCurrentDoB(dob)
-    setCurrentCursos(cursos)
-    setCurrentSacramentos(sacramentos)
-    setCurrentActive(active)
-    setCurrent_id(_id)
-    setCurrentContacto(numero)
-    setCurrentEmergencia(emergencia)
-    setCurrentC_emergencia(n_emergencia)
-    console.log(cursos)
-  }
-
-  const editSheratans = (name, celula, dob, precurso, iniciados, avanzados, capitanes, ccc, bautizo, comunion, confirmacion, active, _id, numero, emergencia, n_emergencia) => {
-
-    const cursos = [
-      precurso, iniciados, avanzados, capitanes, ccc
-    ]
-
-    const sacramentos = [
-      bautizo, comunion, confirmacion
-    ]
-
-    setOpen(true)
-    setCurrentName(name)
-    setCurrentCel(celula)
-    setCurrentDoB(dob)
-    setCurrentCursos(cursos)
-    setCurrentSacramentos(sacramentos)
-    setCurrentActive(active)
-    setCurrent_id(_id)
-    setCurrentContacto(numero)
-    setCurrentEmergencia(emergencia)
-    setCurrentC_emergencia(n_emergencia)
-    console.log(cursos)
-  }
-
-  const editYahoskas = (name, celula, dob, iniciados, saldados, caballeros, llamados, cdj, bautizo, comunion, confirmacion, active, _id, numero, emergencia, n_emergencia) => {
-
-    const cursos = [
-      iniciados, saldados, caballeros, llamados, cdj
-    ]
-
-    const sacramentos = [
-      bautizo, comunion, confirmacion
-    ]
-
-    setOpen(true)
-    setCurrentName(name)
-    setCurrentCel(celula)
-    setCurrentDoB(dob)
-    setCurrentCursos(cursos)
-    setCurrentSacramentos(sacramentos)
-    setCurrentActive(active)
-    setCurrent_id(_id)
-    setCurrentContacto(numero)
-    setCurrentEmergencia(emergencia)
-    setCurrentC_emergencia(n_emergencia)
-    console.log(cursos)
-  }
-
-  const editBites = (name, dob, discipulos, apostoles, profetas, cristeros, bautizo, comunion, confirmacion, active, _id, numero, emergencia, n_emergencia) => {
-
-    const cursos = [
-      discipulos, apostoles, profetas, cristeros
-    ]
-
-    const sacramentos = [
-      bautizo, comunion, confirmacion
-    ]
-
-    setOpen(true)
-    setCurrentName(name)
-    setCurrentDoB(dob)
-    setCurrentCursos(cursos)
-    setCurrentSacramentos(sacramentos)
-    setCurrentActive(active)
-    setCurrent_id(_id)
-    setCurrentContacto(numero)
-    setCurrentEmergencia(emergencia)
-    setCurrentC_emergencia(n_emergencia)
-    console.log(cursos)
-  }
-
-  const handleSmallData = (e) => {
+  const handleFilterData = (e) => {
     setSelected(true)
     setFiltering(true)
     const filter = data.filter((item) => item.name === e);
+    setSmallData(filter)
+  }
+
+  const handleFilterEslabon = (e) => {
+    setSelected(true)
+    setFiltering(true)
+    const filter = data.filter((item) => item.celula === e);
     setSmallData(filter)
   }
 
@@ -3160,61 +1741,28 @@ export const LayoutApp = () => {
     setSmallData(data)
   }
 
-  const smallEdit = () => {
-    if (selected) {
-      setOpenSmall(true)
-      switch (team) {
-        case 'sheratan':
-          smallData.map((data) => (
-            editSheratans(data.name, data.celula, data.dob, data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
-          ))
-          break;
-        case 'nasseri':
-          smallData.map((data) => (
-            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
-          ))
-          break;
-        case 'yahoska':
-          smallData.map((data) => (
-            editYahoskas(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
-          ))
-          break;
-        case 'bite':
-          smallData.map((data) => (
-            editBites(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
-          ))
-          break;
-        default:
-          break;
-      }
-    }
-
-    else message.error("Necesitas seleccionar a alguien antes de editar")
-
-  }
-
   const onEdit = () => {
     if (selected) {
       setOpen(true)
       switch (team) {
         case 'sheratan':
           smallData.map((data) => (
-            editSheratans(data.name, data.celula, data.dob, data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(data.name, data.celula, data.dob, [data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'nasseri':
           smallData.map((data) => (
-            editNasseris(data.name, data.celula, data.dob, data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(data.name, data.celula, data.dob, [data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'yahoska':
           smallData.map((data) => (
-            editYahoskas(data.name, data.celula, data.dob, data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(data.name, data.celula, data.dob, [data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'bite':
           smallData.map((data) => (
-            editBites(data.name, data.dob, data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros, data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(data.name, '', data.dob, [data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         default:
@@ -3222,12 +1770,22 @@ export const LayoutApp = () => {
       }
     }
 
-    else message.error("Necesitas seleccionar a alguien antes de editar")
+    else message.error("Debes haber realizado una selección antes de editar")
   }
 
-  const onClose = () => {
-    setOpen(false)
-    setOpenSmall(false)
+  const editDrawer = (name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
+    setOpen(true)
+    setCurrentName(name)
+    setCurrentCel(celula)
+    setCurrentDoB(dob)
+    setCurrentCursos(cursos)
+    setCurrentSacramentos(sacramentos)
+    setCurrentActive(active)
+    setCurrent_id(_id)
+    setCurrentContacto(num)
+    setCurrentEmergencia(emergencia)
+    setCurrentC_emergencia(e_num)
+    console.log(cursos)
   }
 
   const userLogout = () => {
@@ -3333,55 +1891,28 @@ export const LayoutApp = () => {
   }, [response])
 
   useEffect(() => {
-    getInitialData()
-    if (team) {
-      switch (team) {
-        case 'sheratan':
-          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams.sheratan.color})`
-          setName('Conquista Sheratan')
-          setImg(teams.sheratan.img)
-          setColor(teams.sheratan.color2)
-          setBg(teams.sheratan.color)
-          setCelula('carreta')
-          setPeople('pionero')
-          getSheratan(operation)
-          setShortName('Sheratan')
+    if (userData) {
+      document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams[userData.value].color})`
+      setTeam(userData.value)
+      setName(userData.full_name)
+      setImg(teams[userData.value].img)
+      setColor(teams[userData.value].color2)
+      setBg(teams[userData.value].color)
+      setCelula(userData.celula)
+      setPeople(userData.campo)
+      // setShortName(userData.name)
+
+      switch (userData.value) {
+        case 'sheratan': getSheratan(operation)
           break;
 
-        case 'nasseri':
-          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%),#f5f5f5)`
-          setName('Cadena Nasseri')
-          setImg(teams.nasseri.img)
-          setColor(teams.nasseri.color2)
-          setBg(teams.nasseri.color)
-          setCelula('eslabón')
-          setPeople('eslabonera')
-          getNasseri(operation)
-          setShortName('Nasseri')
+        case 'nasseri': getNasseri(operation)
           break;
 
-        case 'yahoska':
-          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams.yahoska.color})`
-          setName('Escuadrón Yahoska')
-          setImg(teams.yahoska.img)
-          setColor(teams.yahoska.color2)
-          setBg(teams.yahoska.color)
-          setCelula('escuadra')
-          setPeople('escuadrillero')
-          getYahoska(operation)
-          setShortName('Yahoska')
+        case 'yahoska': getYahoska(operation)
           break;
 
-        case 'bite':
-          document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams.bite.color})`
-          setName('Juvenil Bité Nirata')
-          setImg(teams.bite.img)
-          setColor(teams.bite.color2)
-          setBg(teams.bite.color)
-          setPeople('miembro')
-          setShortName('Bité Nirata')
-          // setCelula('miembro')
-          getBite(operation)
+        case 'bite': getBite(operation)
           break;
 
         default:
@@ -3390,7 +1921,9 @@ export const LayoutApp = () => {
     }
     setFilterCel([])
     setData([])
+    setCurso([])
     setSmallData([])
+    getInitialData()
   }, [])
 
   useEffect(() => {
@@ -3430,585 +1963,22 @@ export const LayoutApp = () => {
           render
             ? <>
               <Layout>
-                <Sider trigger={null} collapsible collapsed={collapsed}
-                  style={{
-                    height: '100vh', backgroundColor: `${bg}80`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    transition: 'all 0.45s ease-in-out'
-                  }}
-                >
-
-                  <img src={img} style={{
-                    transition: 'all 0.45s ease-in-out',
-                    height: '18vh', marginTop: '4vh', display: `${collapsed ? 'none' : ''}`
-                  }} />
-
-                  <hr style={{
-                    width: '90%', border: `1.5px solid ${color}`, marginTop: '3vh',
-                    display: `${collapsed ? 'none' : ''}`
-                  }} />
-
-                  <Col style={{
-                    width: `${collapsed ? '60px' : '150px'}`, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-                    flexDirection: 'column', height: `${collapsed ? '100%' : '30%'}`
-                  }}>
-                    <Button
-                      className='box'
-                      onClick={() => setState('table')}
-                      icon={collapsed ? <BsFillPeopleFill size={20} style={{ color: state === 'table' ? bg : `${color}90` }}/> : <></> }
-                      style={{
-                        transition: 'all 0.35s ease-in-out',
-                        width: '100%', margin: '1.5vh 0 1vh 0',
-                        backgroundColor: state === 'table' ? `${color}90` : bg, border: `1px solid ${bg}`,
-                        color: state === 'table' ? bg : color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
-                      }}>
-                      {`${collapsed ? '' : 'Mi campo'}`}
-                    </Button>
-
-                    <Button
-                      className='box'
-                      onClick={() => setState('metrics')}
-                      icon={collapsed ? <IoPieChart size={20} style={{ color: state === 'metrics' ? bg : `${color}90` }}/> : <></> }
-                      style={{
-                        transition: 'all 0.35s ease-in-out',
-                        width: '100%', margin: '1vh 0 1vh 0',
-                        backgroundColor: state === 'metrics' ? `${color}90` : bg, border: `1px solid ${bg}`,
-                        color: state === 'metrics' ? bg : color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
-                      }}>
-                      {`${collapsed ? '' : 'Métricos'}`}
-                    </Button>
-
-                    <Button
-                      className='box'
-                      icon={collapsed ? <BiSolidContact size={20} style={{ color: `${color}90` }}/> : <></> }
-                      style={{
-                        transition: 'all 0.35s ease-in-out',
-                        width: '100%', margin: '1vh 0 1vh 0',
-                        backgroundColor: bg, border: `1px solid ${bg}`,
-                        color: color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
-                      }}>
-                      {`${collapsed ? '' : 'Contacto'}`}
-                    </Button>
-
-                    <Button
-                      className='box'
-                      onClick={userLogout}
-                      icon={collapsed ? <CiLogout size={20} style={{ color: `${color}90` }}/> : <></> }
-                      style={{
-                        transition: 'all 0.35s ease-in-out',
-                        width: '100%', margin: '1vh 0 1vh 0',
-                        backgroundColor: bg, border: `1px solid ${bg}`,
-                        color: color, fontSize: '1.1em', fontWeight: 500, borderRadius: '3vh'
-
-                      }}>
-                      {`${collapsed ? '' : 'Logout'}`}
-                    </Button>
-                  </Col>
-
-                </Sider>
+                <SiderApp userLogout={userLogout} bg={bg} state={state} setState={setState} color={color} img={img} collapsed={collapsed} />
                 <Layout>
-                  <Header
-                    style={{
-                      padding: 0, backgroundColor: `${bg}60`, position: 'relative',
-                      display: 'flex', alignItems: 'center', justifyContent: 'flex-start'
-                    }}
-                  >
-                    <Button
-                      type="text"
-                      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                      onClick={() => setCollapsed(!collapsed)}
-                      style={{
-                        fontSize: '16px',
-                        width: 64,
-                        height: 64,
-                      }}
-                    />
+                  <HeaderApp refresh={refresh} bg={bg} name={name} color={color} setCollapsed={setCollapsed} collapsed={collapsed} />
+                  <ContentApp
+                    bg={bg} colorBgContainer={colorBgContainer} state={state} setNewUser={setNewUser}
+                    color={color} people={people} handleFilterData={handleFilterData} data={data} resetSearch={resetSearch}
+                    filtering={filtering} onEdit={onEdit} team={team} smallData={smallData} handleColumns={handleColumns}
+                    celula_={celula_} sacramento={sacramento} curso={curso} />
 
-                    <Row style={{
-                      width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-                      flexDirection: 'row', margin: '-2vh'
-                    }}>
-
-                      <p style={{
-                        fontSize: '2.5em', fontWeight: 650, fontStyle: 'italic',
-                        wordBreak: 'break-word', width: '70%', lineHeight: '0.9em',
-                        marginLeft: '2vh', color: color
-                      }}>{name}</p>
-
-                    </Row>
-
-                    <Button
-                      onClick={refresh}
-                      icon={<BiRefresh size={20} style={{ color: color }} />} style={{
-                        margin: '0', backgroundColor: bg, position: 'absolute',
-                        right: '20px',
-                        border: `1.5px solid ${bg}`
-                      }} />
-
-
-                  </Header>
-                  <Content
-                    style={{
-                      margin: '24px 16px',
-                      padding: 24,
-                      minHeight: 280,
-                      backgroundColor: `${bg}40`,
-                      background: colorBgContainer,
-                    }}
-                  >
-                    <div style={{
-                      display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start',
-                      height: 'auto', width: '100%', flexDirection: 'column', position: 'relative',
-                      paddingBottom: '4%'
-                    }}>
-
-
-                      <Row style={{
-                        width: '100%',
-                        display: `${state !== 'table' ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'space-between',
-                        flexDirection: 'row'
-                      }}>
-                        <Button
-                          onClick={showDrawer}
-                          style={{
-                            backgroundColor: bg,
-                            color: color, fontWeight: '500',
-                            border: `1.5px solid ${bg}`, borderRadius: '3vh',
-                            margin: '0 0.5vh 0 0.5vh', display: `${state !== 'table' ? 'none' : ''}`
-                          }}>
-                          {`+ ${people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}`}
-                        </Button>
-
-                        <Row>
-                          <Select style={{ width: '20vw' }} onChange={handleSmallData}>
-                            {
-                              data.map((celula) => (
-                                <Option key={celula._id} value={celula.name}
-                                  placeholder='Buscar por nombre'>
-                                  {celula.name}
-                                </Option>
-                              ))
-                            }
-                          </Select>
-
-                          <Button onClick={resetSearch} icon={filtering ? <AiFillFilter size={15} /> : <AiOutlineFilter size={15} />} style={{
-                            marginLeft: '1vh', backgroundColor: bg,
-                            color: color, fontWeight: '500',
-                            border: `1.5px solid ${bg}`, borderRadius: '1vh',
-                          }} />
-
-
-                          <Button onClick={onEdit} icon={<AiFillEdit size={15} />} style={{
-                            marginLeft: '0.5vh', backgroundColor: bg,
-                            color: color, fontWeight: '500',
-                            border: `1.5px solid ${bg}`, borderRadius: '1vh',
-                          }} />
-                        </Row>
-
-
-                      </Row>
-                      {
-                        state === 'table' ? <TeamsTable team={team} data={smallData} handleColumns={handleColumns} />
-                          : <Stadistics team={team} data={data} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
-                      }
-
-
-
-                    </div>
-                  </Content>
                 </Layout>
               </Layout>
-
-              <Drawer
-                title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
-                placement="right"
-                onClose={() => setNewUser(false)}
-                width='35%'
-                open={newUser}
-                extra={
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <Button
-                        onClick={() => user.resetFields()}
-                        style={{
-                          width: '100%', backgroundColor: 'transparent', color: color, fontWeight: 500,
-                          border: `2px solid ${bg}`
-                        }}>
-                        Cancelar
-                      </Button>
-                    </div>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <Button
-                        onClick={() => user.submit()}
-                        style={{
-                          width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
-                          border: `1.5px solid ${bg}`
-                        }}>
-                        Guardar
-                      </Button>
-                    </div>
-
-                  </Row>
-                }>
-
-                <Form
-                  name='my_form'
-                  form={user}
-                  onFinish={handleNewUser}
-                  style={{
-
-                    width: '100%'
-                  }}>
-
-                  <p style={{
-                    fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
-                  }}>Datos personales</p>
-                  <hr style={{
-                    width: '100%', border: '1.5px solid #00000020'
-                  }} />
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Nombre: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='name'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un nombre' }
-                        ]}
-                      >
-                        <Input style={{ width: '100%' }} placeholder={`Nombre de ${people}`} />
-                      </Form.Item>
-                    </div>
-
-                    <div style={{
-                      width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-                      display: `${team === 'bite' ? 'none' : ''}`
-                    }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='celula'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: `Por favor selecciona un ${celula}` }
-                        ]}
-                      >
-                        <Select style={{ width: '100%' }} placeholder={`${celula_[1]}`}>
-                          {
-
-                            celula_.map((celula) => (
-                              <Option key={celula} value={celula}>
-                                {celula}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </div>
-
-                    <div style={{
-                      width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-
-                    }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Fecha de nacimiento: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='dob'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor elige una fecha' }
-                        ]}
-                      >
-                        <DatePicker style={{ width: '100%' }} placeholder='2023-01-31' />
-                      </Form.Item>
-                    </div>
-
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Sacramentos:</p>
-                      <Form.Item
-                        name='sacramentos'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                      >
-                        <Select
-                          mode='multiple'
-                          style={{ width: '100%' }} placeholder={`Sacramentos`}>
-                          {
-
-                            sacramento.map((sacramentos) => (
-                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
-                                {sacramentos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  </Row>
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-1vh' }}>
-                    <div style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Cursos: </p>
-                      <Form.Item
-                        name='cursos'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                      >
-
-                        <Checkbox.Group
-                          style={{
-                            width: '100%',
-                          }}
-                        // onChange={onChange}
-                        >
-                          <Row>
-                            {
-
-                              curso.map((cursos) => (
-                                <Col span={8}>
-                                  <Checkbox name={cursos} value={cursos}>{cursos}</Checkbox>
-                                </Col>
-                              ))
-                            }
-                          </Row>
-                        </Checkbox.Group>
-                      </Form.Item>
-                    </div>
-
-
-                  </Row>
-
-
-                  <p style={{
-                    fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
-                  }}>Contacto de emergencia </p>
-                  <hr style={{
-                    width: '100%', border: '1.5px solid #00000020'
-                  }} />
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Celular: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='phone'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un celular' }
-                        ]}
-                      >
-                        <InputNumber style={{ width: '100%' }} placeholder='6141230520' />
-                      </Form.Item>
-                    </div>
-                  </Row>
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-2vh' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Contacto de emergencia: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='e_contacto'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un contacto' }
-                        ]}
-                      >
-                        <Input style={{ width: '100%' }} placeholder='Nombre del contacto' />
-                      </Form.Item>
-                    </div>
-
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Teléfono celular: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='e_phone'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un celular' }
-                        ]}
-                      >
-                        <InputNumber style={{ width: '100%' }} placeholder={`614 ...`} />
-                      </Form.Item>
-                    </div>
-                  </Row>
-
-
-                  {/* <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '2vh' }}>
-
-                  <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                    <Button style={{
-                      width: '100%', backgroundColor: 'transparent', color: color, fontWeight: 500,
-                      border: `2px solid ${bg}`
-                    }}>
-                      Cancelar
-                    </Button>
-                  </div>
-                  <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-
-                    <Form.Item
-                      style={{ width: '100%', margin: 0 }}
-                    >
-                      <Button htmlType='submit' type='primary' style={{
-                        width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
-                        border: `1.5px solid ${bg}`
-                      }}>
-                        Guardar
-                      </Button>
-                    </Form.Item>
-                  </div>
-
-
-                </Row> */}
-
-
-                </Form>
-              </Drawer>
-
-              <Drawer
-                title={currentName}
-                placement={'left'}
-                closable={false}
-                width={'30%'}
-                onClose={() => setOpen(false)}
-                open={open}
-                extra={
-                  <Space>
-                    <Switch
-                      // heckedChildren="Activo" unCheckedChildren="Inactivo"
-                      checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
-                  </Space>
-                }
-              >
-                <Form
-                  name='my_edit'
-                  form={edit}
-                  onFinish={handleEdit}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-
-
-                    <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
-
-                      <Col>
-                        <p>Nombre: </p>
-                        <Form.Item
-                          name='new_name'
-                          style={{ margin: 0 }}>
-                          <Input placeholder={currentName} />
-                        </Form.Item>
-                      </Col>
-
-                      <Col>
-                        <p>DoB: </p>
-                        <Form.Item
-                          name='new_dob'
-                          style={{ margin: 0 }}>
-                          <DatePicker placeholder={currentDoB} />
-                        </Form.Item>
-
-                      </Col>
-
-                      <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
-                        <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
-                        <Form.Item
-                          name='new_cel'
-                          style={{ margin: 0 }}>
-                          <Select style={{ width: '100%' }} placeholder={currentCel}>
-                            {
-
-                              celula_.map((celula) => (
-                                <Option key={celula} value={celula}>
-                                  {celula}
-                                </Option>
-                              ))
-                            }
-                          </Select>
-                        </Form.Item>
-
-                      </Col>
-
-
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
-                    margin: '1vh 0 1vh 0'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_cursos'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
-                          {
-
-                            curso.map((cursos) => (
-                              <Option key={cursos} value={cursos}>
-                                {cursos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_sacramento'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
-                          {
-
-                            sacramento.map((sacramentos) => (
-                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
-                                {sacramentos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-
-                  </div>
-
-                  <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
-                    <Button htmlType='submit' style={{
-                      marginTop: '8vh', width: '80%', backgroundColor: bg,
-                      border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
-                    }}>Guardar cambios</Button>
-                  </Form.Item>
-                </Form>
-              </Drawer>
             </>
             : <div style={{
               height: "90vh", width: '98vw', display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              <img src={teams[team].gif} style={{ width: '30%', height: '40%' }} />
+              <img src={teams[userData.value].gif} style={{ width: '30%', height: '40%' }} />
 
             </div>
         }
@@ -4018,339 +1988,242 @@ export const LayoutApp = () => {
       <div className='small'>
         {
           render
-            ? <>
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-                height: 'auto', width: 'auto', flexDirection: 'column', position: 'relative',
-                padding: '4% 0 4% 0'
-              }}>
-                <Row style={{
-                  width: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexDirection: 'row', margin: '0 0 2vh 0'
+            ? <Layout style={{ minHeight: '100vh' }}>
+              <HeaderMobile resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon}/>
+              <ContentMobile team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
+              <FooterMobile bg={bg} color={color} userLogout={userLogout} setState={setState} />
+            </Layout>
+            : <></>
+
+        }
+      </div>
+
+
+      <Drawer
+        title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
+        placement="right"
+        onClose={() => setNewUser(false)}
+        width='35%'
+        open={newUser}
+        extra={
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <Button
+                onClick={() => user.resetFields()}
+                style={{
+                  width: '100%', backgroundColor: 'transparent', color: color, fontWeight: 500,
+                  border: `2px solid ${bg}`
                 }}>
-                  <img src={img} style={{ height: '10vh' }} />
-                  <p style={{
-                    fontSize: '4em', fontWeight: 650, fontStyle: 'italic',
-                    wordBreak: 'break-word', width: 'auto', lineHeight: '0.9em',
-                    margin: '0 0 0 2vh', color: color
-                  }}>{shortName}</p>
-
-                </Row>
-
-                <hr style={{
-                  width: '80%', border: `2px solid ${color}`,
-                  marginTop: '0vh'
-                }} />
-
-
-                <Row style={{
-                  width: '70%',
-                  margin: '2vh 0 2vh 0', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                Cancelar
+              </Button>
+            </div>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <Button
+                onClick={() => user.submit()}
+                style={{
+                  width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
+                  border: `1.5px solid ${bg}`
                 }}>
+                Guardar
+              </Button>
+            </div>
 
-                  <Button
-                    onClick={refresh}
-                    icon={<BiRefresh size={20} style={{ color: '#f6f6f6' }} />} style={{
-                      margin: '0 0.1vh 0 0', backgroundColor: color,
-                      border: `1.5px solid ${color}`, borderRadius: '1vh 0 0 1vh'
-                    }} />
-                  <Button
-                    onClick={() => setNewUserSmall(true)}
-                    icon={<AiOutlinePlus size={20} />}
-                    style={{
-                      backgroundColor: color,
-                      color: '#f6f6f6', fontWeight: '500',
-                      border: `1.5px solid ${color}`, borderRadius: 0,
-                      margin: '0 0.1vh 0 0.1vh', display: `${state !== 'table' ? 'none' : ''}`
-                    }} />
-                  <Button
-                    onClick={() => setState('table')}
-                    style={{
-                      backgroundColor: color,
-                      color: '#f6f6f6', fontWeight: '500',
-                      border: `1.5px solid ${color}`, borderRadius: 0,
-                      margin: '0 0.1vh 0 0.1vh', display: `${state !== 'table' ? '' : 'none'}`
-                    }}>
-                    {`Mi campo`}
-                  </Button>
-                  <Button
-                    onClick={() => setState('metrics')}
-                    style={{
-                      margin: '0 0.1vh 0 0.1vh',
-                      backgroundColor: color, borderRadius: 0,
-                      color: '#f6f6f6', fontWeight: '500',
-                      border: `1.5px solid ${color}`,
-                    }}>
-                    Métricos
-                  </Button>
+          </Row>
+        }>
 
+        <Form
+          name='my_form'
+          form={user}
+          onFinish={handleNewUser}
+          style={{
 
-                  <Link to="/azzhakrutt/login" style={{
-                    // position: 'absolute', top: '70px', right: '150px'
-                  }}>
-                    <Button icon={<CiLogout size={20} style={{ color: '#f6f6f6' }} />} style={{
-                      margin: '0 0 0 0.1vh', backgroundColor: color,
-                      border: `1.5px solid ${color}`, borderRadius: '0 1vh 1vh 0'
-                    }} />
-                  </Link>
-                </Row>
+            width: '100%'
+          }}>
 
-                <hr style={{
-                  width: '80%', border: `2px solid ${color}`,
-                  marginTop: '0vh', display: state !== 'table' ? 'none' : ''
-                }} />
+          <p style={{
+            fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
+          }}>Datos personales</p>
+          <hr style={{
+            width: '100%', border: '1.5px solid #00000020'
+          }} />
 
-                <Col style={{ width: '70%', marginTop: '1vh', display: state !== 'table' ? 'none' : '' }}>
-                  {/* <p style={{ fontWeight: 500, margin: '1vh 0 0.5vh 0', fontStyle: 'italic' }}>{`Seleciona un ${people}`}</p> */}
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-                    <Button onClick={resetSearch} icon={<IoIosRefresh size={20} />} style={{ borderRadius: '1vh 0 0 1vh' }} />
-                    <Select style={{ width: '65%', margin: '0 0.5vh 0 0.5vh' }} onChange={handleSmallData}>
-                      {
-                        data.map((celula) => (
-                          <Option key={celula._id} value={celula.name}
-                            placeholder={people.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}>
-                            {celula.name}
-                          </Option>
-                        ))
-                      }
-                    </Select>
-                    <Button onClick={smallEdit} icon={<AiFillEdit size={20} />} style={{ borderRadius: '0 1vh 1vh 0' }} />
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Nombre: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='name'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un nombre' }
+                ]}
+              >
+                <Input style={{ width: '100%' }} placeholder={`Nombre de ${people}`} />
+              </Form.Item>
+            </div>
 
-                  </Row>
+            <div style={{
+              width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
+              display: `${team === 'bite' ? 'none' : ''}`
+            }}>
+              <p style={{
+                fontWeight: 500
+              }}>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='celula'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: `Por favor selecciona un ${celula}` }
+                ]}
+              >
+                <Select style={{ width: '100%' }} placeholder={`${celula_[1]}`}>
+                  {
 
-                </Col>
-                {
-                  state === 'table' ? <TeamsTable team={team} data={smallData} handleColumns={handleColumnsSmall} />
-                    : <Stadistics team={team} data={data} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
-                }
-              </div>
+                    celula_.map((celula) => (
+                      <Option key={celula} value={celula}>
+                        {celula}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </div>
 
-              <Drawer
-                title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
-                placement="right"
-                onClose={() => setNewUserSmall(false)}
-                width='100%'
-                open={newUserSmall}
-                // className='small'
-                extra={
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <Button
-                        onClick={() => user.resetFields()}
-                        style={{
-                          width: '100%', backgroundColor: 'transparent', color: color, fontWeight: 500,
-                          border: `2px solid ${bg}`
-                        }}>
-                        Cancelar
-                      </Button>
-                    </div>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <Button
-                        onClick={() => user.submit()}
-                        style={{
-                          width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
-                          border: `1.5px solid ${bg}`
-                        }}>
-                        Guardar
-                      </Button>
-                    </div>
+            <div style={{
+              width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
 
-                  </Row>
-                }>
+            }}>
+              <p style={{
+                fontWeight: 500
+              }}>Fecha de nacimiento: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='dob'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor elige una fecha' }
+                ]}
+              >
+                <DatePicker style={{ width: '100%' }} placeholder='2023-01-31' />
+              </Form.Item>
+            </div>
 
-                <Form
-                  name='my_form'
-                  form={user}
-                  onFinish={handleNewUser}
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Sacramentos:</p>
+              <Form.Item
+                name='sacramentos'
+                style={{ width: '100%', marginTop: '-1vh' }}
+              >
+                <Select
+                  mode='multiple'
+                  style={{ width: '100%' }} placeholder={`Sacramentos`}>
+                  {
+
+                    sacramento.map((sacramentos) => (
+                      <Option name={sacramento} key={sacramentos} value={sacramentos}>
+                        {sacramentos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </div>
+          </Row>
+
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-1vh' }}>
+            <div style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Cursos: </p>
+              <Form.Item
+                name='cursos'
+                style={{ width: '100%', marginTop: '-1vh' }}
+              >
+
+                <Checkbox.Group
                   style={{
+                    width: '100%',
+                  }}
+                // onChange={onChange}
+                >
+                  <Row>
+                    {
 
-                    width: '100%'
-                  }}>
-
-                  <p style={{
-                    fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
-                  }}>Datos personales</p>
-                  <hr style={{
-                    width: '100%', border: '1.5px solid #00000020'
-                  }} />
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Nombre: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='name'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un nombre' }
-                        ]}
-                      >
-                        <Input style={{ width: '100%' }} placeholder={`Nombre de ${people}`} />
-                      </Form.Item>
-                    </div>
-
-                    <div style={{
-                      width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-                      display: `${team === 'bite' ? 'none' : ''}`
-                    }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='celula'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: `Por favor selecciona un ${celula}` }
-                        ]}
-                      >
-                        <Select style={{ width: '100%' }} placeholder={`${celula_[1]}`}>
-                          {
-
-                            celula_.map((celula) => (
-                              <Option key={celula} value={celula}>
-                                {celula}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </div>
-
-                    <div style={{
-                      width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
-
-                    }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Fecha de nacimiento: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='dob'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor elige una fecha' }
-                        ]}
-                      >
-                        <DatePicker style={{ width: '100%' }} placeholder='2023-01-31' />
-                      </Form.Item>
-                    </div>
-
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Sacramentos:</p>
-                      <Form.Item
-                        name='sacramentos'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                      >
-                        <Select
-                          mode='multiple'
-                          style={{ width: '100%' }} placeholder={`Sacramentos`}>
-                          {
-
-                            sacramento.map((sacramentos) => (
-                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
-                                {sacramentos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </div>
+                      curso.map((cursos) => (
+                        <Col span={8}>
+                          <Checkbox name={cursos} value={cursos}>{cursos}</Checkbox>
+                        </Col>
+                      ))
+                    }
                   </Row>
-
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-1vh' }}>
-                    <div style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Cursos: </p>
-                      <Form.Item
-                        name='cursos'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                      >
-
-                        <Checkbox.Group
-                          style={{
-                            width: '100%',
-                          }}
-                        // onChange={onChange}
-                        >
-                          <Row>
-                            {
-
-                              curso.map((cursos) => (
-                                <Col span={8}>
-                                  <Checkbox name={cursos} value={cursos}>{cursos}</Checkbox>
-                                </Col>
-                              ))
-                            }
-                          </Row>
-                        </Checkbox.Group>
-                      </Form.Item>
-                    </div>
+                </Checkbox.Group>
+              </Form.Item>
+            </div>
 
 
-                  </Row>
+          </Row>
 
 
-                  <p style={{
-                    fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
-                  }}>Contacto de emergencia </p>
-                  <hr style={{
-                    width: '100%', border: '1.5px solid #00000020'
-                  }} />
+          <p style={{
+            fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
+          }}>Contacto de emergencia </p>
+          <hr style={{
+            width: '100%', border: '1.5px solid #00000020'
+          }} />
 
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Celular: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='phone'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un celular' }
-                        ]}
-                      >
-                        <InputNumber style={{ width: '100%' }} placeholder='6141230520' />
-                      </Form.Item>
-                    </div>
-                  </Row>
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Celular: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='phone'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un celular' }
+                ]}
+              >
+                <InputNumber style={{ width: '100%' }} placeholder='6141230520' />
+              </Form.Item>
+            </div>
+          </Row>
 
-                  <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-2vh' }}>
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Contacto de emergencia: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='e_contacto'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un contacto' }
-                        ]}
-                      >
-                        <Input style={{ width: '100%' }} placeholder='Nombre del contacto' />
-                      </Form.Item>
-                    </div>
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-2vh' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Contacto de emergencia: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='e_contacto'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un contacto' }
+                ]}
+              >
+                <Input style={{ width: '100%' }} placeholder='Nombre del contacto' />
+              </Form.Item>
+            </div>
 
-                    <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
-                      <p style={{
-                        fontWeight: 500
-                      }}>Teléfono celular: <b style={{ color: '#8e4838' }}>*</b></p>
-                      <Form.Item
-                        name='e_phone'
-                        style={{ width: '100%', marginTop: '-1vh' }}
-                        rules={[
-                          { required: true, message: 'Por favor escribe un celular' }
-                        ]}
-                      >
-                        <InputNumber style={{ width: '100%' }} placeholder={`614 ...`} />
-                      </Form.Item>
-                    </div>
-                  </Row>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Teléfono celular: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='e_phone'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un celular' }
+                ]}
+              >
+                <InputNumber style={{ width: '100%' }} placeholder={`614 ...`} />
+              </Form.Item>
+            </div>
+          </Row>
 
 
-                  {/* <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '2vh' }}>
+          {/* <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '2vh' }}>
 
                   <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
                     <Button style={{
@@ -4378,150 +2251,498 @@ export const LayoutApp = () => {
                 </Row> */}
 
 
-                </Form>
-              </Drawer>
+        </Form>
+      </Drawer>
 
-              <Drawer
-                title={currentName}
-                placement={'left'}
-                // closable={false}
-                width={'100%'}
-                onClose={onClose}
-                open={openSmall}
-                extra={
-                  <Space>
-                    <Switch
-                      // heckedChildren="Activo" unCheckedChildren="Inactivo"
-                      checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
-                  </Space>
-                }
-              >
-                <Form
-                  name='my_edit'
-                  form={edit}
-                  onFinish={handleEdit}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-
-
-                    <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
-
-                      <Col>
-                        <p>Nombre: </p>
-                        <Form.Item
-                          name='new_name'
-                          style={{ margin: 0 }}>
-                          <Input placeholder={currentName} />
-                        </Form.Item>
-                      </Col>
-
-                      <Col>
-                        <p>DoB: </p>
-                        <Form.Item
-                          name='new_dob'
-                          style={{ margin: 0 }}>
-                          <DatePicker placeholder={currentDoB} />
-                        </Form.Item>
-
-                      </Col>
-
-                      <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
-                        <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
-                        <Form.Item
-                          name='new_cel'
-                          style={{ margin: 0 }}>
-                          <Select style={{ width: '100%' }} placeholder={currentCel}>
-                            {
-
-                              celula_.map((celula) => (
-                                <Option key={celula} value={celula}>
-                                  {celula}
-                                </Option>
-                              ))
-                            }
-                          </Select>
-                        </Form.Item>
-
-                      </Col>
-
-
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
-                    margin: '1vh 0 1vh 0'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_cursos'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
-                          {
-
-                            curso.map((cursos) => (
-                              <Option key={cursos} value={cursos}>
-                                {cursos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-                  </div>
-
-                  <div style={{
-                    width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
-                  }}>
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
-                    <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
-                    <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Form.Item
-                        name='new_sacramento'
-                        style={{ margin: '2vh 0 0 0', width: '100%' }}>
-                        <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
-                          {
-
-                            sacramento.map((sacramentos) => (
-                              <Option name={sacramento} key={sacramentos} value={sacramentos}>
-                                {sacramentos}
-                              </Option>
-                            ))
-                          }
-                        </Select>
-                      </Form.Item>
-                    </Row>
-
-
-                  </div>
-
-                  <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
-                    <Button htmlType='submit' style={{
-                      marginTop: '8vh', width: '80%', backgroundColor: bg,
-                      border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
-                    }}>Guardar cambios</Button>
-                  </Form.Item>
-                </Form>
-              </Drawer>
-
-            </>
-            : <div style={{
-              height: "90vh", width: '98vw', display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-              <img src={teams[team].gif} style={{ width: '30%', height: '40%' }} />
-
-            </div>
+      <Drawer
+        title={currentName}
+        placement={'left'}
+        closable={false}
+        width={'30%'}
+        onClose={() => setOpen(false)}
+        open={open}
+        extra={
+          <Space>
+            <Switch
+              // heckedChildren="Activo" unCheckedChildren="Inactivo"
+              checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
+          </Space>
         }
+      >
+        <Form
+          name='my_edit'
+          form={edit}
+          onFinish={handleEdit}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
+          <div style={{
+            width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
 
-      </div>
+
+            <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+
+              <Col>
+                <p>Nombre: </p>
+                <Form.Item
+                  name='new_name'
+                  style={{ margin: 0 }}>
+                  <Input placeholder={currentName} />
+                </Form.Item>
+              </Col>
+
+              <Col>
+                <p>DoB: </p>
+                <Form.Item
+                  name='new_dob'
+                  style={{ margin: 0 }}>
+                  <DatePicker placeholder={currentDoB} />
+                </Form.Item>
+
+              </Col>
+
+              <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
+                <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
+                <Form.Item
+                  name='new_cel'
+                  style={{ margin: 0 }}>
+                  <Select style={{ width: '100%' }} placeholder={currentCel}>
+                    {
+
+                      celula_.map((celula) => (
+                        <Option key={celula} value={celula}>
+                          {celula}
+                        </Option>
+                      ))
+                    }
+                  </Select>
+                </Form.Item>
+
+              </Col>
+
+
+            </Row>
+
+          </div>
+
+          <div style={{
+            width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
+            margin: '1vh 0 1vh 0'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+            <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <Form.Item
+                name='new_cursos'
+                style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
+                  {
+
+                    curso.map((cursos) => (
+                      <Option key={cursos} value={cursos}>
+                        {cursos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </Row>
+
+          </div>
+
+          <div style={{
+            width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+            <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <Form.Item
+                name='new_sacramento'
+                style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
+                  {
+
+                    sacramento.map((sacramentos) => (
+                      <Option name={sacramento} key={sacramentos} value={sacramentos}>
+                        {sacramentos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </Row>
+
+
+          </div>
+
+          <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
+            <Button htmlType='submit' style={{
+              marginTop: '8vh', width: '80%', backgroundColor: bg,
+              border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
+            }}>Guardar cambios</Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
+
+      <Drawer
+        title={`${team === 'nasseri' ? `Nueva ${people}` : `Nuevo ${people}`}`}
+        placement="right"
+        onClose={() => setNewUser_(false)}
+        width='100%'
+        open={newUser_}
+        extra={
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <Button
+                onClick={() => user.resetFields()}
+                style={{
+                  width: '100%', backgroundColor: 'transparent', color: color, fontWeight: 500,
+                  border: `2px solid ${bg}`
+                }}>
+                Cancelar
+              </Button>
+            </div>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <Button
+                onClick={() => user.submit()}
+                style={{
+                  width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
+                  border: `1.5px solid ${bg}`
+                }}>
+                Guardar
+              </Button>
+            </div>
+
+          </Row>
+        }>
+
+        <Form
+          name='my_form'
+          form={user}
+          onFinish={handleNewUser}
+          style={{
+
+            width: '100%'
+          }}>
+
+          <p style={{
+            fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
+          }}>Datos personales</p>
+          <hr style={{
+            width: '100%', border: '1.5px solid #00000020'
+          }} />
+
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Nombre: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='name'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un nombre' }
+                ]}
+              >
+                <Input style={{ width: '100%' }} placeholder={`Nombre de ${people}`} />
+              </Form.Item>
+            </div>
+
+            <div style={{
+              width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
+              display: `${team === 'bite' ? 'none' : ''}`
+            }}>
+              <p style={{
+                fontWeight: 500
+              }}>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='celula'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: `Por favor selecciona un ${celula}` }
+                ]}
+              >
+                <Select style={{ width: '100%' }} placeholder={`${celula_[1]}`}>
+                  {
+
+                    celula_.map((celula) => (
+                      <Option key={celula} value={celula}>
+                        {celula}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </div>
+
+            <div style={{
+              width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column',
+
+            }}>
+              <p style={{
+                fontWeight: 500
+              }}>Fecha de nacimiento: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='dob'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor elige una fecha' }
+                ]}
+              >
+                <DatePicker style={{ width: '100%' }} placeholder='2023-01-31' />
+              </Form.Item>
+            </div>
+
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Sacramentos:</p>
+              <Form.Item
+                name='sacramentos'
+                style={{ width: '100%', marginTop: '-1vh' }}
+              >
+                <Select
+                  mode='multiple'
+                  style={{ width: '100%' }} placeholder={`Sacramentos`}>
+                  {
+
+                    sacramento.map((sacramentos) => (
+                      <Option name={sacramento} key={sacramentos} value={sacramentos}>
+                        {sacramentos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </div>
+          </Row>
+
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-1vh' }}>
+            <div style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Cursos: </p>
+              <Form.Item
+                name='cursos'
+                style={{ width: '100%', marginTop: '-1vh' }}
+              >
+
+                <Checkbox.Group
+                  style={{
+                    width: '100%',
+                  }}
+                // onChange={onChange}
+                >
+                  <Row>
+                    {
+
+                      curso.map((cursos) => (
+                        <Col span={8}>
+                          <Checkbox name={cursos} value={cursos}>{cursos}</Checkbox>
+                        </Col>
+                      ))
+                    }
+                  </Row>
+                </Checkbox.Group>
+              </Form.Item>
+            </div>
+
+
+          </Row>
+
+
+          <p style={{
+            fontWeight: 500, fontStyle: 'italic', fontSize: '1.1em'
+          }}>Contacto de emergencia </p>
+          <hr style={{
+            width: '100%', border: '1.5px solid #00000020'
+          }} />
+
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Celular: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='phone'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un celular' }
+                ]}
+              >
+                <InputNumber style={{ width: '100%' }} placeholder='6141230520' />
+              </Form.Item>
+            </div>
+          </Row>
+
+          <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', marginTop: '-2vh' }}>
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Contacto de emergencia: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='e_contacto'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un contacto' }
+                ]}
+              >
+                <Input style={{ width: '100%' }} placeholder='Nombre del contacto' />
+              </Form.Item>
+            </div>
+
+            <div style={{ width: '48%', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <p style={{
+                fontWeight: 500
+              }}>Teléfono celular: <b style={{ color: '#8e4838' }}>*</b></p>
+              <Form.Item
+                name='e_phone'
+                style={{ width: '100%', marginTop: '-1vh' }}
+                rules={[
+                  { required: true, message: 'Por favor escribe un celular' }
+                ]}
+              >
+                <InputNumber style={{ width: '100%' }} placeholder={`614 ...`} />
+              </Form.Item>
+            </div>
+          </Row>
+
+
+        </Form>
+      </Drawer>
+
+      <Drawer
+        title={currentName}
+        placement={'left'}
+        closable={false}
+        width={'30%'}
+        onClose={() => setOpen_(false)}
+        open={open_}
+        extra={
+          <Space>
+            <Switch
+              // heckedChildren="Activo" unCheckedChildren="Inactivo"
+              checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
+          </Space>
+        }
+      >
+        <Form
+          name='my_edit'
+          form={edit}
+          onFinish={handleEdit}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '90%' }}>
+          <div style={{
+            width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Datos personas</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+
+
+            <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+
+              <Col>
+                <p>Nombre: </p>
+                <Form.Item
+                  name='new_name'
+                  style={{ margin: 0 }}>
+                  <Input placeholder={currentName} />
+                </Form.Item>
+              </Col>
+
+              <Col>
+                <p>DoB: </p>
+                <Form.Item
+                  name='new_dob'
+                  style={{ margin: 0 }}>
+                  <DatePicker placeholder={currentDoB} />
+                </Form.Item>
+
+              </Col>
+
+              <Col style={{ display: team !== 'bite' ? '' : 'none' }}>
+                <p>{celula.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase())}: </p>
+                <Form.Item
+                  name='new_cel'
+                  style={{ margin: 0 }}>
+                  <Select style={{ width: '100%' }} placeholder={currentCel}>
+                    {
+
+                      celula_.map((celula) => (
+                        <Option key={celula} value={celula}>
+                          {celula}
+                        </Option>
+                      ))
+                    }
+                  </Select>
+                </Form.Item>
+
+              </Col>
+
+
+            </Row>
+
+          </div>
+
+          <div style={{
+            width: '95%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column',
+            margin: '1vh 0 1vh 0'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Cursos</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+            <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <Form.Item
+                name='new_cursos'
+                style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                <Select mode='multiple' style={{ width: '100%' }} placeholder={curso[0]}>
+                  {
+
+                    curso.map((cursos) => (
+                      <Option key={cursos} value={cursos}>
+                        {cursos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </Row>
+
+          </div>
+
+          <div style={{
+            width: '90%', height: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column'
+          }}>
+            <p style={{ width: '100%', textAlign: 'center', fontWeight: 500 }}>Sacramentos</p>
+            <hr style={{ width: '90%', border: `1.5px solid ${color}` }} />
+            <Row style={{ width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <Form.Item
+                name='new_sacramento'
+                style={{ margin: '2vh 0 0 0', width: '100%' }}>
+                <Select mode='multiple' style={{ width: '100%' }} placeholder={sacramento[0]}>
+                  {
+
+                    sacramento.map((sacramentos) => (
+                      <Option name={sacramento} key={sacramentos} value={sacramentos}>
+                        {sacramentos}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </Row>
+
+
+          </div>
+
+          <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
+            <Button htmlType='submit' style={{
+              marginTop: '8vh', width: '80%', backgroundColor: bg,
+              border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
+            }}>Guardar cambios</Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
+
     </>
   )
 }
