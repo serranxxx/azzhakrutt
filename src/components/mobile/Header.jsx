@@ -15,7 +15,7 @@ export const HeaderMobile = (props) => {
         }}>
             <Row style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row',
-                width: '90%'
+                width: '80%'
             }}>
                 <Select style={{ width: '50%', height: '4.5vh' }} onChange={handleFilterEslabon}>
                     {

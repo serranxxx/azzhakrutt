@@ -20,7 +20,7 @@ export const PeopleCard = (props) => {
                             <Col style={{ width: '100%', }}>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    fontWeight: 500, color: color, 
+                                    fontWeight: 600, color: color, 
                                 }} >{data.name}</p>
                                 <hr style={{width:'100%', border:`1.5px solid ${color}`}}/>
                                 <p style={{
@@ -33,7 +33,7 @@ export const PeopleCard = (props) => {
                                 }} >{data.Contacto.numero}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    color: color, fontWeight:500
+                                    color: color, fontWeight:600
                                 }} >{data.Contacto.num_emergencia}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
