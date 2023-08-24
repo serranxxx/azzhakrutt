@@ -455,23 +455,23 @@ export const LoginPage = () => {
                             </div>
 
                             <div style={{
-                                height: '30%', width: '100%', display: `${!administrador ? !guest ? 'flex' : 'none' : 'none'}`, marginTop: '1vh',
+                                height: '30%', width: '100%', display: `${!administrador ? !guest ? 'flex' : 'none' : 'none'}`, marginTop: '-2vh',
                                 alignItems: 'center', justifyContent: 'center'
                             }}>
-                                <Col style={{ width: '70%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                                <Row style={{ width: '70%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                                     <Button onClick={() => setAdministrador(true)} style={{
-                                        height: '45%', width: '100%', borderRadius: '3vh', backgroundColor: `${teams[team].color2}80`,
+                                        height: '30%', width: '50%', borderRadius: '2vh 0 0 2vh', backgroundColor: `${teams[team].color2}80`,
                                         border: `2px solid ${teams[team].color2}80`,
                                         color: teams[team].color2, fontWeight: 500, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`,
                                         fontFamily: 'Poppins'
-                                    }}>Administrador</Button>
+                                    }}>Admin</Button>
                                     <Button onClick={() => setGuest(true)} style={{
-                                        height: '45%', width: '100%', borderRadius: '3vh', backgroundColor: `${teams[team].color3}70`,
-                                        marginTop: '5%', border: `2px solid ${teams[team].color3}`,
+                                        height: '30%', width: '50%', borderRadius: '0 2vh 2vh 0', backgroundColor: `${teams[team].color3}70`,
+                                        border: `2px solid ${teams[team].color3}`,
                                         color: teams[team].color3, fontWeight: 500, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`,
                                         fontFamily: 'Poppins'
                                     }}>Invitado</Button>
-                                </Col>
+                                </Row>
 
 
 
