@@ -6,7 +6,7 @@ import { Stadistics } from '../Stadistics';
 const { Content } = Layout;
 
 export const ContentMobile = (props) => {
-    const {bg, smallData, color, data, celula_, sacramento, curso, state, team} = props
+    const {bg, smallData, color, data, celula_, sacramento, curso, state, team, editDrawer} = props
   return (
     <Content
       style={{
@@ -19,7 +19,7 @@ export const ContentMobile = (props) => {
       }}
     >
       {
-        state === 'table' ? <PeopleCard bg={bg} data={smallData} color={color}/>
+        state === 'table' ? <PeopleCard bg={bg} data={smallData} color={color} editDrawer={editDrawer}/>
         : <Stadistics team={team} data={smallData} celula={celula_} sacramentos={sacramento} cursos={curso} color={color} bg={bg} />
       }
       

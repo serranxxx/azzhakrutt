@@ -61,7 +61,7 @@ export const LayoutApp = () => {
   const [filterCel, setFilterCel] = useState([])
 
   const [state, setState] = useState('table')
-  
+
   const [formFinish, setFormFinish] = useState(false)
   const [selected, setSelected] = useState(false)
   const [filtering, setFiltering] = useState(false)
@@ -1788,6 +1788,21 @@ export const LayoutApp = () => {
     console.log(cursos)
   }
 
+  const editDrawer_ = (name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
+    setOpen_(true)
+    setCurrentName(name)
+    setCurrentCel(celula)
+    setCurrentDoB(dob)
+    setCurrentCursos(cursos)
+    setCurrentSacramentos(sacramentos)
+    setCurrentActive(active)
+    setCurrent_id(_id)
+    setCurrentContacto(num)
+    setCurrentEmergencia(emergencia)
+    setCurrentC_emergencia(e_num)
+    console.log(cursos)
+  }
+
   const userLogout = () => {
     logout()
     navigate(`/azzhakrutt/login`, {
@@ -1989,8 +2004,8 @@ export const LayoutApp = () => {
         {
           render
             ? <Layout style={{ minHeight: '100vh' }}>
-              <HeaderMobile resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon}/>
-              <ContentMobile team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
+              <HeaderMobile resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon} />
+              <ContentMobile editDrawer={editDrawer_} team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
               <FooterMobile bg={bg} color={color} userLogout={userLogout} setState={setState} />
             </Layout>
             : <></>
@@ -2616,7 +2631,7 @@ export const LayoutApp = () => {
         title={currentName}
         placement={'left'}
         closable={false}
-        width={'30%'}
+        width={'70%'}
         onClose={() => setOpen_(false)}
         open={open_}
         extra={

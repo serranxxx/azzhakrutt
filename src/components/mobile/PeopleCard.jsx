@@ -3,12 +3,17 @@ import React from 'react'
 import { IconHandler } from './IconHandler'
 
 export const PeopleCard = (props) => {
-    const { bg, color } = props
+    const { bg, color, editDrawer } = props
+
+    const handleClick = (name, celula, dob, cursos, sacramentos, activo, _id, num, contacto, num_e) => {
+        editDrawer(name, celula, dob, cursos, sacramentos, activo, _id, num, contacto, num_e)
+    }
     return (
         <>
             {
                 props.data.map((data) => (
                     <div
+                        onClick={() => handleClick(data.name, data.celula, data.dob, data.cursos, data.Sacramentos, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)}
                         key={data._id}
                         style={{
                             width: '85%', height: 'auto', borderRadius: '2vh',
@@ -20,9 +25,9 @@ export const PeopleCard = (props) => {
                             <Col style={{ width: '100%', }}>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    fontWeight: 600, color: color, 
+                                    fontWeight: 600, color: color,
                                 }} >{data.name}</p>
-                                <hr style={{width:'100%', border:`1.5px solid ${color}`}}/>
+                                <hr style={{ width: '100%', border: `1.5px solid ${color}` }} />
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
                                     color: color
@@ -33,23 +38,23 @@ export const PeopleCard = (props) => {
                                 }} >{data.Contacto.numero}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
-                                    color: color, fontWeight:600
+                                    color: color, fontWeight: 600
                                 }} >{data.Contacto.num_emergencia}</p>
                                 <p style={{
                                     width: '100%', textAlign: 'left', margin: 0,
                                     color: color
                                 }} >{data.DoB}</p>
-                                
-                                
+
+
                             </Col>
                         </div>
 
                         <div style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Col style={{
-                                width: '100%', flexDirection:'column',
+                                width: '100%', flexDirection: 'column',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', height: '70%'
                             }}>
-                                <Col style={{width:'80%'}}>
+                                <Col style={{ width: '80%' }}>
                                     <p style={{
                                         width: '100%', textAlign: 'left', margin: 0,
                                         color: color
@@ -58,7 +63,7 @@ export const PeopleCard = (props) => {
                                         <IconHandler data={Object.values(data.cursos)} color={color} />
                                     </Row>
                                 </Col>
-                                <Col style={{ marginTop: '1vh', width:'80%' }}>
+                                <Col style={{ marginTop: '1vh', width: '80%' }}>
                                     <p style={{
                                         width: '100%', textAlign: 'left', margin: 0,
                                         color: color
