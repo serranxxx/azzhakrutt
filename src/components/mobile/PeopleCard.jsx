@@ -12,6 +12,7 @@ export const PeopleCard = (props) => {
         <>
             {
                 props.data.map((data) => (
+
                     <div
                         onClick={() => handleClick(data.name, data.celula, data.dob, data.cursos, data.Sacramentos, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)}
                         key={data._id}
@@ -49,29 +50,39 @@ export const PeopleCard = (props) => {
                             </Col>
                         </div>
 
+
                         <div style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Col style={{
                                 width: '100%', flexDirection: 'column',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', height: '70%'
                             }}>
-                                <Col style={{ width: '80%' }}>
-                                    <p style={{
-                                        width: '100%', textAlign: 'left', margin: 0,
-                                        color: color
-                                    }} >Cursos</p>
-                                    <Row style={{ width: '100%' }}>
-                                        <IconHandler data={Object.values(data.cursos)} color={color} />
-                                    </Row>
-                                </Col>
-                                <Col style={{ marginTop: '1vh', width: '80%' }}>
-                                    <p style={{
-                                        width: '100%', textAlign: 'left', margin: 0,
-                                        color: color
-                                    }} >Sacramentos</p>
-                                    <Row>
-                                        <IconHandler data={Object.values(data.Sacramentos)} color={color} />
-                                    </Row>
-                                </Col>
+                                {
+                                    data.cursos ?
+                                        <Col style={{ width: '80%' }}>
+                                            <p style={{
+                                                width: '100%', textAlign: 'left', margin: 0,
+                                                color: color
+                                            }} >Cursos</p>
+                                            <Row style={{ width: '100%' }}>
+                                                <IconHandler data={Object.values(data.cursos)} color={color} />
+                                            </Row>
+                                        </Col>
+                                        : <></>
+                                }
+
+                                {
+                                    data.Sacramentos ?
+                                        <Col style={{ marginTop: '1vh', width: '80%' }}>
+                                            <p style={{
+                                                width: '100%', textAlign: 'left', margin: 0,
+                                                color: color
+                                            }} >Sacramentos</p>
+                                            <Row>
+                                                <IconHandler data={Object.values(data.Sacramentos)} color={color} />
+                                            </Row>
+                                        </Col>
+                                        : <></>
+                                }
                             </Col>
                         </div>
 
