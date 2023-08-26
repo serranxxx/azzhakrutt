@@ -291,7 +291,7 @@ export const LoginPage = () => {
 
             <div className='layout-small'
                 style={{
-                    alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column', height: '100vh',
+                    alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '80vh',
                     paddingTop: '5%'
                 }}>
                 <div style={{ display: `${disapear ? 'none' : 'flex'}`, alignItems: 'flex-end', justifyContent: 'center', height: 'auto', flexDirection: 'column' }}>
@@ -331,14 +331,14 @@ export const LoginPage = () => {
                             style={{
                                 display: `${!disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
                                 flexDirection: 'column', margin: '5vh 0 7vh 0', transition: 'all 0.65s ease-in-out',
-                                position: 'relative', height: `${administrador ? '60vh' : guest ? '60vh' : '65vh'}`, width: '40vh',
-                                borderRadius: '6vh', backgroundColor: '#fff', boxShadow: '0px 0px 20px #00000030'
+                                position: 'relative', height: `${administrador ? '60vh' : guest ? '50vh' : '50vh'}`, width: '40vh',
+                                borderRadius: '3vh', backgroundColor: '#fff', boxShadow: '0px 0px 20px #00000030'
                             }}>
                             <Button
                                 type='ghost'
                                 icon={administrador ? <AiOutlineRollback size={20} style={{ color: teams[team].color2 }} /> : guest ? <AiOutlineRollback size={20} style={{ color: teams[team].color2 }} /> : <AiOutlineClose size={20} style={{ color: teams[team].color2 }} />}
                                 style={{
-                                    position: 'absolute', top: '50px', right: '20px',
+                                    position: 'absolute', top: '20px', right: '20px',
                                     borderRadius: '1vh',
                                     // backgroundColor:`${teams[team].color2}80`
                                 }} onClick={backTo} />
@@ -353,8 +353,8 @@ export const LoginPage = () => {
                             </div>
 
                             <hr style={{
-                                display: `${administrador ? '' : guest ? '' : 'none'}`, width: '70%',
-                                margin: '2vh 0 2vh 0', border: `1.6px solid ${teams[team].color}`
+                                display: `${administrador ? '' : guest ? 'none' : ''}`, width: '70%',
+                                margin: '2vh 0 4vh 0', border: `1.6px solid ${teams[team].color}`
                             }} />
 
                             {/* chech */}
@@ -374,6 +374,11 @@ export const LoginPage = () => {
                                     onFinishFailed={onFinishFailed}
                                     autoComplete="off"
                                 >
+
+                                    <p style={{
+                                        margin: '-1vh 0 0 0', fontWeight: 600, color: teams[team].color,
+                                        fontSize:'1.1em', fontStyle:'italic'
+                                    }}>{teams[team].username}</p>
 
 
                                     <Form.Item
@@ -457,20 +462,20 @@ export const LoginPage = () => {
                                 height: '30%', width: '100%', display: `${!administrador ? !guest ? 'flex' : 'none' : 'none'}`, marginTop: '-2vh',
                                 alignItems: 'center', justifyContent: 'center'
                             }}>
-                                <Row style={{ width: '70%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                                <Col style={{ width: '70%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                                     <Button onClick={() => setAdministrador(true)} style={{
-                                        height: '30%', width: '50%', borderRadius: '2vh 0 0 2vh', backgroundColor: `${teams[team].color2}80`,
-                                        border: `2px solid ${teams[team].color2}80`,
+                                        height: 'auto', width: '80%', backgroundColor: `${teams[team].color2}80`,
+                                        border: `4px solid ${teams[team].color2}80`,
                                         color: teams[team].color2, fontWeight: 500, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`,
                                         fontFamily: 'Poppins'
-                                    }}>Admin</Button>
+                                    }}>Administrador</Button>
                                     <Button onClick={() => setGuest(true)} style={{
-                                        height: '30%', width: '50%', borderRadius: '0 2vh 2vh 0', backgroundColor: `${teams[team].color3}70`,
-                                        border: `2px solid ${teams[team].color3}`,
+                                        height: 'auto', width: '80%', backgroundColor: `${teams[team].color3}70`,
+                                        border: `4px solid ${teams[team].color3}`, marginTop: '2vh',
                                         color: teams[team].color3, fontWeight: 500, fontSize: '1.4em', display: `${!administrador ? '' : 'none'}`,
                                         fontFamily: 'Poppins'
                                     }}>Invitado</Button>
-                                </Row>
+                                </Col>
 
 
 
