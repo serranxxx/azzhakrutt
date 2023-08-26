@@ -1614,6 +1614,8 @@ export const LayoutApp = () => {
 
   const handleNewUser = (e) => {
 
+    // console.log('hola')
+
     let cursoArray, sacramentoArray = []
 
     if (e.cursos) {
@@ -1642,6 +1644,7 @@ export const LayoutApp = () => {
         break
 
       case 'bite':
+        console.log('post')
         postBite(operation, e.name, e.dob.format('YYYY-MM-DD'), cursoArray, sacramentoArray, e.phone, e.e_contacto, e.e_phone,)
         break
 
@@ -1747,22 +1750,22 @@ export const LayoutApp = () => {
       switch (team) {
         case 'sheratan':
           smallData.map((data) => (
-            editDrawer(data.name, data.celula, data.dob, [data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(true, data.name, data.celula, data.dob, [data.cursos.precurso, data.cursos.iniciados, data.cursos.avanzados, data.cursos.capitanes, data.cursos.ccc], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'nasseri':
           smallData.map((data) => (
-            editDrawer(data.name, data.celula, data.dob, [data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(true, data.name, data.celula, data.dob, [data.cursos.iniciadas, data.cursos.adiestradas, data.cursos.religiosas, data.cursos.cdj, data.cursos.lider_en, data.cursos.v_cristo], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'yahoska':
           smallData.map((data) => (
-            editDrawer(data.name, data.celula, data.dob, [data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(true, data.name, data.celula, data.dob, [data.cursos.iniciados, data.cursos.soldados, data.cursos.caballeros, data.cursos.llamados, data.cursos.cdj], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         case 'bite':
           smallData.map((data) => (
-            editDrawer(data.name, '', data.dob, [data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
+            editDrawer(true, data.name, '', data.dob, [data.cursos.discipulos, data.cursos.apostoles, data.cursos.profetas, data.cursos.cristeros], [data.Sacramentos.bautizo, data.Sacramentos.comunion, data.Sacramentos.confirmacion], data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)
           ))
           break;
         default:
@@ -1773,8 +1776,10 @@ export const LayoutApp = () => {
     else message.error("Debes haber realizado una selección antes de editar")
   }
 
-  const editDrawer = (name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
-    setOpen(true)
+  const editDrawer = (state, name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
+    
+    if (state) setOpen(true)
+    else setOpen_(true)    
     setCurrentName(name)
     setCurrentCel(celula)
     setCurrentDoB(dob)
@@ -1785,22 +1790,22 @@ export const LayoutApp = () => {
     setCurrentContacto(num)
     setCurrentEmergencia(emergencia)
     setCurrentC_emergencia(e_num)
-    console.log(cursos)
-  }
+    
 
-  const editDrawer_ = (name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
-    setOpen_(true)
-    setCurrentName(name)
-    setCurrentCel(celula)
-    setCurrentDoB(dob)
-    setCurrentCursos(cursos)
-    setCurrentSacramentos(sacramentos)
-    setCurrentActive(active)
-    setCurrent_id(_id)
-    setCurrentContacto(num)
-    setCurrentEmergencia(emergencia)
-    setCurrentC_emergencia(e_num)
-    console.log(cursos)
+    const user = {
+      name,
+      celula,
+      dob,
+      cursos,
+      sacramentos,
+      active,
+      _id,
+      num,
+      emergencia,
+      e_num
+    }
+
+    console.log(user)
   }
 
   const userLogout = () => {
@@ -1907,7 +1912,7 @@ export const LayoutApp = () => {
 
   useEffect(() => {
     if (userData) {
-      document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), ${teams[userData.value].color})`
+      document.body.style.backgroundColor = document.body.style.backgroundColor = document.body.style.background = `radial-gradient(at 50% 50%, rgba(255, 255, 255, 20%), #f6f6f6)`
       setTeam(userData.value)
       setName(userData.full_name)
       setImg(teams[userData.value].img)
@@ -2003,9 +2008,9 @@ export const LayoutApp = () => {
       <div className='small'>
         {
           render
-            ? <Layout style={{ minHeight: '100vh' }}>
-              <HeaderMobile resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon} />
-              <ContentMobile editDrawer={editDrawer_} team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
+            ? <Layout style={{ minHeight: '100vh', backgroundColor:`${bg}10` }}>
+              <HeaderMobile team={team} resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon} />
+              <ContentMobile editDrawer={editDrawer} team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
               <FooterMobile bg={bg} color={color} userLogout={userLogout} setState={setState} />
             </Layout>
             : <></>
@@ -2034,6 +2039,7 @@ export const LayoutApp = () => {
             </div>
             <div style={{ width: '48%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
               <Button
+                // onClick={() => console.log('hola')}
                 onClick={() => user.submit()}
                 style={{
                   width: '100%', backgroundColor: bg, color: color, fontWeight: 500,
@@ -2089,7 +2095,7 @@ export const LayoutApp = () => {
                 name='celula'
                 style={{ width: '100%', marginTop: '-1vh' }}
                 rules={[
-                  { required: true, message: `Por favor selecciona un ${celula}` }
+                  { required: team !== 'bite' ? true : false, message: `Por favor selecciona un ${celula}` }
                 ]}
               >
                 <Select style={{ width: '100%' }} placeholder={`${celula_[1]}`}>
@@ -2631,7 +2637,7 @@ export const LayoutApp = () => {
         title={currentName}
         placement={'left'}
         closable={false}
-        width={'70%'}
+        width={'80%'}
         onClose={() => setOpen_(false)}
         open={open_}
         extra={

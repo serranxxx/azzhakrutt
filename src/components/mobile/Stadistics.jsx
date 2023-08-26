@@ -26,11 +26,6 @@ export const StadisticsMobile = (props) => {
         return filterArray.length
     }
 
-    const getTotalEslabon = (eslabon) => {
-        const filterArray = data.filter((item) => item.celula === eslabon);
-        return filterArray.length
-
-    }
 
     const getTotalCursos = (fieldName) => {
         const filterArray = data.filter((item) => item.Active === true);
@@ -44,18 +39,10 @@ export const StadisticsMobile = (props) => {
         return array.length;
     }
 
-    
-    const customFormat = (sacramento) => (
-        <Col style={{}}>
-            <p style={{ fontWeight: 650, margin: '0 0 -1vh 0', fontSize: '1.2em' }}>{`${sacramento}`}</p>
-            <p style={{ fontWeight: 500 }}>{`${getTotalSacramentos(sacramento)} miembros`}</p>
-        </Col>
-    )
-
     const customFormatSmall = (sacramento) => (
         <Col style={{}}>
-            <p style={{ fontWeight: 650, margin: '0 0 -1vh 0', fontSize: '1em' }}>{`${sacramento}`}</p>
-            <p style={{ fontWeight: 500 }}>{`${getTotalSacramentos(sacramento)} miembros`}</p>
+            <p style={{ fontWeight: 650, margin: '0', fontSize: '1em' }}>{`${sacramento.substring(0, 4).toUpperCase()}`}</p>
+            <p style={{ fontWeight: 500, fontSize:'1.3em', margin:0 }}>{`${getTotalSacramentos(sacramento)}`}</p>
         </Col>
     )
     
@@ -66,35 +53,9 @@ export const StadisticsMobile = (props) => {
         }}>
             <div style={{
                 width: '100%', alignItems: 'center', justifyContent: 'center',
-                margin: '3vh 0 1.5vh 0', display: `${props.team === 'bite' ? 'none' : 'flex'}`,
+                margin: '-2vh 0 1.5vh 0', display: `${props.team === 'bite' ? 'none' : 'flex'}`,
                 flexWrap: 'wrap'
             }}>
-                {/* <Radio.Group
-                onChange={handleCell}
-                // value={selectedRadiobutton}
-                border={true}
-                defaultValue='todos'
-                buttonStyle="dashed"
-                style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
-                <Radio.Button value={'todos'} style={{
-                    width: 'auto', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
-                    backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
-                }}>
-                    < AiFillCaretUp />
-                </Radio.Button>
-                {
-
-                    props.celula.map((celula) => (
-                        <Radio.Button value={celula} style={{
-                            width: 'auto', textAlign: 'center', fontWeight: 500, margin: '0.5vh 0.5vh 0.5vh 0',
-                            backgroundColor: props.bg, color: props.color, border: `0px solid ${props.color}`
-                        }}>
-                            {celula.substring(0, 2).toUpperCase()}
-                        </Radio.Button>
-
-                    ))
-                }
-            </Radio.Group> */}
             </div>
             <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                 <Col style={{ width: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -143,7 +104,7 @@ export const StadisticsMobile = (props) => {
                         </Card>
 
                     </div>
-                    <hr style={{ width: '80%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
+                    <hr style={{ width: '80%', border: `1.3px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
                     <div style={{
                         width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
                         flexDirection: 'row', flexWrap: 'wrap'
@@ -174,13 +135,13 @@ export const StadisticsMobile = (props) => {
                 </Col>
 
 
-                <hr style={{ width: '80%', border: `2px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
+                <hr style={{ width: '80%', border: `1.3px solid ${props.color}`, margin: '3vh 0 3vh 0' }} />
                 <Row style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                     {
                         props.sacramentos.map((sacramento) => (
 
 
-                            <Progress type='dashboard' label={sacramento} key={sacramento} status="active" size={110}
+                            <Progress type='dashboard' label={sacramento} key={sacramento} status="active" size={100}
                                 percent={(getTotalSacramentos(sacramento) * 100) / getTotalCampo()} showInfo={true}
                                 strokeColor={{
                                     '0%': props.color,

@@ -34,7 +34,7 @@ export const teams = {
         dark: yahoska_d,
         value: 'yahoska',
         color: '#6d6760',
-        color2: '#222',
+        color2: '#111111',
         color3: '#302619',
         gif: yahoska_gif,
         username: 'yahoska@azzhakrutt.com'

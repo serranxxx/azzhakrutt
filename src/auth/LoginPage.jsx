@@ -327,13 +327,12 @@ export const LoginPage = () => {
                 {
                     team ?
                         <div
-                            className=''
+                            className='box'
                             style={{
                                 display: `${!disapear ? 'none' : 'flex'}`, alignItems: 'center', justifyContent: 'center',
                                 flexDirection: 'column', margin: '5vh 0 7vh 0', transition: 'all 0.65s ease-in-out',
-                                position: 'relative', height: '70vh', width: '80%',
-
-
+                                position: 'relative', height: `${administrador ? '60vh' : guest ? '60vh' : '65vh'}`, width: '40vh',
+                                borderRadius: '6vh', backgroundColor: '#fff', boxShadow: '0px 0px 20px #00000030'
                             }}>
                             <Button
                                 type='ghost'
@@ -346,7 +345,7 @@ export const LoginPage = () => {
 
                             <div style={{ padding: '5%', height: `${administrador ? '40%' : guest ? '40%' : '40%'}`, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0vh', }}>
                                 <div style={{
-                                    height: '28vh', aspectRatio: '1/1', borderRadius: '50%', display: 'flex',
+                                    height: '20vh', aspectRatio: '1/1', borderRadius: '50%', display: 'flex',
                                     alignItems: 'center', justifyContent: 'center',
                                 }}>
                                     <img src={teams[team].img} style={{ width: '100%', aspectRatio: '1/1' }} />

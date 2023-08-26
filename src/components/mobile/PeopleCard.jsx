@@ -6,7 +6,7 @@ export const PeopleCard = (props) => {
     const { bg, color, editDrawer } = props
 
     const handleClick = (name, celula, dob, cursos, sacramentos, activo, _id, num, contacto, num_e) => {
-        editDrawer(name, celula, dob, cursos, sacramentos, activo, _id, num, contacto, num_e)
+        editDrawer(false, name, celula, dob, cursos, sacramentos, activo, _id, num, contacto, num_e)
     }
     return (
         <>
@@ -14,13 +14,17 @@ export const PeopleCard = (props) => {
                 props.data.map((data) => (
 
                     <div
-                        onClick={() => handleClick(data.name, data.celula, data.dob, data.cursos, data.Sacramentos, data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)}
+                        onClick={() => handleClick(data.name, data.celula, data.DoB, Object.values(data.cursos), Object.values(data.Sacramentos), data.Active, data._id, data.Contacto.numero, data.Contacto.emergencia, data.Contacto.num_emergencia)}
                         key={data._id}
                         style={{
                             width: '85%', height: 'auto', borderRadius: '2vh',
-                            margin: '0 0 2vh 0', backgroundColor: `${bg}60`,
+                            margin: '0 0 2vh 0', 
+                            // backgroundColor: `${bg}40`,
+                            // background: `radial-gradient(at 50% 50%, rgba(255, 255, 255, 90%), ${bg}40)`,
+                            background: `linear-gradient(to right, ${bg}40, ${bg}80)`,
                             display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
-                            padding: '2%'
+                            padding: '2%', boxShadow:'0px 0px 8px #00000020',
+                            // border:`2px solid ${color}60`
                         }}>
                         <div style={{ width: '60%', height: 'auto' }}>
                             <Col style={{ width: '100%', }}>
