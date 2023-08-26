@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/azzhakrutt/static/css/main.385855a1.css",
-    "main.js": "/azzhakrutt/static/js/main.4b8464ca.js",
+    "main.css": "/azzhakrutt/static/css/main.4473b8f6.css",
+    "main.js": "/azzhakrutt/static/js/main.4e56f661.js",
     "static/media/nasseri.svg": "/azzhakrutt/static/media/nasseri.12fa5514070e3cd3a4e97e9507d228f2.svg",
     "static/media/nasseri_d.svg": "/azzhakrutt/static/media/nasseri_d.d00649abb0ea061f4ab7252ca29490b6.svg",
     "static/media/yahoska.svg": "/azzhakrutt/static/media/yahoska.db7a7961963eb87a81314d61640e1412.svg",
@@ -15,11 +15,11 @@
     "static/media/sheratan.gif.svg": "/azzhakrutt/static/media/sheratan.gif.cdb32fe7858aa1420e061f4d3f1199fb.svg",
     "static/media/yahoska.gif.svg": "/azzhakrutt/static/media/yahoska.gif.16e2a0ac2cf050aecdfdee9a478e073c.svg",
     "index.html": "/azzhakrutt/index.html",
-    "main.385855a1.css.map": "/azzhakrutt/static/css/main.385855a1.css.map",
-    "main.4b8464ca.js.map": "/azzhakrutt/static/js/main.4b8464ca.js.map"
+    "main.4473b8f6.css.map": "/azzhakrutt/static/css/main.4473b8f6.css.map",
+    "main.4e56f661.js.map": "/azzhakrutt/static/js/main.4e56f661.js.map"
   },
   "entrypoints": [
-    "static/css/main.385855a1.css",
-    "static/js/main.4b8464ca.js"
+    "static/css/main.4473b8f6.css",
+    "static/js/main.4e56f661.js"
   ]
 }
