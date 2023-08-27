@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/azzhakrutt/static/css/main.4473b8f6.css",
-    "main.js": "/azzhakrutt/static/js/main.87a81160.js",
+    "main.js": "/azzhakrutt/static/js/main.9541d61e.js",
     "static/media/nasseri.svg": "/azzhakrutt/static/media/nasseri.12fa5514070e3cd3a4e97e9507d228f2.svg",
     "static/media/nasseri_d.svg": "/azzhakrutt/static/media/nasseri_d.d00649abb0ea061f4ab7252ca29490b6.svg",
     "static/media/yahoska.svg": "/azzhakrutt/static/media/yahoska.db7a7961963eb87a81314d61640e1412.svg",
@@ -16,10 +16,10 @@
     "static/media/yahoska.gif.svg": "/azzhakrutt/static/media/yahoska.gif.16e2a0ac2cf050aecdfdee9a478e073c.svg",
     "index.html": "/azzhakrutt/index.html",
     "main.4473b8f6.css.map": "/azzhakrutt/static/css/main.4473b8f6.css.map",
-    "main.87a81160.js.map": "/azzhakrutt/static/js/main.87a81160.js.map"
+    "main.9541d61e.js.map": "/azzhakrutt/static/js/main.9541d61e.js.map"
   },
   "entrypoints": [
     "static/css/main.4473b8f6.css",
-    "static/js/main.87a81160.js"
+    "static/js/main.9541d61e.js"
   ]
 }
