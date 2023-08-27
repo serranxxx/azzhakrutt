@@ -386,6 +386,55 @@ export async function editBite(operation, name, dob, cursos, sacramentos, cel, c
     // console.log(data)
 }
 
+
+export async function deleteNasseri(operation, _id) {
+    try {
+        await operation({
+            method: "DELETE",
+            url: `/nass/deleteNasseri/${_id}`,
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function deleteSheratan(operation, _id) {
+    try {
+        await operation({
+            method: "DELETE",
+            url: `/sher/deleteSheratan/${_id}`,
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function deleteYahoska(operation, _id) {
+    try {
+        await operation({
+            method: "DELETE",
+            url: `/yaho/deleteYahoska/${_id}`,
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function deleteBite(operation, _id) {
+    try {
+        await operation({
+            method: "DELETE",
+            url: `/bite/deleteBite/${_id}`,
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export async function userLogin(operation, name, password) {
     try {
         await operation({

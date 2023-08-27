@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/UseAxios'
 import { appContext } from '../context/appContext'
 import { MdDoneOutline, MdRemove } from "react-icons/md";
-import { editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
+import { deleteBite, deleteNasseri, deleteSheratan, deleteYahoska, editBite, editNasseri, editSheratan, editYahoska, getBite, getCelula, getCursos, getNasseri, getSacramentos, getSheratan, getYahoska, postBite, postNasseri, postSheratan, postYahoska } from '../services/apiServices'
 import { teams } from '../helpers/teams'
 import { Layout, theme } from 'antd';
 import { SiderApp } from '../components/Sider'
@@ -1777,9 +1777,9 @@ export const LayoutApp = () => {
   }
 
   const editDrawer = (state, name, celula, dob, cursos, sacramentos, active, _id, num, emergencia, e_num) => {
-    
+
     if (state) setOpen(true)
-    else setOpen_(true)    
+    else setOpen_(true)
     setCurrentName(name)
     setCurrentCel(celula)
     setCurrentDoB(dob)
@@ -1790,7 +1790,7 @@ export const LayoutApp = () => {
     setCurrentContacto(num)
     setCurrentEmergencia(emergencia)
     setCurrentC_emergencia(e_num)
-    
+
 
     const user = {
       name,
@@ -1813,6 +1813,25 @@ export const LayoutApp = () => {
     navigate(`/azzhakrutt/login`, {
       replace: true
     })
+  }
+
+  const handleDelete = () => {
+    switch (team) {
+      case 'sheratan':
+        deleteSheratan(operation, current_id)
+        break;
+      case 'nasseri':
+        deleteNasseri(operation, current_id)
+        break;
+      case 'yahoska':
+        deleteYahoska(operation, current_id)
+        break;
+      case 'bite':
+        deleteBite(operation, current_id)
+        break;
+      default:
+        break;
+    }
   }
 
   useEffect(() => {
@@ -1900,6 +1919,13 @@ export const LayoutApp = () => {
           setFormFinish(false)
           edit.resetFields()
           break;
+
+        case "Item deleted":
+          message.success("Eliminado")
+          refresh()
+          setOpen(false)
+          setOpen_(false)
+          break
 
         default:
           break;
@@ -2008,7 +2034,7 @@ export const LayoutApp = () => {
       <div className='small'>
         {
           render
-            ? <Layout style={{ minHeight: '100vh', backgroundColor:`${bg}10` }}>
+            ? <Layout style={{ minHeight: '100vh', backgroundColor: `${bg}10` }}>
               <HeaderMobile team={team} resetSearch={resetSearch} filtering={filtering} data={data} bg={bg} color={color} refresh={refresh} setNewUser={setNewUser_} celula={celula_} handleFilterEslabon={handleFilterEslabon} />
               <ContentMobile editDrawer={editDrawer} team={team} bg={bg} smallData={smallData} color={color} data={data} celula_={celula_} sacramento={sacramento} curso={curso} state={state} />
               <FooterMobile bg={bg} color={color} userLogout={userLogout} setState={setState} />
@@ -2285,8 +2311,20 @@ export const LayoutApp = () => {
         extra={
           <Space>
             <Switch
-              // heckedChildren="Activo" unCheckedChildren="Inactivo"
+              heckedChildren="Activo" unCheckedChildren="Inactivo"
               checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
+
+
+            <Button
+              // onClick={() => console.log('hola')}
+              onClick={() => edit.submit()}
+              style={{
+                backgroundColor: bg, color: color, fontWeight: 500,
+                border: `1.5px solid ${bg}`, marginRight: '3vh'
+              }}>
+              Guardar
+            </Button>
+
           </Space>
         }
       >
@@ -2397,12 +2435,19 @@ export const LayoutApp = () => {
 
           </div>
 
-          <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
+          <Button
+            onClick={handleDelete}
+            style={{
+              marginTop: '10vh', backgroundColor: '#ff4f5b90',
+              color: '#fff', fontWeight: '600'
+            }}>Eliminar</Button>
+
+          {/* <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
             <Button htmlType='submit' style={{
               marginTop: '8vh', width: '80%', backgroundColor: bg,
               border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
             }}>Guardar cambios</Button>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </Drawer>
 
@@ -2643,8 +2688,19 @@ export const LayoutApp = () => {
         extra={
           <Space>
             <Switch
-              // heckedChildren="Activo" unCheckedChildren="Inactivo"
+              heckedChildren="Activo" unCheckedChildren="Inactivo"
               checked={currentActive} onChange={() => setCurrentActive(!currentActive)} style={{ backgroundColor: currentActive ? bg : color, color: color }} />
+
+
+            <Button
+              // onClick={() => console.log('hola')}
+              onClick={() => edit.submit()}
+              style={{
+                backgroundColor: bg, color: color, fontWeight: 500,
+                border: `1.5px solid ${bg}`, marginRight: '3vh'
+              }}>
+              Guardar
+            </Button>
           </Space>
         }
       >
@@ -2755,12 +2811,12 @@ export const LayoutApp = () => {
 
           </div>
 
-          <Form.Item style={{ margin: 0, width: '100%', marginLeft: '20%' }}>
-            <Button htmlType='submit' style={{
-              marginTop: '8vh', width: '80%', backgroundColor: bg,
-              border: `2px solid ${bg}`, color: '#f6f6f6', fontWeight: 500
-            }}>Guardar cambios</Button>
-          </Form.Item>
+          <Button
+            onClick={handleDelete}
+            style={{
+              marginTop: '10vh', backgroundColor: '#ff4f5b90',
+              color: '#fff', fontWeight: '600'
+            }}>Eliminar</Button>
         </Form>
       </Drawer>
 
